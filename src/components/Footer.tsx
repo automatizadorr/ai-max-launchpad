@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Lock } from "lucide-react";
 import logo from "@/assets/ai-max-logo.png";
 
 const Footer = () => {
@@ -78,6 +78,14 @@ const Footer = () => {
           <p className="text-white/40 text-xs">
             Construido con Inteligencia Artificial · Chile · Latinoamérica
           </p>
+          <a
+            href="/auth"
+            className="text-white/30 hover:text-white/60 text-xs flex items-center gap-1 transition-colors"
+            aria-label="Acceso administrador"
+          >
+            <Lock className="w-3 h-3" aria-hidden="true" />
+            Admin
+          </a>
         </div>
       </div>
     </footer>
