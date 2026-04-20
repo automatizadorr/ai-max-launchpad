@@ -32,12 +32,12 @@ const Header = () => {
           : "bg-transparent"
       }`}
     >
-      <nav className="container mx-auto flex items-center justify-between h-16 md:h-20" aria-label="Navegación principal">
+      <nav className="container mx-auto flex items-center justify-between h-20 md:h-28" aria-label="Navegación principal">
         <a href="#" aria-label="Ir al inicio AI-MaX" className="flex items-center">
           <img
             src={logo}
             alt="AI-MaX — Automatización Inteligente para Empresas"
-            className={`w-auto transition-all duration-500 ${scrolled ? "h-9 md:h-10" : "h-11 md:h-12"} ${scrolled ? "" : "drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)]"}`}
+            className={`w-auto transition-all duration-500 ${scrolled ? "h-14 md:h-16" : "h-16 md:h-20"} ${scrolled ? "" : "drop-shadow-[0_2px_16px_rgba(0,0,0,0.5)]"}`}
           />
         </a>
 
