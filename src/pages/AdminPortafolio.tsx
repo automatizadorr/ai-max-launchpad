@@ -57,6 +57,46 @@ const AdminPortafolio = () => {
   const [saving, setSaving] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [enhancing, setEnhancing] = useState<"description" | "category" | null>(null);
+  const [fetchingImage, setFetchingImage] = useState(false);
+
+  const handleFetchImage = async () => {
+    const url = form.project_url.trim();
+    if (!url) {
+      toast.error("Pega primero el link del proyecto");
+      return;
+    }
+    try {
+      new URL(url);
+    } catch {
+      toast.error("URL inválida");
+      return;
+    }
+    setFetchingImage(true);
+    try {
+      // 1) Intentar Open Graph vía microlink (gratis, sin API key)
+      const mlResp = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(url)}`);
+      const mlData = await mlResp.json();
+      const ogImage = mlData?.data?.image?.url || mlData?.data?.logo?.url;
+
+      if (ogImage) {
+        setForm((f) => ({ ...f, image_url: ogImage }));
+        toast.success("Imagen obtenida del sitio (Open Graph)");
+        return;
+      }
+
+      // 2) Fallback: screenshot vía thum.io
+      const screenshot = `https://image.thum.io/get/width/1200/crop/750/noanimate/${url}`;
+      setForm((f) => ({ ...f, image_url: screenshot }));
+      toast.success("No hay Open Graph, usando captura del sitio");
+    } catch (e) {
+      // Fallback final si microlink falla
+      const screenshot = `https://image.thum.io/get/width/1200/crop/750/noanimate/${url}`;
+      setForm((f) => ({ ...f, image_url: screenshot }));
+      toast.success("Usando captura del sitio");
+    } finally {
+      setFetchingImage(false);
+    }
+  };
 
   const handleEnhance = async (field: "description" | "category") => {
     if (!form.title.trim()) {
