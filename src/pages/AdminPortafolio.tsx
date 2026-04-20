@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Plus, Pencil, Trash2, LogOut, Loader2, ExternalLink, ShieldAlert, Sparkles } from "lucide-react";
+import { Plus, Pencil, Trash2, LogOut, Loader2, ExternalLink, ShieldAlert, Sparkles, ImageDown } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
@@ -386,13 +386,31 @@ const AdminPortafolio = () => {
               />
             </div>
             <div>
-              <Label htmlFor="image_url">URL de imagen *</Label>
+              <div className="flex items-center justify-between mb-1">
+                <Label htmlFor="image_url">URL de imagen *</Label>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  className="h-7 px-2 text-xs text-primary hover:text-primary"
+                  onClick={handleFetchImage}
+                  disabled={fetchingImage || !form.project_url.trim()}
+                  title="Obtiene la imagen de previsualización (Open Graph) del link del proyecto. Si no existe, usa una captura del sitio."
+                >
+                  {fetchingImage ? (
+                    <Loader2 className="w-3 h-3 animate-spin" />
+                  ) : (
+                    <ImageDown className="w-3 h-3" />
+                  )}
+                  Obtener del link
+                </Button>
+              </div>
               <Input
                 id="image_url"
                 type="url"
                 value={form.image_url}
                 onChange={(e) => setForm({ ...form, image_url: e.target.value })}
-                placeholder="https://..."
+                placeholder="https://... o usa 'Obtener del link'"
                 required
               />
               {form.image_url && (
