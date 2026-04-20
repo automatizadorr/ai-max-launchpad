@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Plus, Pencil, Trash2, LogOut, Loader2, ExternalLink, ShieldAlert } from "lucide-react";
+import { Plus, Pencil, Trash2, LogOut, Loader2, ExternalLink, ShieldAlert, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
@@ -56,6 +56,35 @@ const AdminPortafolio = () => {
   const [form, setForm] = useState(emptyForm);
   const [saving, setSaving] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [enhancing, setEnhancing] = useState<"description" | "category" | null>(null);
+
+  const handleEnhance = async (field: "description" | "category") => {
+    if (!form.title.trim()) {
+      toast.error("Escribe primero el título del proyecto");
+      return;
+    }
+    setEnhancing(field);
+    try {
+      const { data, error } = await supabase.functions.invoke("enhance-project", {
+        body: {
+          field,
+          title: form.title,
+          project_url: form.project_url,
+          current: field === "description" ? form.description : form.category,
+        },
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+      if (data?.result) {
+        setForm((f) => ({ ...f, [field]: data.result }));
+        toast.success("Texto mejorado con IA");
+      }
+    } catch (e: any) {
+      toast.error(e?.message || "Error al generar con IA");
+    } finally {
+      setEnhancing(null);
+    }
+  };
 
   useEffect(() => {
     if (!authLoading && !session) navigate("/auth", { replace: true });
@@ -280,7 +309,24 @@ const AdminPortafolio = () => {
               <Input id="title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required />
             </div>
             <div>
-              <Label htmlFor="category">Categoría</Label>
+              <div className="flex items-center justify-between mb-1">
+                <Label htmlFor="category">Categoría</Label>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  className="h-7 px-2 text-xs text-primary hover:text-primary"
+                  onClick={() => handleEnhance("category")}
+                  disabled={enhancing === "category"}
+                >
+                  {enhancing === "category" ? (
+                    <Loader2 className="w-3 h-3 animate-spin" />
+                  ) : (
+                    <Sparkles className="w-3 h-3" />
+                  )}
+                  Sugerir con IA
+                </Button>
+              </div>
               <Input
                 id="category"
                 value={form.category}
@@ -316,12 +362,30 @@ const AdminPortafolio = () => {
               )}
             </div>
             <div>
-              <Label htmlFor="description">Descripción</Label>
+              <div className="flex items-center justify-between mb-1">
+                <Label htmlFor="description">Descripción</Label>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  className="h-7 px-2 text-xs text-primary hover:text-primary"
+                  onClick={() => handleEnhance("description")}
+                  disabled={enhancing === "description"}
+                >
+                  {enhancing === "description" ? (
+                    <Loader2 className="w-3 h-3 animate-spin" />
+                  ) : (
+                    <Sparkles className="w-3 h-3" />
+                  )}
+                  Mejorar con IA
+                </Button>
+              </div>
               <Textarea
                 id="description"
                 value={form.description}
                 onChange={(e) => setForm({ ...form, description: e.target.value })}
                 rows={3}
+                placeholder="Describe el valor y beneficios del proyecto..."
               />
             </div>
             <div>
