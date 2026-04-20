@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Plus, Pencil, Trash2, LogOut, Loader2, ExternalLink, ShieldAlert, Sparkles } from "lucide-react";
+import { Plus, Pencil, Trash2, LogOut, Loader2, ExternalLink, ShieldAlert, Sparkles, ImageDown } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
@@ -57,6 +57,46 @@ const AdminPortafolio = () => {
   const [saving, setSaving] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [enhancing, setEnhancing] = useState<"description" | "category" | null>(null);
+  const [fetchingImage, setFetchingImage] = useState(false);
+
+  const handleFetchImage = async () => {
+    const url = form.project_url.trim();
+    if (!url) {
+      toast.error("Pega primero el link del proyecto");
+      return;
+    }
+    try {
+      new URL(url);
+    } catch {
+      toast.error("URL inválida");
+      return;
+    }
+    setFetchingImage(true);
+    try {
+      // 1) Intentar Open Graph vía microlink (gratis, sin API key)
+      const mlResp = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(url)}`);
+      const mlData = await mlResp.json();
+      const ogImage = mlData?.data?.image?.url || mlData?.data?.logo?.url;
+
+      if (ogImage) {
+        setForm((f) => ({ ...f, image_url: ogImage }));
+        toast.success("Imagen obtenida del sitio (Open Graph)");
+        return;
+      }
+
+      // 2) Fallback: screenshot vía thum.io
+      const screenshot = `https://image.thum.io/get/width/1200/crop/750/noanimate/${url}`;
+      setForm((f) => ({ ...f, image_url: screenshot }));
+      toast.success("No hay Open Graph, usando captura del sitio");
+    } catch (e) {
+      // Fallback final si microlink falla
+      const screenshot = `https://image.thum.io/get/width/1200/crop/750/noanimate/${url}`;
+      setForm((f) => ({ ...f, image_url: screenshot }));
+      toast.success("Usando captura del sitio");
+    } finally {
+      setFetchingImage(false);
+    }
+  };
 
   const handleEnhance = async (field: "description" | "category") => {
     if (!form.title.trim()) {
@@ -346,13 +386,31 @@ const AdminPortafolio = () => {
               />
             </div>
             <div>
-              <Label htmlFor="image_url">URL de imagen *</Label>
+              <div className="flex items-center justify-between mb-1">
+                <Label htmlFor="image_url">URL de imagen *</Label>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  className="h-7 px-2 text-xs text-primary hover:text-primary"
+                  onClick={handleFetchImage}
+                  disabled={fetchingImage || !form.project_url.trim()}
+                  title="Obtiene la imagen de previsualización (Open Graph) del link del proyecto. Si no existe, usa una captura del sitio."
+                >
+                  {fetchingImage ? (
+                    <Loader2 className="w-3 h-3 animate-spin" />
+                  ) : (
+                    <ImageDown className="w-3 h-3" />
+                  )}
+                  Obtener del link
+                </Button>
+              </div>
               <Input
                 id="image_url"
                 type="url"
                 value={form.image_url}
                 onChange={(e) => setForm({ ...form, image_url: e.target.value })}
-                placeholder="https://..."
+                placeholder="https://... o usa 'Obtener del link'"
                 required
               />
               {form.image_url && (
