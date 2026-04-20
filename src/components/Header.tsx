@@ -17,9 +17,9 @@ const Header = () => {
   }, []);
 
   const navLinks = [
-    { href: "#servicios", label: "Servicios" },
-    { href: "#portafolio", label: "Portafolio" },
-    { href: "#tecnologia", label: "Tecnología" },
+    { href: "/servicios", label: "Servicios" },
+    { href: "/casos-exito", label: "Casos de Éxito" },
+    { href: "/contacto", label: "Contacto" },
   ];
 
   return (
@@ -34,25 +34,25 @@ const Header = () => {
       }`}
     >
       <nav className="container mx-auto flex items-center justify-between h-20 md:h-28" aria-label="Navegación principal">
-        <a href="#" aria-label="Ir al inicio AI-MaX" className="flex items-center">
+        <Link to="/" aria-label="Ir al inicio AI-MaX" className="flex items-center">
           <img
             src={logo}
             alt="AI-MaX — Automatización Inteligente para Empresas"
             className={`w-auto transition-all duration-500 ${scrolled ? "h-14 md:h-16" : "h-16 md:h-20"} ${scrolled ? "" : "drop-shadow-[0_2px_16px_rgba(0,0,0,0.5)]"}`}
           />
-        </a>
+        </Link>
 
         <ul className="hidden md:flex items-center gap-8">
           {navLinks.map((l) => (
             <li key={l.href}>
-              <a
-                href={l.href}
+              <Link
+                to={l.href}
                 className={`text-sm font-medium transition-colors hover:text-action ${
                   scrolled ? "text-foreground" : "text-white/80"
                 }`}
               >
                 {l.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
