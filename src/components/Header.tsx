@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 import logo from "@/assets/ai-max-logo.png";
 
 const WHATSAPP = "https://wa.me/56971806730";
