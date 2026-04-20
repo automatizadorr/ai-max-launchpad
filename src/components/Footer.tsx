@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin } from "lucide-react";
+import logo from "@/assets/ai-max-logo.png";
 
 const Footer = () => {
   return (
@@ -7,9 +8,12 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-10 md:gap-12">
           {/* Brand */}
           <div>
-            <div className="font-display font-black text-3xl mb-4">
-              <span className="text-white">AI-</span>
-              <span className="text-action">MaX</span>
+            <div className="mb-4 inline-flex bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/10">
+              <img
+                src={logo}
+                alt="AI-MaX — Automatización Inteligente para Empresas"
+                className="h-14 w-auto"
+              />
             </div>
             <p className="text-white/60 text-sm leading-relaxed mb-4">
               Mario Antonio Valdés Quijada — Desarrollador de automatización de procesos con IA.

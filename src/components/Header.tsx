@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
+import logo from "@/assets/ai-max-logo.png";
 
 const WHATSAPP = "https://wa.me/56971806730";
 
@@ -32,9 +33,12 @@ const Header = () => {
       }`}
     >
       <nav className="container mx-auto flex items-center justify-between h-16 md:h-20" aria-label="Navegación principal">
-        <a href="#" aria-label="Ir al inicio AI-MaX" className="font-display font-black text-2xl tracking-tight">
-          <span className={scrolled ? "text-primary" : "text-white"}>AI-</span>
-          <span className="text-action">MaX</span>
+        <a href="#" aria-label="Ir al inicio AI-MaX" className="flex items-center">
+          <img
+            src={logo}
+            alt="AI-MaX — Automatización Inteligente para Empresas"
+            className={`w-auto transition-all duration-500 ${scrolled ? "h-9 md:h-10" : "h-11 md:h-12"} ${scrolled ? "" : "drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)]"}`}
+          />
         </a>
 
         <ul className="hidden md:flex items-center gap-8">
