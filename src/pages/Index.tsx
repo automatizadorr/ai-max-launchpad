@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import ProblemSection from "@/components/ProblemSection";
 import PortfolioSection from "@/components/PortfolioSection";
 import TechMarquee from "@/components/TechMarquee";
+import Testimonials from "@/components/Testimonials";
 import LeadForm from "@/components/LeadForm";
 import Footer from "@/components/Footer";
 
@@ -14,6 +15,7 @@ const Index = () => {
         <Hero />
         <ProblemSection />
         <PortfolioSection />
+        <Testimonials />
         <TechMarquee />
         <LeadForm />
       </main>
