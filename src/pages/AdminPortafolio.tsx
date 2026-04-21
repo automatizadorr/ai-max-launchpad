@@ -211,9 +211,14 @@ const AdminPortafolio = () => {
     setForm({
       title: p.title,
       description: p.description || "",
+      long_description: p.long_description || "",
       project_url: p.project_url,
       image_url: p.image_url,
+      video_url: p.video_url || "",
       category: p.category || "",
+      client_name: p.client_name || "",
+      result_metric: p.result_metric || "",
+      tags: p.tags || [],
       display_order: p.display_order,
     });
     setDialogOpen(true);
@@ -230,9 +235,14 @@ const AdminPortafolio = () => {
     const payload = {
       title: parsed.data.title,
       description: parsed.data.description || null,
+      long_description: parsed.data.long_description || null,
       project_url: parsed.data.project_url,
       image_url: parsed.data.image_url,
+      video_url: parsed.data.video_url || null,
       category: parsed.data.category || null,
+      client_name: parsed.data.client_name || null,
+      result_metric: parsed.data.result_metric || null,
+      tags: parsed.data.tags || [],
       display_order: parsed.data.display_order,
     };
 
