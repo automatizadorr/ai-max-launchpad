@@ -30,22 +30,44 @@ interface Project {
   id: string;
   title: string;
   description: string | null;
+  long_description: string | null;
   project_url: string;
   image_url: string;
+  video_url: string | null;
   category: string | null;
+  client_name: string | null;
+  result_metric: string | null;
+  tags: string[] | null;
   display_order: number;
 }
 
 const projectSchema = z.object({
   title: z.string().trim().min(1, "El título es obligatorio").max(120),
   description: z.string().trim().max(500).optional().or(z.literal("")),
+  long_description: z.string().trim().max(3000).optional().or(z.literal("")),
   project_url: z.string().trim().url("URL inválida").max(500),
   image_url: z.string().trim().url("URL de imagen inválida").max(500),
+  video_url: z.string().trim().url("URL de video inválida").max(500).optional().or(z.literal("")),
   category: z.string().trim().max(60).optional().or(z.literal("")),
+  client_name: z.string().trim().max(120).optional().or(z.literal("")),
+  result_metric: z.string().trim().max(120).optional().or(z.literal("")),
+  tags: z.array(z.string().trim().max(40)).max(10).optional(),
   display_order: z.number().int().min(0).max(9999),
 });
 
-const emptyForm = { title: "", description: "", project_url: "", image_url: "", category: "", display_order: 0 };
+const emptyForm = {
+  title: "",
+  description: "",
+  long_description: "",
+  project_url: "",
+  image_url: "",
+  video_url: "",
+  category: "",
+  client_name: "",
+  result_metric: "",
+  tags: [] as string[],
+  display_order: 0,
+};
 
 const AdminPortafolio = () => {
   const navigate = useNavigate();
