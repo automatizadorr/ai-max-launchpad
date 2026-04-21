@@ -59,6 +59,38 @@ const AdminPortafolio = () => {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [enhancing, setEnhancing] = useState<"description" | "category" | null>(null);
   const [fetchingImage, setFetchingImage] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      toast.error("Solo se permiten imágenes");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("La imagen debe pesar menos de 5MB");
+      return;
+    }
+    setUploadingImage(true);
+    try {
+      const ext = file.name.split(".").pop() || "jpg";
+      const fileName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from("portfolio-images")
+        .upload(fileName, file, { cacheControl: "3600", upsert: false });
+      if (upErr) throw upErr;
+      const { data } = supabase.storage.from("portfolio-images").getPublicUrl(fileName);
+      setForm((f) => ({ ...f, image_url: data.publicUrl }));
+      toast.success("Imagen subida correctamente");
+    } catch (err: any) {
+      toast.error(err?.message || "Error al subir imagen");
+    } finally {
+      setUploadingImage(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  };
 
   const handleFetchImage = async () => {
     const url = form.project_url.trim();
