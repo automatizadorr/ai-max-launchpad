@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Plus, Pencil, Trash2, LogOut, Loader2, ExternalLink, ShieldAlert, Sparkles, ImageDown } from "lucide-react";
+import { Plus, Pencil, Trash2, LogOut, Loader2, ExternalLink, ShieldAlert, Sparkles, ImageDown, Upload } from "lucide-react";
+import { useRef } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
