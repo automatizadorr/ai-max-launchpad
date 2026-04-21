@@ -419,24 +419,49 @@ const AdminPortafolio = () => {
               />
             </div>
             <div>
-              <div className="flex items-center justify-between mb-1">
+              <div className="flex items-center justify-between mb-1 flex-wrap gap-1">
                 <Label htmlFor="image_url">URL de imagen *</Label>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="ghost"
-                  className="h-7 px-2 text-xs text-primary hover:text-primary"
-                  onClick={handleFetchImage}
-                  disabled={fetchingImage || !form.project_url.trim()}
-                  title="Obtiene la imagen de previsualización (Open Graph) del link del proyecto. Si no existe, usa una captura del sitio."
-                >
-                  {fetchingImage ? (
-                    <Loader2 className="w-3 h-3 animate-spin" />
-                  ) : (
-                    <ImageDown className="w-3 h-3" />
-                  )}
-                  Obtener del link
-                </Button>
+                <div className="flex gap-1">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleUploadImage}
+                  />
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="ghost"
+                    className="h-7 px-2 text-xs text-primary hover:text-primary"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploadingImage}
+                    title="Sube una imagen desde tu computadora"
+                  >
+                    {uploadingImage ? (
+                      <Loader2 className="w-3 h-3 animate-spin" />
+                    ) : (
+                      <Upload className="w-3 h-3" />
+                    )}
+                    Subir desde PC
+                  </Button>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="ghost"
+                    className="h-7 px-2 text-xs text-primary hover:text-primary"
+                    onClick={handleFetchImage}
+                    disabled={fetchingImage || !form.project_url.trim()}
+                    title="Obtiene la imagen de previsualización (Open Graph) del link del proyecto."
+                  >
+                    {fetchingImage ? (
+                      <Loader2 className="w-3 h-3 animate-spin" />
+                    ) : (
+                      <ImageDown className="w-3 h-3" />
+                    )}
+                    Obtener del link
+                  </Button>
+                </div>
               </div>
               <Input
                 id="image_url"
