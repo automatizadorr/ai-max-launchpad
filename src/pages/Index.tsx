@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import PortfolioShowcase from "@/components/PortfolioShowcase";
 import ProblemSection from "@/components/ProblemSection";
 import PortfolioSection from "@/components/PortfolioSection";
 import TechMarquee from "@/components/TechMarquee";
@@ -13,6 +14,7 @@ const Index = () => {
       <Header />
       <main>
         <Hero />
+        <PortfolioShowcase />
         <ProblemSection />
         <PortfolioSection />
         <Testimonials />
