@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Plus, Pencil, Trash2, LogOut, Loader2, ExternalLink, ShieldAlert, Sparkles, ImageDown, Upload } from "lucide-react";
+import { Plus, Pencil, Trash2, LogOut, Loader2, ExternalLink, ShieldAlert, Sparkles, ImageDown, Upload, Video, X } from "lucide-react";
 import { useRef } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -30,22 +30,44 @@ interface Project {
   id: string;
   title: string;
   description: string | null;
+  long_description: string | null;
   project_url: string;
   image_url: string;
+  video_url: string | null;
   category: string | null;
+  client_name: string | null;
+  result_metric: string | null;
+  tags: string[] | null;
   display_order: number;
 }
 
 const projectSchema = z.object({
   title: z.string().trim().min(1, "El título es obligatorio").max(120),
   description: z.string().trim().max(500).optional().or(z.literal("")),
+  long_description: z.string().trim().max(3000).optional().or(z.literal("")),
   project_url: z.string().trim().url("URL inválida").max(500),
   image_url: z.string().trim().url("URL de imagen inválida").max(500),
+  video_url: z.string().trim().url("URL de video inválida").max(500).optional().or(z.literal("")),
   category: z.string().trim().max(60).optional().or(z.literal("")),
+  client_name: z.string().trim().max(120).optional().or(z.literal("")),
+  result_metric: z.string().trim().max(120).optional().or(z.literal("")),
+  tags: z.array(z.string().trim().max(40)).max(10).optional(),
   display_order: z.number().int().min(0).max(9999),
 });
 
-const emptyForm = { title: "", description: "", project_url: "", image_url: "", category: "", display_order: 0 };
+const emptyForm = {
+  title: "",
+  description: "",
+  long_description: "",
+  project_url: "",
+  image_url: "",
+  video_url: "",
+  category: "",
+  client_name: "",
+  result_metric: "",
+  tags: [] as string[],
+  display_order: 0,
+};
 
 const AdminPortafolio = () => {
   const navigate = useNavigate();
@@ -189,9 +211,14 @@ const AdminPortafolio = () => {
     setForm({
       title: p.title,
       description: p.description || "",
+      long_description: p.long_description || "",
       project_url: p.project_url,
       image_url: p.image_url,
+      video_url: p.video_url || "",
       category: p.category || "",
+      client_name: p.client_name || "",
+      result_metric: p.result_metric || "",
+      tags: p.tags || [],
       display_order: p.display_order,
     });
     setDialogOpen(true);
@@ -208,9 +235,14 @@ const AdminPortafolio = () => {
     const payload = {
       title: parsed.data.title,
       description: parsed.data.description || null,
+      long_description: parsed.data.long_description || null,
       project_url: parsed.data.project_url,
       image_url: parsed.data.image_url,
+      video_url: parsed.data.video_url || null,
       category: parsed.data.category || null,
+      client_name: parsed.data.client_name || null,
+      result_metric: parsed.data.result_metric || null,
+      tags: parsed.data.tags || [],
       display_order: parsed.data.display_order,
     };
 
@@ -372,56 +404,100 @@ const AdminPortafolio = () => {
       <Footer />
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="max-w-lg">
-          <DialogHeader>
-            <DialogTitle>{editing ? "Editar proyecto" : "Nuevo proyecto"}</DialogTitle>
+        <DialogContent className="max-w-2xl w-[calc(100vw-1rem)] sm:w-full p-0 gap-0 max-h-[95vh] sm:max-h-[90vh] flex flex-col overflow-hidden">
+          <DialogHeader className="px-5 sm:px-6 py-4 border-b border-border bg-card sticky top-0 z-10">
+            <DialogTitle className="text-lg sm:text-xl">
+              {editing ? "Editar proyecto" : "Nuevo proyecto"}
+            </DialogTitle>
           </DialogHeader>
-          <form onSubmit={handleSave} className="space-y-4">
-            <div>
-              <Label htmlFor="title">Título *</Label>
-              <Input id="title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required />
-            </div>
-            <div>
-              <div className="flex items-center justify-between mb-1">
-                <Label htmlFor="category">Categoría</Label>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="ghost"
-                  className="h-7 px-2 text-xs text-primary hover:text-primary"
-                  onClick={() => handleEnhance("category")}
-                  disabled={enhancing === "category"}
-                >
-                  {enhancing === "category" ? (
-                    <Loader2 className="w-3 h-3 animate-spin" />
-                  ) : (
-                    <Sparkles className="w-3 h-3" />
-                  )}
-                  Sugerir con IA
-                </Button>
+
+          <form onSubmit={handleSave} className="flex-1 overflow-y-auto px-5 sm:px-6 py-5 space-y-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="sm:col-span-2">
+                <Label htmlFor="title">Título *</Label>
+                <Input id="title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required />
               </div>
-              <Input
-                id="category"
-                value={form.category}
-                onChange={(e) => setForm({ ...form, category: e.target.value })}
-                placeholder="Ej: Voz IA, Automatización..."
-              />
+
+              <div>
+                <div className="flex items-center justify-between mb-1 gap-2">
+                  <Label htmlFor="category">Categoría</Label>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="ghost"
+                    className="h-7 px-2 text-xs text-primary hover:text-primary"
+                    onClick={() => handleEnhance("category")}
+                    disabled={enhancing === "category"}
+                  >
+                    {enhancing === "category" ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
+                    IA
+                  </Button>
+                </div>
+                <Input
+                  id="category"
+                  value={form.category}
+                  onChange={(e) => setForm({ ...form, category: e.target.value })}
+                  placeholder="Voz IA, Automatización..."
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="client_name">Cliente</Label>
+                <Input
+                  id="client_name"
+                  value={form.client_name}
+                  onChange={(e) => setForm({ ...form, client_name: e.target.value })}
+                  placeholder="Nombre del cliente o marca"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <Label htmlFor="result_metric">Resultado destacado</Label>
+                <Input
+                  id="result_metric"
+                  value={form.result_metric}
+                  onChange={(e) => setForm({ ...form, result_metric: e.target.value })}
+                  placeholder="Ej: +320% leads en 30 días"
+                />
+              </div>
             </div>
-            <div>
-              <Label htmlFor="project_url">Link del proyecto *</Label>
-              <Input
-                id="project_url"
-                type="url"
-                value={form.project_url}
-                onChange={(e) => setForm({ ...form, project_url: e.target.value })}
-                placeholder="https://..."
-                required
-              />
+
+            <div className="space-y-4 p-4 rounded-lg bg-muted/30 border border-border">
+              <div>
+                <Label htmlFor="project_url">Link del proyecto *</Label>
+                <Input
+                  id="project_url"
+                  type="url"
+                  value={form.project_url}
+                  onChange={(e) => setForm({ ...form, project_url: e.target.value })}
+                  placeholder="https://..."
+                  required
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="video_url" className="flex items-center gap-1.5">
+                  <Video className="w-3.5 h-3.5" /> Video del proyecto (opcional)
+                </Label>
+                <Input
+                  id="video_url"
+                  type="url"
+                  value={form.video_url}
+                  onChange={(e) => setForm({ ...form, video_url: e.target.value })}
+                  placeholder="YouTube, Vimeo, Loom o MP4..."
+                />
+                {form.video_url && (
+                  <p className="text-[11px] text-muted-foreground mt-1">
+                    Se mostrará como demo embebido en el portafolio.
+                  </p>
+                )}
+              </div>
             </div>
+
             <div>
-              <div className="flex items-center justify-between mb-1 flex-wrap gap-1">
-                <Label htmlFor="image_url">URL de imagen *</Label>
-                <div className="flex gap-1">
+              <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
+                <Label htmlFor="image_url">Imagen de portada *</Label>
+                <div className="flex flex-wrap gap-1">
                   <input
                     ref={fileInputRef}
                     type="file"
@@ -436,14 +512,9 @@ const AdminPortafolio = () => {
                     className="h-7 px-2 text-xs text-primary hover:text-primary"
                     onClick={() => fileInputRef.current?.click()}
                     disabled={uploadingImage}
-                    title="Sube una imagen desde tu computadora"
                   >
-                    {uploadingImage ? (
-                      <Loader2 className="w-3 h-3 animate-spin" />
-                    ) : (
-                      <Upload className="w-3 h-3" />
-                    )}
-                    Subir desde PC
+                    {uploadingImage ? <Loader2 className="w-3 h-3 animate-spin" /> : <Upload className="w-3 h-3" />}
+                    Subir
                   </Button>
                   <Button
                     type="button"
@@ -452,14 +523,9 @@ const AdminPortafolio = () => {
                     className="h-7 px-2 text-xs text-primary hover:text-primary"
                     onClick={handleFetchImage}
                     disabled={fetchingImage || !form.project_url.trim()}
-                    title="Obtiene la imagen de previsualización (Open Graph) del link del proyecto."
                   >
-                    {fetchingImage ? (
-                      <Loader2 className="w-3 h-3 animate-spin" />
-                    ) : (
-                      <ImageDown className="w-3 h-3" />
-                    )}
-                    Obtener del link
+                    {fetchingImage ? <Loader2 className="w-3 h-3 animate-spin" /> : <ImageDown className="w-3 h-3" />}
+                    Del link
                   </Button>
                 </div>
               </div>
@@ -468,7 +534,7 @@ const AdminPortafolio = () => {
                 type="url"
                 value={form.image_url}
                 onChange={(e) => setForm({ ...form, image_url: e.target.value })}
-                placeholder="https://... o usa 'Obtener del link'"
+                placeholder="https://..."
                 required
               />
               {form.image_url && (
@@ -477,9 +543,10 @@ const AdminPortafolio = () => {
                 </div>
               )}
             </div>
+
             <div>
               <div className="flex items-center justify-between mb-1">
-                <Label htmlFor="description">Descripción</Label>
+                <Label htmlFor="description">Descripción corta</Label>
                 <Button
                   type="button"
                   size="sm"
@@ -488,11 +555,7 @@ const AdminPortafolio = () => {
                   onClick={() => handleEnhance("description")}
                   disabled={enhancing === "description"}
                 >
-                  {enhancing === "description" ? (
-                    <Loader2 className="w-3 h-3 animate-spin" />
-                  ) : (
-                    <Sparkles className="w-3 h-3" />
-                  )}
+                  {enhancing === "description" ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
                   Mejorar con IA
                 </Button>
               </div>
@@ -501,9 +564,63 @@ const AdminPortafolio = () => {
                 value={form.description}
                 onChange={(e) => setForm({ ...form, description: e.target.value })}
                 rows={3}
-                placeholder="Describe el valor y beneficios del proyecto..."
+                placeholder="Resumen breve que aparece en la tarjeta del portafolio..."
+              />
+              <p className="text-[11px] text-muted-foreground mt-1 text-right">
+                {form.description.length}/500
+              </p>
+            </div>
+
+            <div>
+              <Label htmlFor="long_description">Explicación detallada</Label>
+              <Textarea
+                id="long_description"
+                value={form.long_description}
+                onChange={(e) => setForm({ ...form, long_description: e.target.value })}
+                rows={5}
+                placeholder="Cuenta el desafío, la solución, tecnologías usadas y resultados. Soporta saltos de línea."
+              />
+              <p className="text-[11px] text-muted-foreground mt-1 text-right">
+                {form.long_description.length}/3000
+              </p>
+            </div>
+
+            <div>
+              <Label htmlFor="tags-input">Etiquetas / Tecnologías</Label>
+              <div className="flex flex-wrap gap-1.5 mb-2 min-h-[28px]">
+                {form.tags.map((tag, i) => (
+                  <span
+                    key={`${tag}-${i}`}
+                    className="inline-flex items-center gap-1 text-xs bg-primary/10 text-primary px-2 py-1 rounded-full"
+                  >
+                    {tag}
+                    <button
+                      type="button"
+                      onClick={() => setForm({ ...form, tags: form.tags.filter((_, idx) => idx !== i) })}
+                      className="hover:text-destructive"
+                      aria-label={`Quitar ${tag}`}
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </span>
+                ))}
+              </div>
+              <Input
+                id="tags-input"
+                placeholder="Escribe y pulsa Enter (ej: n8n, OpenAI, WhatsApp)"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === ",") {
+                    e.preventDefault();
+                    const val = (e.target as HTMLInputElement).value.trim().replace(/,$/, "");
+                    if (val && form.tags.length < 10 && !form.tags.includes(val)) {
+                      setForm({ ...form, tags: [...form.tags, val] });
+                      (e.target as HTMLInputElement).value = "";
+                    }
+                  }
+                }}
               />
             </div>
+
             <div>
               <Label htmlFor="display_order">Orden de visualización</Label>
               <Input
@@ -514,11 +631,12 @@ const AdminPortafolio = () => {
                 onChange={(e) => setForm({ ...form, display_order: parseInt(e.target.value) || 0 })}
               />
             </div>
-            <DialogFooter>
-              <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>
+
+            <DialogFooter className="flex-col-reverse sm:flex-row gap-2 sm:gap-0 pt-4 border-t border-border -mx-5 sm:-mx-6 px-5 sm:px-6 sticky bottom-0 bg-background">
+              <Button type="button" variant="outline" onClick={() => setDialogOpen(false)} className="w-full sm:w-auto">
                 Cancelar
               </Button>
-              <Button type="submit" disabled={saving} className="bg-action hover:bg-action-glow text-action-foreground">
+              <Button type="submit" disabled={saving} className="w-full sm:w-auto bg-action hover:bg-action-glow text-action-foreground">
                 {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : editing ? "Guardar cambios" : "Crear proyecto"}
               </Button>
             </DialogFooter>
