@@ -47,36 +47,51 @@ export type Database = {
       portfolio_projects: {
         Row: {
           category: string | null
+          client_name: string | null
           created_at: string
           description: string | null
           display_order: number
           id: string
           image_url: string
+          long_description: string | null
           project_url: string
+          result_metric: string | null
+          tags: string[] | null
           title: string
           updated_at: string
+          video_url: string | null
         }
         Insert: {
           category?: string | null
+          client_name?: string | null
           created_at?: string
           description?: string | null
           display_order?: number
           id?: string
           image_url: string
+          long_description?: string | null
           project_url: string
+          result_metric?: string | null
+          tags?: string[] | null
           title: string
           updated_at?: string
+          video_url?: string | null
         }
         Update: {
           category?: string | null
+          client_name?: string | null
           created_at?: string
           description?: string | null
           display_order?: number
           id?: string
           image_url?: string
+          long_description?: string | null
           project_url?: string
+          result_metric?: string | null
+          tags?: string[] | null
           title?: string
           updated_at?: string
+          video_url?: string | null
         }
         Relationships: []
       }
