@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Plus, Pencil, Trash2, LogOut, Loader2, ExternalLink, ShieldAlert, Sparkles, ImageDown } from "lucide-react";
+import { Plus, Pencil, Trash2, LogOut, Loader2, ExternalLink, ShieldAlert, Sparkles, ImageDown, Upload } from "lucide-react";
+import { useRef } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
@@ -58,6 +59,38 @@ const AdminPortafolio = () => {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [enhancing, setEnhancing] = useState<"description" | "category" | null>(null);
   const [fetchingImage, setFetchingImage] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      toast.error("Solo se permiten imágenes");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("La imagen debe pesar menos de 5MB");
+      return;
+    }
+    setUploadingImage(true);
+    try {
+      const ext = file.name.split(".").pop() || "jpg";
+      const fileName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from("portfolio-images")
+        .upload(fileName, file, { cacheControl: "3600", upsert: false });
+      if (upErr) throw upErr;
+      const { data } = supabase.storage.from("portfolio-images").getPublicUrl(fileName);
+      setForm((f) => ({ ...f, image_url: data.publicUrl }));
+      toast.success("Imagen subida correctamente");
+    } catch (err: any) {
+      toast.error(err?.message || "Error al subir imagen");
+    } finally {
+      setUploadingImage(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  };
 
   const handleFetchImage = async () => {
     const url = form.project_url.trim();
@@ -386,24 +419,49 @@ const AdminPortafolio = () => {
               />
             </div>
             <div>
-              <div className="flex items-center justify-between mb-1">
+              <div className="flex items-center justify-between mb-1 flex-wrap gap-1">
                 <Label htmlFor="image_url">URL de imagen *</Label>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="ghost"
-                  className="h-7 px-2 text-xs text-primary hover:text-primary"
-                  onClick={handleFetchImage}
-                  disabled={fetchingImage || !form.project_url.trim()}
-                  title="Obtiene la imagen de previsualización (Open Graph) del link del proyecto. Si no existe, usa una captura del sitio."
-                >
-                  {fetchingImage ? (
-                    <Loader2 className="w-3 h-3 animate-spin" />
-                  ) : (
-                    <ImageDown className="w-3 h-3" />
-                  )}
-                  Obtener del link
-                </Button>
+                <div className="flex gap-1">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleUploadImage}
+                  />
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="ghost"
+                    className="h-7 px-2 text-xs text-primary hover:text-primary"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploadingImage}
+                    title="Sube una imagen desde tu computadora"
+                  >
+                    {uploadingImage ? (
+                      <Loader2 className="w-3 h-3 animate-spin" />
+                    ) : (
+                      <Upload className="w-3 h-3" />
+                    )}
+                    Subir desde PC
+                  </Button>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="ghost"
+                    className="h-7 px-2 text-xs text-primary hover:text-primary"
+                    onClick={handleFetchImage}
+                    disabled={fetchingImage || !form.project_url.trim()}
+                    title="Obtiene la imagen de previsualización (Open Graph) del link del proyecto."
+                  >
+                    {fetchingImage ? (
+                      <Loader2 className="w-3 h-3 animate-spin" />
+                    ) : (
+                      <ImageDown className="w-3 h-3" />
+                    )}
+                    Obtener del link
+                  </Button>
+                </div>
               </div>
               <Input
                 id="image_url"
