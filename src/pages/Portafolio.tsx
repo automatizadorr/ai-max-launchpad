@@ -86,6 +86,9 @@ const Portafolio = () => {
       <main>
         {/* Hero */}
         <section className="relative pt-36 md:pt-44 pb-16 bg-gradient-hero overflow-hidden">
+          <div className="absolute inset-0 z-0">
+            <ParticleNetwork />
+          </div>
           <div
             className="absolute inset-0 opacity-[0.05] pointer-events-none"
             style={{
