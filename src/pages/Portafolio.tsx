@@ -541,6 +541,135 @@ const Portafolio = () => {
           </DialogContent>
         </Dialog>
 
+        {/* Use Case Detail Modal */}
+        <Dialog open={!!selectedCase} onOpenChange={(o) => !o && setSelectedCase(null)}>
+          <DialogContent className="max-w-3xl w-[95vw] max-h-[92vh] p-0 overflow-hidden gap-0">
+            {selectedCase && (
+              <div className="flex flex-col max-h-[92vh]">
+                {/* Header */}
+                <div className="relative bg-gradient-hero p-6 md:p-8 shrink-0">
+                  <div
+                    className="absolute inset-0 opacity-[0.07] pointer-events-none"
+                    style={{
+                      backgroundImage: `linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)`,
+                      backgroundSize: "32px 32px",
+                    }}
+                  />
+                  <div className="relative flex items-start gap-4">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-primary flex items-center justify-center shadow-action shrink-0">
+                      <selectedCase.icon className="w-7 h-7 text-white" />
+                    </div>
+                    <div className="min-w-0 pr-8">
+                      <span className="inline-block text-[10px] font-bold tracking-[0.18em] text-action uppercase mb-2">
+                        Caso de Uso IA
+                      </span>
+                      <DialogTitle className="font-display font-black text-2xl md:text-3xl text-white leading-tight">
+                        {selectedCase.title}
+                      </DialogTitle>
+                      <DialogDescription className="text-white/70 text-sm md:text-base mt-2 leading-relaxed">
+                        {selectedCase.desc}
+                      </DialogDescription>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Body */}
+                <div className="overflow-y-auto p-6 md:p-8 space-y-7">
+                  {/* Industries */}
+                  <div className="flex flex-wrap gap-2">
+                    {selectedCase.industries.map((ind) => (
+                      <Badge key={ind} variant="secondary" className="text-xs">
+                        {ind}
+                      </Badge>
+                    ))}
+                  </div>
+
+                  {/* Problem */}
+                  <div className="rounded-xl border border-destructive/20 bg-destructive/5 p-5">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-8 h-8 rounded-lg bg-destructive/15 flex items-center justify-center shrink-0">
+                        <AlertCircle className="w-4 h-4 text-destructive" />
+                      </div>
+                      <h4 className="font-display font-bold text-base text-foreground">El problema</h4>
+                    </div>
+                    <p className="text-sm md:text-base text-foreground/85 leading-relaxed">
+                      {selectedCase.problem}
+                    </p>
+                  </div>
+
+                  {/* Solution */}
+                  <div className="rounded-xl border border-primary/20 bg-primary/5 p-5">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-8 h-8 rounded-lg bg-primary/15 flex items-center justify-center shrink-0">
+                        <Lightbulb className="w-4 h-4 text-primary" />
+                      </div>
+                      <h4 className="font-display font-bold text-base text-foreground">Nuestra solución</h4>
+                    </div>
+                    <p className="text-sm md:text-base text-foreground/85 leading-relaxed">
+                      {selectedCase.solution}
+                    </p>
+                  </div>
+
+                  {/* Stack */}
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <Layers className="w-4 h-4 text-action" />
+                      <h4 className="text-xs font-bold uppercase tracking-[0.18em] text-action">
+                        Stack sugerido
+                      </h4>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedCase.stack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="text-xs font-semibold bg-muted text-foreground px-3 py-1.5 rounded-md border border-border"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Results */}
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <Target className="w-4 h-4 text-action" />
+                      <h4 className="text-xs font-bold uppercase tracking-[0.18em] text-action">
+                        Resultados esperados
+                      </h4>
+                    </div>
+                    <ul className="grid sm:grid-cols-2 gap-2.5">
+                      {selectedCase.results.map((r) => (
+                        <li
+                          key={r}
+                          className="flex items-start gap-2.5 p-3 rounded-lg bg-action/5 border border-action/15"
+                        >
+                          <TrendingUp className="w-4 h-4 text-action shrink-0 mt-0.5" />
+                          <span className="text-sm text-foreground/90 leading-snug">{r}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* CTA */}
+                  <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-border">
+                    <Button asChild size="lg" className="flex-1">
+                      <a href="#contacto" onClick={() => setSelectedCase(null)}>
+                        Quiero implementar esto
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </a>
+                    </Button>
+                    <Button variant="outline" size="lg" onClick={() => setSelectedCase(null)}>
+                      <X className="w-4 h-4 mr-2" />
+                      Cerrar
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
+
         <LeadForm />
       </main>
       <Footer />
