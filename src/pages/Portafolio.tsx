@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LeadForm from "@/components/LeadForm";
 import SEO from "@/components/SEO";
+import ParticleNetwork from "@/components/ParticleNetwork";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
@@ -30,13 +31,15 @@ interface Project {
   tags: string[] | null;
 }
 
-// Convierte URLs de YouTube/Vimeo a formato embed
+// Convierte URLs de YouTube/Vimeo/Instagram a formato embed
 const getEmbedUrl = (url: string): { type: "iframe" | "video"; src: string } | null => {
   if (!url) return null;
   const yt = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([^&?\s]+)/);
   if (yt) return { type: "iframe", src: `https://www.youtube.com/embed/${yt[1]}` };
   const vm = url.match(/vimeo\.com\/(\d+)/);
   if (vm) return { type: "iframe", src: `https://player.vimeo.com/video/${vm[1]}` };
+  const ig = url.match(/instagram\.com\/(?:p|reel|tv)\/([^/?\s]+)/);
+  if (ig) return { type: "iframe", src: `https://www.instagram.com/p/${ig[1]}/embed` };
   if (/\.(mp4|webm|ogg)(\?|$)/i.test(url)) return { type: "video", src: url };
   return { type: "iframe", src: url };
 };
@@ -85,6 +88,9 @@ const Portafolio = () => {
       <main>
         {/* Hero */}
         <section className="relative pt-36 md:pt-44 pb-16 bg-gradient-hero overflow-hidden">
+          <div className="absolute inset-0 z-0">
+            <ParticleNetwork />
+          </div>
           <div
             className="absolute inset-0 opacity-[0.05] pointer-events-none"
             style={{
@@ -220,56 +226,72 @@ const Portafolio = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
               {[
                 {
-                  title: "Agente de Voz IA atendiendo llamadas",
-                  desc: "Mira cómo un agente de voz responde, califica leads y agenda citas sin intervención humana.",
-                  url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                  tag: "Voice AI",
+                  title: "Demo IA en acción #1",
+                  desc: "Mira cómo nuestras soluciones de inteligencia artificial operan en escenarios reales.",
+                  url: "https://www.youtube.com/watch?v=hrafP5PW-jk",
+                  tag: "YouTube",
+                  platform: "youtube" as const,
                 },
                 {
-                  title: "Automatización n8n end-to-end",
-                  desc: "Workflow que conecta WhatsApp, CRM y email para nutrir leads automáticamente.",
-                  url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                  tag: "Automatización",
+                  title: "Demo IA en acción #2",
+                  desc: "Otro caso práctico de automatización e IA aplicada al negocio.",
+                  url: "https://www.youtube.com/watch?v=eTrYjvS-e8A",
+                  tag: "YouTube",
+                  platform: "youtube" as const,
                 },
                 {
-                  title: "Chatbot multicanal con RAG",
-                  desc: "Bot conversacional con base de conocimiento personalizada para atención 24/7.",
-                  url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                  tag: "Chatbot",
+                  title: "Reel · Caso de uso IA",
+                  desc: "Resumen visual de una implementación de IA real en Instagram.",
+                  url: "https://www.instagram.com/p/DWFza86jQHI/",
+                  tag: "Instagram",
+                  platform: "instagram" as const,
                 },
-              ].map((v, i) => (
-                <motion.div
-                  key={v.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="group rounded-2xl overflow-hidden bg-card border border-border shadow-card hover:shadow-elegant transition-all duration-500"
-                >
-                  <div className="relative aspect-video bg-dark overflow-hidden">
-                    <iframe
-                      src={v.url}
-                      title={v.title}
-                      className="w-full h-full"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <span className="inline-block text-[10px] font-bold tracking-[0.18em] uppercase bg-action/10 text-action px-2.5 py-1 rounded-full mb-3">
-                      {v.tag}
-                    </span>
-                    <h3 className="font-display font-bold text-lg text-foreground leading-tight mb-2">
-                      {v.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
+                {
+                  title: "Reel · Automatización",
+                  desc: "Mira un workflow automatizado funcionando paso a paso.",
+                  url: "https://www.instagram.com/p/DWVxJYzkVlf/",
+                  tag: "Instagram",
+                  platform: "instagram" as const,
+                },
+              ].map((v, i) => {
+                const e = getEmbedUrl(v.url);
+                return (
+                  <motion.div
+                    key={v.title}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    className="group rounded-2xl overflow-hidden bg-card border border-border shadow-card hover:shadow-elegant transition-all duration-500"
+                  >
+                    <div className={`relative ${v.platform === "instagram" ? "aspect-[9/12]" : "aspect-video"} bg-dark overflow-hidden`}>
+                      {e && (
+                        <iframe
+                          src={e.src}
+                          title={v.title}
+                          className="absolute inset-0 w-full h-full"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          loading="lazy"
+                          scrolling="no"
+                        />
+                      )}
+                    </div>
+                    <div className="p-6">
+                      <span className="inline-block text-[10px] font-bold tracking-[0.18em] uppercase bg-action/10 text-action px-2.5 py-1 rounded-full mb-3">
+                        {v.tag}
+                      </span>
+                      <h3 className="font-display font-bold text-lg text-foreground leading-tight mb-2">
+                        {v.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>
