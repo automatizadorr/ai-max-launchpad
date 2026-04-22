@@ -22,6 +22,28 @@ const LeadForm = () => {
     email: "",
     pain_point: "",
   });
+  const [customPain, setCustomPain] = useState<string | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  // Listen for prefill events (e.g. from use-case modal CTA)
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<{ pain_point: string }>).detail;
+      if (!detail?.pain_point) return;
+      setCustomPain(detail.pain_point);
+      setForm((f) => ({ ...f, pain_point: detail.pain_point }));
+      // smooth scroll & focus first empty field
+      requestAnimationFrame(() => {
+        document.getElementById("contacto")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        setTimeout(() => {
+          const nameEl = document.getElementById("name") as HTMLInputElement | null;
+          nameEl?.focus({ preventScroll: true });
+        }, 600);
+      });
+    };
+    window.addEventListener("leadform:prefill", handler as EventListener);
+    return () => window.removeEventListener("leadform:prefill", handler as EventListener);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
