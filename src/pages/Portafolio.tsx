@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Loader2, Play, User, TrendingUp, X } from "lucide-react";
+import { ExternalLink, Loader2, Play, User, TrendingUp, X, Bot, Phone, Workflow, MessageSquare, BarChart3, Brain, Sparkles } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LeadForm from "@/components/LeadForm";
