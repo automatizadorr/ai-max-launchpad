@@ -23,7 +23,7 @@ const LeadForm = () => {
     pain_point: "",
   });
   const [customPain, setCustomPain] = useState<string | null>(null);
-  const formRef = useRef<HTMLFormElement>(null);
+  
 
   // Listen for prefill events (e.g. from use-case modal CTA)
   useEffect(() => {
