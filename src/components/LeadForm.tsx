@@ -191,6 +191,9 @@ const LeadForm = () => {
                 className={`${inputCls} appearance-none cursor-pointer`}
               >
                 <option value="" disabled className="text-foreground">Selecciona una opción</option>
+                {customPain && !["Ventas", "Operaciones", "Atención al Cliente"].includes(customPain) && (
+                  <option value={customPain} className="text-foreground">{customPain}</option>
+                )}
                 <option value="Ventas" className="text-foreground">Ventas</option>
                 <option value="Operaciones" className="text-foreground">Operaciones</option>
                 <option value="Atención al Cliente" className="text-foreground">Atención al Cliente</option>
