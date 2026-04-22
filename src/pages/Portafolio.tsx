@@ -41,10 +41,22 @@ const getEmbedUrl = (url: string): { type: "iframe" | "video"; src: string } | n
   return { type: "iframe", src: url };
 };
 
+interface UseCase {
+  icon: typeof Phone;
+  title: string;
+  desc: string;
+  industries: string[];
+  problem: string;
+  solution: string;
+  stack: string[];
+  results: string[];
+}
+
 const Portafolio = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Project | null>(null);
+  const [selectedCase, setSelectedCase] = useState<UseCase | null>(null);
 
   useEffect(() => {
     const fetchProjects = async () => {
