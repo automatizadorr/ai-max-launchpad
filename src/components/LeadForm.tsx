@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Loader2, Send, ShieldCheck } from "lucide-react";
 import { z } from "zod";
@@ -22,6 +22,28 @@ const LeadForm = () => {
     email: "",
     pain_point: "",
   });
+  const [customPain, setCustomPain] = useState<string | null>(null);
+  
+
+  // Listen for prefill events (e.g. from use-case modal CTA)
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<{ pain_point: string }>).detail;
+      if (!detail?.pain_point) return;
+      setCustomPain(detail.pain_point);
+      setForm((f) => ({ ...f, pain_point: detail.pain_point }));
+      // smooth scroll & focus first empty field
+      requestAnimationFrame(() => {
+        document.getElementById("contacto")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        setTimeout(() => {
+          const nameEl = document.getElementById("name") as HTMLInputElement | null;
+          nameEl?.focus({ preventScroll: true });
+        }, 600);
+      });
+    };
+    window.addEventListener("leadform:prefill", handler as EventListener);
+    return () => window.removeEventListener("leadform:prefill", handler as EventListener);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,6 +69,7 @@ const LeadForm = () => {
     }
     toast.success("¡Solicitud recibida! Te contactaremos en menos de 24h.");
     setForm({ name: "", company: "", phone: "", email: "", pain_point: "" });
+    setCustomPain(null);
   };
 
   const inputCls =
@@ -168,6 +191,9 @@ const LeadForm = () => {
                 className={`${inputCls} appearance-none cursor-pointer`}
               >
                 <option value="" disabled className="text-foreground">Selecciona una opción</option>
+                {customPain && !["Ventas", "Operaciones", "Atención al Cliente"].includes(customPain) && (
+                  <option value={customPain} className="text-foreground">{customPain}</option>
+                )}
                 <option value="Ventas" className="text-foreground">Ventas</option>
                 <option value="Operaciones" className="text-foreground">Operaciones</option>
                 <option value="Atención al Cliente" className="text-foreground">Atención al Cliente</option>
