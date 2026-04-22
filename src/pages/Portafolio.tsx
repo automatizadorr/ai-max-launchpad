@@ -193,6 +193,172 @@ const Portafolio = () => {
           </div>
         </section>
 
+        {/* Videos educativos */}
+        <section className="py-20 md:py-28 bg-muted/30 border-y border-border">
+          <div className="container mx-auto px-6">
+            <div className="text-center max-w-3xl mx-auto mb-14">
+              <span className="inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
+                Aprende sobre IA
+              </span>
+              <h2 className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight">
+                Videos & <span className="text-gradient-primary">Demos en Acción</span>
+              </h2>
+              <p className="mt-5 text-muted-foreground text-base md:text-lg">
+                Mira cómo nuestras soluciones de IA funcionan en escenarios reales y descubre el potencial para tu negocio.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                {
+                  title: "Agente de Voz IA atendiendo llamadas",
+                  desc: "Mira cómo un agente de voz responde, califica leads y agenda citas sin intervención humana.",
+                  url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                  tag: "Voice AI",
+                },
+                {
+                  title: "Automatización n8n end-to-end",
+                  desc: "Workflow que conecta WhatsApp, CRM y email para nutrir leads automáticamente.",
+                  url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                  tag: "Automatización",
+                },
+                {
+                  title: "Chatbot multicanal con RAG",
+                  desc: "Bot conversacional con base de conocimiento personalizada para atención 24/7.",
+                  url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                  tag: "Chatbot",
+                },
+              ].map((v, i) => (
+                <motion.div
+                  key={v.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="group rounded-2xl overflow-hidden bg-card border border-border shadow-card hover:shadow-elegant transition-all duration-500"
+                >
+                  <div className="relative aspect-video bg-dark overflow-hidden">
+                    <iframe
+                      src={v.url}
+                      title={v.title}
+                      className="w-full h-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <span className="inline-block text-[10px] font-bold tracking-[0.18em] uppercase bg-action/10 text-action px-2.5 py-1 rounded-full mb-3">
+                      {v.tag}
+                    </span>
+                    <h3 className="font-display font-bold text-lg text-foreground leading-tight mb-2">
+                      {v.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Casos de uso de IA */}
+        <section className="py-20 md:py-28 bg-background">
+          <div className="container mx-auto px-6">
+            <div className="text-center max-w-3xl mx-auto mb-14">
+              <span className="inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
+                Casos de Uso
+              </span>
+              <h2 className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight">
+                ¿Cómo puede la IA <span className="text-gradient-primary">transformar tu empresa?</span>
+              </h2>
+              <p className="mt-5 text-muted-foreground text-base md:text-lg">
+                Aplicaciones reales de Inteligencia Artificial que ya están generando resultados medibles en empresas LATAM.
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                {
+                  icon: Phone,
+                  title: "Agentes de Voz IA",
+                  desc: "Atienden llamadas entrantes y salientes, califican leads, agendan citas y resuelven dudas con voz natural 24/7.",
+                  industries: ["Salud", "Inmobiliarias", "Servicios"],
+                },
+                {
+                  icon: MessageSquare,
+                  title: "Chatbots Conversacionales",
+                  desc: "Bots con IA generativa y RAG que responden con información de tu empresa en WhatsApp, web y redes sociales.",
+                  industries: ["E-commerce", "SaaS", "Educación"],
+                },
+                {
+                  icon: Workflow,
+                  title: "Automatización con n8n",
+                  desc: "Conecta CRM, email, WhatsApp, hojas de cálculo y APIs para automatizar procesos sin código.",
+                  industries: ["Marketing", "Ventas", "Operaciones"],
+                },
+                {
+                  icon: Brain,
+                  title: "Análisis Predictivo",
+                  desc: "Modelos que predicen demanda, churn de clientes, fraudes y oportunidades de venta con tus propios datos.",
+                  industries: ["Finanzas", "Retail", "Logística"],
+                },
+                {
+                  icon: BarChart3,
+                  title: "Dashboards Inteligentes",
+                  desc: "Plataformas a medida con métricas en tiempo real, alertas automáticas e insights generados por IA.",
+                  industries: ["Gerencia", "Marketing", "Finanzas"],
+                },
+                {
+                  icon: Bot,
+                  title: "Asistentes Internos",
+                  desc: "Copilotos para tu equipo que responden con tu base de conocimiento, generan reportes y automatizan tareas repetitivas.",
+                  industries: ["RRHH", "Soporte", "Legal"],
+                },
+              ].map((c, i) => (
+                <motion.div
+                  key={c.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  className="group relative p-7 rounded-2xl bg-card border border-border hover:border-primary/40 hover:shadow-elegant transition-all duration-500 hover:-translate-y-1"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center mb-5 shadow-action group-hover:scale-110 transition-transform duration-500">
+                    <c.icon className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="font-display font-bold text-xl text-foreground leading-tight mb-3">
+                    {c.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-5">{c.desc}</p>
+                  <div className="flex flex-wrap gap-1.5 pt-4 border-t border-border">
+                    {c.industries.map((ind) => (
+                      <span
+                        key={ind}
+                        className="text-[10px] font-semibold uppercase tracking-wider bg-muted text-muted-foreground px-2 py-1 rounded-md"
+                      >
+                        {ind}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mt-14 text-center"
+            >
+              <div className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+                <Sparkles className="w-4 h-4 text-action" />
+                ¿Tu caso no está aquí? Lo construimos a medida.
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* Project Detail Modal */}
         <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
           <DialogContent className="max-w-4xl w-[95vw] max-h-[92vh] p-0 overflow-hidden gap-0">
