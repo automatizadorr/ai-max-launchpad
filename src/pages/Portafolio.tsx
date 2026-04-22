@@ -290,51 +290,78 @@ const Portafolio = () => {
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
+              {([
                 {
                   icon: Phone,
                   title: "Agentes de Voz IA",
                   desc: "Atienden llamadas entrantes y salientes, califican leads, agendan citas y resuelven dudas con voz natural 24/7.",
                   industries: ["Salud", "Inmobiliarias", "Servicios"],
+                  problem: "Equipos de ventas o recepción saturados que pierden llamadas fuera de horario, no hacen seguimiento a leads y dedican horas a tareas repetitivas como agendar citas o calificar prospectos.",
+                  solution: "Implementamos un agente de voz con IA que atiende llamadas entrantes y salientes con voz natural en español, califica leads según tus criterios, agenda citas en tu calendario y deriva a humanos solo cuando es necesario.",
+                  stack: ["Vapi / Retell", "OpenAI GPT-4o", "Twilio", "Google Calendar API", "n8n", "Supabase"],
+                  results: ["+80% de llamadas atendidas", "Disponibilidad 24/7 sin costo adicional", "Reducción del 60% en tiempo de calificación", "Citas agendadas automáticamente en CRM"],
                 },
                 {
                   icon: MessageSquare,
                   title: "Chatbots Conversacionales",
                   desc: "Bots con IA generativa y RAG que responden con información de tu empresa en WhatsApp, web y redes sociales.",
                   industries: ["E-commerce", "SaaS", "Educación"],
+                  problem: "Soporte colapsado por preguntas repetitivas, tiempos de respuesta largos y leads que se enfrían porque nadie responde en WhatsApp o web fuera de horario laboral.",
+                  solution: "Bot conversacional con RAG (Retrieval Augmented Generation) entrenado con tu base de conocimiento, manuales y FAQs. Responde en WhatsApp, web e Instagram con tono de marca y deriva a humanos cuando detecta intención de compra o casos complejos.",
+                  stack: ["OpenAI / Claude", "LangChain", "Pinecone / Supabase Vector", "WhatsApp Business API", "n8n", "Next.js"],
+                  results: ["70% de consultas resueltas sin humano", "Respuesta en menos de 3 segundos", "+45% conversión de leads en WhatsApp", "Ahorro estimado: 1 FTE de soporte"],
                 },
                 {
                   icon: Workflow,
                   title: "Automatización con n8n",
                   desc: "Conecta CRM, email, WhatsApp, hojas de cálculo y APIs para automatizar procesos sin código.",
                   industries: ["Marketing", "Ventas", "Operaciones"],
+                  problem: "Procesos manuales que pasan datos entre herramientas (CRM, email, hojas de cálculo, WhatsApp) consumen horas semanales, generan errores y bloquean el escalamiento del negocio.",
+                  solution: "Workflows en n8n que conectan todas tus herramientas, automatizan flujos de leads, facturación, notificaciones, sincronización de datos y reportes. Incluye nodos con IA para enriquecer datos, clasificar leads y generar respuestas.",
+                  stack: ["n8n self-hosted", "OpenAI", "HubSpot / Pipedrive", "WhatsApp API", "Google Workspace", "Webhooks"],
+                  results: ["+20 horas/semana ahorradas por equipo", "Cero errores de transcripción manual", "Leads nuevos en CRM en menos de 30 segundos", "ROI promedio en 60 días"],
                 },
                 {
                   icon: Brain,
                   title: "Análisis Predictivo",
                   desc: "Modelos que predicen demanda, churn de clientes, fraudes y oportunidades de venta con tus propios datos.",
                   industries: ["Finanzas", "Retail", "Logística"],
+                  problem: "Decisiones tomadas con intuición o reportes históricos, sin capacidad de anticipar churn de clientes, picos de demanda, riesgo crediticio o fraude antes de que ocurran.",
+                  solution: "Modelos de machine learning entrenados con tus datos históricos para predecir demanda, identificar clientes en riesgo de fuga, scoring crediticio o detectar transacciones sospechosas. Incluye dashboard con alertas automáticas.",
+                  stack: ["Python", "scikit-learn / XGBoost", "BigQuery / Postgres", "Airflow", "Streamlit / Metabase", "Vercel"],
+                  results: ["Precisión de predicción 85-92%", "Reducción del 30% en churn detectado a tiempo", "Detección de fraude en tiempo real", "Optimización de inventario en -25%"],
                 },
                 {
                   icon: BarChart3,
                   title: "Dashboards Inteligentes",
                   desc: "Plataformas a medida con métricas en tiempo real, alertas automáticas e insights generados por IA.",
                   industries: ["Gerencia", "Marketing", "Finanzas"],
+                  problem: "Datos dispersos en múltiples plataformas (Meta Ads, Google, CRM, ventas), reportes manuales en Excel y nula visibilidad en tiempo real para tomar decisiones rápidas.",
+                  solution: "Dashboard a medida que centraliza todas tus fuentes de datos, con visualizaciones interactivas, alertas automáticas cuando una métrica se sale de rango y un asistente IA que responde preguntas en lenguaje natural sobre tus números.",
+                  stack: ["Next.js", "Supabase", "Recharts / Tremor", "OpenAI", "Meta / Google Ads APIs", "Vercel"],
+                  results: ["Reportes en tiempo real (no semanales)", "Decisiones 5x más rápidas", "Alertas automáticas en Slack/Email", "Insights conversacionales con IA"],
                 },
                 {
                   icon: Bot,
                   title: "Asistentes Internos",
                   desc: "Copilotos para tu equipo que responden con tu base de conocimiento, generan reportes y automatizan tareas repetitivas.",
                   industries: ["RRHH", "Soporte", "Legal"],
+                  problem: "Equipos que pierden tiempo buscando información en Drive, manuales o políticas internas. Onboarding lento, conocimiento atrapado en personas clave y tareas administrativas repetitivas.",
+                  solution: "Copiloto IA conectado a tu Google Drive, Notion, SharePoint o base de datos, que responde preguntas internas, genera contratos, resúmenes de reuniones, reportes y automatiza tareas administrativas con permisos por rol.",
+                  stack: ["OpenAI / Claude", "LangChain", "Supabase Vector", "Google Drive API", "Slack / Teams", "Next.js"],
+                  results: ["Onboarding 50% más rápido", "Conocimiento accesible 24/7", "Generación automática de documentos", "Adopción superior al 80% del equipo"],
                 },
-              ].map((c, i) => (
-                <motion.div
+              ] as UseCase[]).map((c, i) => (
+                <motion.button
                   key={c.title}
+                  type="button"
+                  onClick={() => setSelectedCase(c)}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-60px" }}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
-                  className="group relative p-7 rounded-2xl bg-card border border-border hover:border-primary/40 hover:shadow-elegant transition-all duration-500 hover:-translate-y-1"
+                  className="group relative text-left p-7 rounded-2xl bg-card border border-border hover:border-primary/40 hover:shadow-elegant transition-all duration-500 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary"
+                  aria-label={`Ver detalles de ${c.title}`}
                 >
                   <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center mb-5 shadow-action group-hover:scale-110 transition-transform duration-500">
                     <c.icon className="w-6 h-6 text-white" />
@@ -343,7 +370,7 @@ const Portafolio = () => {
                     {c.title}
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed mb-5">{c.desc}</p>
-                  <div className="flex flex-wrap gap-1.5 pt-4 border-t border-border">
+                  <div className="flex flex-wrap gap-1.5 pt-4 border-t border-border mb-4">
                     {c.industries.map((ind) => (
                       <span
                         key={ind}
@@ -353,7 +380,11 @@ const Portafolio = () => {
                       </span>
                     ))}
                   </div>
-                </motion.div>
+                  <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-action">
+                    Ver caso completo
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </div>
+                </motion.button>
               ))}
             </div>
 
