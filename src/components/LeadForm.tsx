@@ -69,6 +69,7 @@ const LeadForm = () => {
     }
     toast.success("¡Solicitud recibida! Te contactaremos en menos de 24h.");
     setForm({ name: "", company: "", phone: "", email: "", pain_point: "" });
+    setCustomPain(null);
   };
 
   const inputCls =
