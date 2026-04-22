@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LeadForm from "@/components/LeadForm";
 import SEO from "@/components/SEO";
+import ParticleNetwork from "@/components/ParticleNetwork";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
