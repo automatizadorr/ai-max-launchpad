@@ -31,13 +31,15 @@ interface Project {
   tags: string[] | null;
 }
 
-// Convierte URLs de YouTube/Vimeo a formato embed
+// Convierte URLs de YouTube/Vimeo/Instagram a formato embed
 const getEmbedUrl = (url: string): { type: "iframe" | "video"; src: string } | null => {
   if (!url) return null;
   const yt = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([^&?\s]+)/);
   if (yt) return { type: "iframe", src: `https://www.youtube.com/embed/${yt[1]}` };
   const vm = url.match(/vimeo\.com\/(\d+)/);
   if (vm) return { type: "iframe", src: `https://player.vimeo.com/video/${vm[1]}` };
+  const ig = url.match(/instagram\.com\/(?:p|reel|tv)\/([^/?\s]+)/);
+  if (ig) return { type: "iframe", src: `https://www.instagram.com/p/${ig[1]}/embed` };
   if (/\.(mp4|webm|ogg)(\?|$)/i.test(url)) return { type: "video", src: url };
   return { type: "iframe", src: url };
 };
