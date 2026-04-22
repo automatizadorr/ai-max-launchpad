@@ -653,11 +653,24 @@ const Portafolio = () => {
 
                   {/* CTA */}
                   <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-border">
-                    <Button asChild size="lg" className="flex-1">
-                      <a href="#contacto" onClick={() => setSelectedCase(null)}>
-                        Quiero implementar esto
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </a>
+                    <Button
+                      size="lg"
+                      className="flex-1"
+                      onClick={() => {
+                        const painPoint = selectedCase.title;
+                        setSelectedCase(null);
+                        // Wait for modal close animation, then dispatch prefill event
+                        setTimeout(() => {
+                          window.dispatchEvent(
+                            new CustomEvent("leadform:prefill", {
+                              detail: { pain_point: painPoint },
+                            })
+                          );
+                        }, 200);
+                      }}
+                    >
+                      Quiero implementar esto
+                      <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                     <Button variant="outline" size="lg" onClick={() => setSelectedCase(null)}>
                       <X className="w-4 h-4 mr-2" />
