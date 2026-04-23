@@ -775,6 +775,7 @@ const Portafolio = () => {
         <LeadForm />
       </main>
       <Footer />
+      <FloatingWhatsApp />
     </div>
   );
 };
