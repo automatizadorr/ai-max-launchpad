@@ -9,6 +9,10 @@ import ParticleNetwork from "@/components/ParticleNetwork";
 import ImpactMetrics from "@/components/ImpactMetrics";
 import PortfolioStackMarquee from "@/components/PortfolioStackMarquee";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import BeforeAfter from "@/components/BeforeAfter";
+import Industries from "@/components/Industries";
+import ProcessTimeline from "@/components/ProcessTimeline";
+import PortfolioTestimonials from "@/components/PortfolioTestimonials";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
@@ -491,7 +495,19 @@ const Portafolio = () => {
           </div>
         </section>
 
-        {/* Project Detail Modal */}
+        {/* Antes vs Después */}
+        <BeforeAfter />
+
+        {/* Industrias */}
+        <Industries />
+
+        {/* Proceso de trabajo */}
+        <ProcessTimeline />
+
+        {/* Testimonios */}
+        <PortfolioTestimonials />
+
+
         <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
           <DialogContent className="max-w-4xl w-[95vw] max-h-[92vh] p-0 overflow-hidden gap-0">
             {selected && (
