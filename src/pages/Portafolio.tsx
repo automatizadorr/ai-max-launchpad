@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Loader2, Play, User, TrendingUp, X, Bot, Phone, Workflow, MessageSquare, BarChart3, Brain, Sparkles, AlertCircle, Lightbulb, Layers, Target, ArrowRight } from "lucide-react";
+import { ExternalLink, Loader2, Play, User, TrendingUp, X, Bot, Phone, Workflow, MessageSquare, BarChart3, Brain, Sparkles, AlertCircle, Lightbulb, Layers, Target, ArrowRight, LayoutGrid } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LeadForm from "@/components/LeadForm";
 import SEO from "@/components/SEO";
 import ParticleNetwork from "@/components/ParticleNetwork";
+import ImpactMetrics from "@/components/ImpactMetrics";
+import PortfolioStackMarquee from "@/components/PortfolioStackMarquee";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
@@ -60,6 +63,18 @@ const Portafolio = () => {
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Project | null>(null);
   const [selectedCase, setSelectedCase] = useState<UseCase | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string>("Todos");
+
+  const categories = useMemo(() => {
+    const set = new Set<string>();
+    projects.forEach((p) => p.category && set.add(p.category));
+    return ["Todos", ...Array.from(set)];
+  }, [projects]);
+
+  const filteredProjects = useMemo(() => {
+    if (activeCategory === "Todos") return projects;
+    return projects.filter((p) => p.category === activeCategory);
+  }, [projects, activeCategory]);
 
   useEffect(() => {
     const fetchProjects = async () => {
