@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const WHATSAPP_NUMBER = "573000000000"; // TODO: reemplazar por número real
+const WHATSAPP_NUMBER = "56971806730";
 const MESSAGE = encodeURIComponent("Hola AI-MaX, vi su portafolio y me gustaría conversar sobre un proyecto de IA.");
 
 const FloatingWhatsApp = () => {
