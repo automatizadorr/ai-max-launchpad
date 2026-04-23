@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Loader2, Play, User, TrendingUp, X, Bot, Phone, Workflow, MessageSquare, BarChart3, Brain, Sparkles, AlertCircle, Lightbulb, Layers, Target, ArrowRight } from "lucide-react";
+import { ExternalLink, Loader2, Play, User, TrendingUp, X, Bot, Phone, Workflow, MessageSquare, BarChart3, Brain, Sparkles, AlertCircle, Lightbulb, Layers, Target, ArrowRight, LayoutGrid } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LeadForm from "@/components/LeadForm";
 import SEO from "@/components/SEO";
 import ParticleNetwork from "@/components/ParticleNetwork";
+import ImpactMetrics from "@/components/ImpactMetrics";
+import PortfolioStackMarquee from "@/components/PortfolioStackMarquee";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
@@ -60,6 +63,18 @@ const Portafolio = () => {
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Project | null>(null);
   const [selectedCase, setSelectedCase] = useState<UseCase | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string>("Todos");
+
+  const categories = useMemo(() => {
+    const set = new Set<string>();
+    projects.forEach((p) => p.category && set.add(p.category));
+    return ["Todos", ...Array.from(set)];
+  }, [projects]);
+
+  const filteredProjects = useMemo(() => {
+    if (activeCategory === "Todos") return projects;
+    return projects.filter((p) => p.category === activeCategory);
+  }, [projects, activeCategory]);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -125,22 +140,59 @@ const Portafolio = () => {
           </div>
         </section>
 
+        {/* Métricas de impacto */}
+        <ImpactMetrics />
+
+        {/* Stack tecnológico */}
+        <PortfolioStackMarquee />
+
         {/* Grid */}
         <section className="py-20 md:py-28 bg-background">
           <div className="container mx-auto px-6">
+            {!loading && categories.length > 1 && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="flex flex-wrap items-center justify-center gap-2 mb-12"
+              >
+                <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-muted-foreground mr-2">
+                  <LayoutGrid className="w-3.5 h-3.5" />
+                  Filtrar
+                </span>
+                {categories.map((cat) => {
+                  const active = activeCategory === cat;
+                  return (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => setActiveCategory(cat)}
+                      className={`px-4 py-2 rounded-full text-sm font-semibold transition-all border ${
+                        active
+                          ? "bg-primary text-primary-foreground border-primary shadow-elegant"
+                          : "bg-card text-foreground border-border hover:border-primary/40 hover:text-primary"
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  );
+                })}
+              </motion.div>
+            )}
+
             {loading ? (
               <div className="flex justify-center py-20">
                 <Loader2 className="w-8 h-8 animate-spin text-primary" />
               </div>
-            ) : projects.length === 0 ? (
+            ) : filteredProjects.length === 0 ? (
               <div className="text-center py-20">
                 <p className="text-muted-foreground text-lg">
-                  Aún no hay proyectos publicados. Agrega el primero desde tu backend.
+                  No hay proyectos en esta categoría todavía.
                 </p>
               </div>
             ) : (
               <div className="grid md:grid-cols-2 gap-8 md:gap-10">
-                {projects.map((p, i) => (
+                {filteredProjects.map((p, i) => (
                   <motion.button
                     key={p.id}
                     type="button"
@@ -186,6 +238,21 @@ const Portafolio = () => {
                         <p className="text-muted-foreground text-sm md:text-base leading-relaxed line-clamp-3">
                           {p.description}
                         </p>
+                      )}
+                      {p.result_metric && (
+                        <div className="mt-5 flex items-center gap-3 p-3 rounded-xl bg-action/5 border border-action/20">
+                          <div className="w-9 h-9 rounded-lg bg-action/15 flex items-center justify-center shrink-0">
+                            <TrendingUp className="w-4 h-4 text-action" />
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                              Resultado
+                            </p>
+                            <p className="font-bold text-foreground text-sm leading-tight truncate">
+                              {p.result_metric}
+                            </p>
+                          </div>
+                        </div>
                       )}
                       {p.tags && p.tags.length > 0 && (
                         <div className="mt-4 flex flex-wrap gap-1.5">
@@ -708,6 +775,7 @@ const Portafolio = () => {
         <LeadForm />
       </main>
       <Footer />
+      <FloatingWhatsApp />
     </div>
   );
 };
