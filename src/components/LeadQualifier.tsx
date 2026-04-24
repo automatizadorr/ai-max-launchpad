@@ -89,7 +89,7 @@ const LeadQualifier = () => {
   const select = (value: string) => {
     const q = QUESTIONS[step - 1];
     setAnswers((a) => ({ ...a, [q.key]: value }));
-    setTimeout(() => setStep((s) => Math.min((total + 1) as Step, (s + 1) as Step)), 200);
+    setTimeout(() => setStep((s) => Math.min(total + 1, s + 1) as Step), 200);
   };
 
   const submit = async (e: React.FormEvent) => {

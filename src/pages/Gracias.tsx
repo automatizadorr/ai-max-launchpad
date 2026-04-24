@@ -15,6 +15,7 @@ const Gracias = () => (
       title="¡Gracias! Te contactamos pronto | AI-MaX"
       description="Recibimos tu solicitud. Te contactamos en menos de 24 horas para agendar tu diagnóstico gratuito."
       path="/gracias"
+      ogImage="/og-casos.png"
     />
     <Header />
     <main className="flex-1 flex items-center justify-center py-24 md:py-32 bg-gradient-hero relative overflow-hidden">
