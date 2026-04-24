@@ -40,7 +40,7 @@ const Hero = () => {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-action" />
           </span>
           <span className="text-xs md:text-sm text-white/80 font-medium">
-            Agencia AI · La Serena · Latinoamérica
+            Agencia AI · La Serena · Latinoamérica - España
           </span>
         </motion.div>
 
