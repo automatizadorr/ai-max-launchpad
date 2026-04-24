@@ -8,13 +8,14 @@ import SEO from "@/components/SEO";
 import ParticleNetwork from "@/components/ParticleNetwork";
 import ImpactMetrics from "@/components/ImpactMetrics";
 import PortfolioStackMarquee from "@/components/PortfolioStackMarquee";
-import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+
 import BeforeAfter from "@/components/BeforeAfter";
 import Industries from "@/components/Industries";
 import ProcessTimeline from "@/components/ProcessTimeline";
 import PortfolioTestimonials from "@/components/PortfolioTestimonials";
 import PortfolioCertifications from "@/components/PortfolioCertifications";
 import PortfolioFAQ from "@/components/PortfolioFAQ";
+import PortfolioCTA from "@/components/PortfolioCTA";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
@@ -515,6 +516,8 @@ const Portafolio = () => {
         {/* FAQ */}
         <PortfolioFAQ />
 
+        {/* CTA Final */}
+        <PortfolioCTA />
 
         <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
           <DialogContent className="max-w-4xl w-[95vw] max-h-[92vh] p-0 overflow-hidden gap-0">
@@ -799,7 +802,6 @@ const Portafolio = () => {
         <LeadForm />
       </main>
       <Footer />
-      <FloatingWhatsApp />
     </div>
   );
 };

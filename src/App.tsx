@@ -12,6 +12,7 @@ import Portafolio from "./pages/Portafolio.tsx";
 import Auth from "./pages/Auth.tsx";
 import AdminPortafolio from "./pages/AdminPortafolio.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import FloatingWhatsApp from "./components/FloatingWhatsApp.tsx";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <FloatingWhatsApp />
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
