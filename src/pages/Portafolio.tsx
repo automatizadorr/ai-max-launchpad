@@ -13,6 +13,8 @@ import BeforeAfter from "@/components/BeforeAfter";
 import Industries from "@/components/Industries";
 import ProcessTimeline from "@/components/ProcessTimeline";
 import PortfolioTestimonials from "@/components/PortfolioTestimonials";
+import PortfolioCertifications from "@/components/PortfolioCertifications";
+import PortfolioFAQ from "@/components/PortfolioFAQ";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
