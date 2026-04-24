@@ -509,6 +509,12 @@ const Portafolio = () => {
         {/* Testimonios */}
         <PortfolioTestimonials />
 
+        {/* Certificaciones / Partners */}
+        <PortfolioCertifications />
+
+        {/* FAQ */}
+        <PortfolioFAQ />
+
 
         <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
           <DialogContent className="max-w-4xl w-[95vw] max-h-[92vh] p-0 overflow-hidden gap-0">
