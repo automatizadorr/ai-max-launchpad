@@ -16,6 +16,9 @@ import PortfolioTestimonials from "@/components/PortfolioTestimonials";
 import PortfolioCertifications from "@/components/PortfolioCertifications";
 import PortfolioFAQ from "@/components/PortfolioFAQ";
 import PortfolioCTA from "@/components/PortfolioCTA";
+import PortfolioConversionHero from "@/components/PortfolioConversionHero";
+import LeadQualifier from "@/components/LeadQualifier";
+import InlineCTA from "@/components/InlineCTA";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
@@ -108,53 +111,20 @@ const Portafolio = () => {
       />
       <Header />
       <main>
-        {/* Hero */}
-        <section className="relative pt-36 md:pt-44 pb-16 bg-gradient-hero overflow-hidden">
-          <div className="absolute inset-0 z-0">
-            <ParticleNetwork />
-          </div>
-          <div
-            className="absolute inset-0 opacity-[0.05] pointer-events-none"
-            style={{
-              backgroundImage: `linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)`,
-              backgroundSize: "60px 60px",
-            }}
-          />
-          <div className="container mx-auto px-6 relative z-10 text-center">
-            <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4"
-            >
-              Portafolio
-            </motion.span>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="font-display font-black text-white text-4xl md:text-6xl leading-tight max-w-4xl mx-auto"
-            >
-              Proyectos que <span className="text-gradient-primary">Transforman Negocios</span>
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="mt-6 max-w-2xl mx-auto text-white/70 text-base md:text-lg"
-            >
-              Una selección de soluciones IA implementadas en empresas reales.
-            </motion.p>
-          </div>
-        </section>
+        {/* Conversion Hero */}
+        <PortfolioConversionHero />
 
         {/* Métricas de impacto */}
         <ImpactMetrics />
+
+        {/* Calificador inteligente de leads */}
+        <LeadQualifier />
 
         {/* Stack tecnológico */}
         <PortfolioStackMarquee />
 
         {/* Grid */}
-        <section className="py-20 md:py-28 bg-background">
+        <section id="casos" className="py-20 md:py-28 bg-background">
           <div className="container mx-auto px-6">
             {!loading && categories.length > 1 && (
               <motion.div
@@ -501,14 +471,43 @@ const Portafolio = () => {
         {/* Antes vs Después */}
         <BeforeAfter />
 
+        {/* Inline CTA tras BeforeAfter */}
+        <InlineCTA
+          variant="primary"
+          location="after_before_after"
+          title="¿Quieres resultados así en tu negocio?"
+          description="Agenda un diagnóstico gratuito y diseñamos tu plan en 24h."
+          ctaLabel="Agendar diagnóstico"
+          targetId="qualifier"
+        />
+
         {/* Industrias */}
         <Industries />
+
+        {/* Inline CTA tras Industries */}
+        <InlineCTA
+          variant="soft"
+          location="after_industries"
+          title="¿Tu industria está aquí? Cuéntanos tu caso."
+          description="Adaptamos cualquier solución a tu sector específico."
+          ctaLabel="Hablemos de tu caso"
+          targetId="contacto"
+        />
 
         {/* Proceso de trabajo */}
         <ProcessTimeline />
 
         {/* Testimonios */}
         <PortfolioTestimonials />
+
+        {/* Inline CTA WhatsApp tras testimonios */}
+        <InlineCTA
+          variant="whatsapp"
+          location="after_testimonials"
+          title="Únete a +30 empresas que ya automatizan con IA"
+          description="Conversa directo con nuestro equipo por WhatsApp."
+          ctaLabel="Escribir por WhatsApp"
+        />
 
         {/* Certificaciones / Partners */}
         <PortfolioCertifications />

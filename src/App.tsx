@@ -11,8 +11,11 @@ import Contacto from "./pages/Contacto.tsx";
 import Portafolio from "./pages/Portafolio.tsx";
 import Auth from "./pages/Auth.tsx";
 import AdminPortafolio from "./pages/AdminPortafolio.tsx";
+import Gracias from "./pages/Gracias.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import FloatingWhatsApp from "./components/FloatingWhatsApp.tsx";
+import UrgencyBar from "./components/UrgencyBar.tsx";
+import ExitIntentModal from "./components/ExitIntentModal.tsx";
 
 const queryClient = new QueryClient();
 
@@ -23,18 +26,21 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <UrgencyBar />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/servicios" element={<Servicios />} />
             <Route path="/casos-exito" element={<CasosExito />} />
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/portafolio" element={<Portafolio />} />
+            <Route path="/gracias" element={<Gracias />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/admin/portafolio" element={<AdminPortafolio />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
           <FloatingWhatsApp />
+          <ExitIntentModal />
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>

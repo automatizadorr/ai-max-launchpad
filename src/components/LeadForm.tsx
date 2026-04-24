@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Loader2, Send, ShieldCheck } from "lucide-react";
+import { Loader2, Send, ShieldCheck, Users } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { trackEvent } from "@/lib/tracking";
 
 const leadSchema = z.object({
   name: z.string().trim().min(2, "Ingresa tu nombre completo").max(100),
@@ -15,6 +17,7 @@ const leadSchema = z.object({
 
 const LeadForm = () => {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -60,6 +63,7 @@ const LeadForm = () => {
         phone: parsed.data.phone,
         email: parsed.data.email,
         pain_point: parsed.data.pain_point,
+        source: "lead_form_main",
       },
     ]);
     setLoading(false);
@@ -67,9 +71,11 @@ const LeadForm = () => {
       toast.error("No pudimos enviar tu solicitud. Intenta nuevamente.");
       return;
     }
+    trackEvent("lead_form_submit", { pain_point: parsed.data.pain_point });
     toast.success("¡Solicitud recibida! Te contactaremos en menos de 24h.");
     setForm({ name: "", company: "", phone: "", email: "", pain_point: "" });
     setCustomPain(null);
+    setTimeout(() => navigate("/gracias"), 600);
   };
 
   const inputCls =
@@ -111,6 +117,10 @@ const LeadForm = () => {
                 </li>
               ))}
             </ul>
+            <div className="mt-7 inline-flex items-center gap-2 glass border border-white/15 rounded-full px-4 py-2 text-xs text-white/80">
+              <Users className="w-3.5 h-3.5 text-action" />
+              <span><span className="font-bold text-white">8 empresas</span> solicitaron diagnóstico esta semana</span>
+            </div>
           </motion.div>
 
           <motion.form
