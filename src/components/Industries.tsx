@@ -19,7 +19,7 @@ const industries = [
 
 const Industries = () => {
   return (
-    <section className="py-20 md:py-28 bg-background" aria-labelledby="industries-heading">
+    <section className="py-20 md:py-28 bg-secondary border-y border-border" aria-labelledby="industries-heading">
       <div className="container mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto mb-14">
           <span className="inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
