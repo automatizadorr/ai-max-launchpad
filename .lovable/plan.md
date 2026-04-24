@@ -1,89 +1,106 @@
 
 
-# Plan: Llevar tu Portafolio al Siguiente Nivel
+# Plan: Transformar el Portafolio en una Máquina de Conversión
 
-Tu portafolio ya tiene buenas bases (proyectos dinámicos, videos, casos de uso, modales). Para diferenciarte como agencia de IA premium en LATAM, te propongo añadir secciones que generen **confianza, prueba social y conversión**.
+Tu portafolio hoy muestra muy bien lo que haces, pero está optimizado para **informar**, no para **convertir**. Voy a reorganizarlo con principios de CRO (Conversion Rate Optimization) para que un visitante frío se convierta en lead calificado en menos de 60 segundos.
 
-## Nuevas Secciones Propuestas
+## Diagnóstico actual
 
-### 1. Hero con Métricas de Impacto (counter animado)
-Justo debajo del título principal, una franja con 4 KPIs animados:
-- Proyectos entregados · Horas automatizadas · Clientes activos · ROI promedio
-- Counters que se animan al hacer scroll (efecto "wow" inmediato).
+- El CTA principal está al final (después de scrollear todo).
+- No hay "captura rápida" para visitantes con prisa.
+- Falta urgencia, escasez y prueba social inmediata sobre el fold.
+- No se califica al lead (no sabes si es PYME, enterprise, presupuesto, urgencia).
+- No hay lead magnet (algo gratis a cambio del email).
 
-### 2. Filtros Dinámicos en el Grid de Proyectos
-Tabs por categoría (Voz IA, Chatbots, n8n, Dashboards, Web) + búsqueda por tags. Hace navegable el portafolio cuando crezca.
+## Estrategia: Funnel de 3 capas
 
-### 3. Sección "Antes vs Después" (Case Study Visual)
-Para 2-3 proyectos estrella, un slider comparativo o tarjetas duales:
-- **Antes**: problema con números (ej: "120 leads/semana sin atender")
-- **Después**: resultado con IA (ej: "0 leads perdidos, 24/7")
-Genera prueba de impacto inmediata.
+```text
+   [Capa 1: HOOK]      → Captar atención en 5s + CTA visible siempre
+   [Capa 2: PRUEBA]    → Resultados, testimonios, casos (ya existe ✅)
+   [Capa 3: CAPTURA]   → Múltiples puntos de conversión calificados
+```
 
-### 4. Stack Tecnológico Visual
-Logos animados (marquee o grid) de las herramientas que dominas: OpenAI, Claude, Vapi, n8n, Supabase, LangChain, Pinecone, Twilio, WhatsApp API, etc. Comunica expertise técnica al instante.
+## Cambios concretos
 
-### 5. Testimonios en Video / Audio
-Grid de testimonios reales de clientes con foto, cargo, empresa y un quote impactante. Si hay audio/video (incluso de WhatsApp), mejor. Aumenta conversión 30-40%.
+### 1. Nuevo Hero del Portafolio (orientado a conversión)
+Reemplazar el hero actual por uno con:
+- **Headline de beneficio** (no "Portafolio", sino "Automatizamos tu negocio con IA en 30 días o menos").
+- **Sub-headline con prueba**: "+50 procesos automatizados · ROI promedio 340% · Garantía de resultados".
+- **2 CTAs sobre el fold**: "Diagnóstico Gratuito" (primario) + "Ver casos reales" (secundario, scroll suave).
+- **Trust badges**: "Sin permanencia · Primer resultado en 14 días · Soporte 24/7".
 
-### 6. Proceso de Trabajo (Timeline 4-5 pasos)
-Cómo trabajas con un cliente desde discovery hasta entrega:
-`Diagnóstico → Diseño de solución → Implementación → Pruebas → Entrega y soporte`
-Reduce fricción de "¿cómo será trabajar con ellos?".
+### 2. Barra de urgencia superior (sticky)
+Banda fina arriba del header con:
+> "🔥 Solo aceptamos 3 nuevos clientes este mes · Quedan 2 cupos"
+Crea escasez real y empuja a la acción inmediata.
 
-### 7. Industrias que Servimos (Grid de Iconos)
-Salud, Inmobiliaria, E-commerce, Finanzas, Educación, Logística, etc. Permite que el visitante se identifique rápido.
+### 3. Mini-form rápido en el Hero (lead magnet)
+Tarjeta lateral en el hero con captura de 2 campos:
+- Email + WhatsApp → "Recibe gratis: Auditoría de Automatización IA (PDF)"
+- Lead frío entra al funnel sin fricción. Se guarda en `leads` con `pain_point = "lead_magnet_auditoria"`.
 
-### 8. Sección de Premios / Certificaciones / Partners
-Logos de certificaciones (OpenAI Partner, n8n Expert, etc.) o medios donde te han mencionado. Aunque sean pocos, suma autoridad.
+### 4. Calificador de Lead inteligente (multi-step)
+Nuevo componente `LeadQualifier` tipo wizard de 4 pasos cortos (10 segundos):
+1. **Industria** (Inmobiliaria / Salud / E-commerce / Otro)
+2. **Tamaño de empresa** (1-10 / 11-50 / 50+ empleados)
+3. **Principal dolor** (Leads sin atender / Procesos manuales / Soporte saturado / Otro)
+4. **Urgencia** (Esta semana / Este mes / Explorando)
+→ Al final muestra: "Tienes un caso ideal para [Solución X]" + form de contacto pre-rellenado.
+Esto califica al lead automáticamente y aumenta la conversión 2-3x vs. un form genérico.
 
-### 9. FAQ Específico de Portafolio
-Preguntas tipo: "¿Cuánto demora un proyecto?", "¿Trabajan con startups o solo enterprise?", "¿Qué pasa después de la entrega?". Acordeón accesible.
+### 5. CTAs intermedios (cada 2-3 secciones)
+Inyectar mini-banners de conversión entre secciones existentes:
+- Después de `BeforeAfter`: "¿Quieres resultados así? → Agenda diagnóstico"
+- Después de `PortfolioTestimonials`: "Únete a +30 empresas que ya automatizan → WhatsApp"
+- Después de `Industries`: "¿Tu industria está aquí? → Cuéntanos tu caso"
 
-### 10. CTA Sticky Flotante
-Botón de WhatsApp flotante que aparece al hacer scroll más allá del primer fold. Aumenta conversión móvil.
+### 6. Exit-Intent Popup
+Al detectar que el cursor sale por la parte superior (intent de cerrar pestaña), mostrar modal con:
+> "Antes de irte… ¿Te enviamos por WhatsApp 3 ideas de automatización para tu negocio?"
+Solo email + WhatsApp. Captura ~10-15% de visitantes que se iban.
 
-## Mejoras a lo Existente
+### 7. Refuerzo del FloatingWhatsApp
+El botón flotante actual está bien, pero le añadimos:
+- Bubble de mensaje precargado tipo chat ("Hola 👋 ¿En qué automatizamos tu empresa?").
+- Aparece a los 15 segundos en mobile o al scrollear 40%.
 
-- **Modal de proyecto**: añadir galería de capturas (carousel), métricas en tarjetas grandes, link a "ver caso completo" como página dedicada `/portafolio/:slug`.
-- **Cards de proyecto**: mostrar la métrica principal (`result_metric`) directamente en la card, no solo en el modal — es el mayor gancho visual.
-- **Videos**: añadir un botón "Ver más videos en YouTube/Instagram" enlazando a tus canales reales.
-- **Casos de uso**: añadir badge de "ROI estimado" o "Tiempo de implementación" en cada card.
+### 8. Mejora del LeadForm existente
+- Reducir campos visibles inicialmente (progressive disclosure): solo email + WhatsApp visibles, el resto aparece al hacer foco.
+- Añadir contador de prueba social: "📝 8 empresas solicitaron diagnóstico esta semana".
+- Después del envío: redirigir a `/gracias` (página de agradecimiento) con próximos pasos + link a calendario.
 
-## Páginas Dedicadas (opcional, mayor impacto SEO)
-Crear `/portafolio/:slug` para cada proyecto con: hero del proyecto, problema, solución, stack, resultados, capturas, testimonio del cliente, video y CTA. Excelente para SEO y para compartir en propuestas comerciales.
+### 9. Página `/gracias` nueva
+Tras enviar el form: 
+- Mensaje claro: "Te contactaremos en menos de 24h".
+- CTA secundario: "Mientras tanto, agenda directo en mi calendario → [link]".
+- Compartir en redes / volver al portafolio.
 
-## Implementación Sugerida (por fases)
-
-**Fase 1 — Quick wins visuales (alto impacto, bajo esfuerzo):**
-1. Métricas animadas en hero
-2. Mostrar `result_metric` en cards
-3. Stack tecnológico (marquee de logos)
-4. Filtros por categoría
-5. CTA WhatsApp flotante
-
-**Fase 2 — Prueba social y confianza:**
-6. Testimonios con video/foto
-7. Antes vs Después en proyectos estrella
-8. Industrias que servimos
-9. Proceso de trabajo
-
-**Fase 3 — Profundidad y SEO:**
-10. Páginas dedicadas `/portafolio/:slug`
-11. FAQ específica del portafolio
-12. Premios/certificaciones
+### 10. Tracking de conversión
+Añadir eventos básicos (sin librería externa, solo `console` + `dataLayer` ready) para poder medir después con GA4/Meta Pixel:
+- `lead_magnet_submit`, `qualifier_started`, `qualifier_completed`, `lead_form_submit`, `whatsapp_click`, `exit_intent_shown`.
 
 ## Detalles técnicos
 
-- **Counters animados**: `framer-motion` con `useInView` + `animate` (ya tienes la librería).
-- **Filtros**: `useState` con array filtrado, sin nuevas deps.
-- **Antes/Después**: componente `react-compare-slider` o tarjetas duales con Tailwind grid.
-- **Marquee de stack**: ya tienes `TechMarquee.tsx` — se puede adaptar.
-- **Páginas dinámicas**: añadir columna `slug` en `portfolio_projects` + ruta `/portafolio/:slug` en `App.tsx`.
-- **Testimonios**: nueva tabla `testimonials` (name, role, company, quote, photo_url, video_url, project_id) con RLS pública para SELECT.
-- **CTA flotante**: componente `FloatingWhatsApp` con `position:fixed` y aparición tras scroll de 600px.
+- **Nuevos componentes**: `PortfolioConversionHero.tsx`, `UrgencyBar.tsx`, `LeadMagnetCard.tsx`, `LeadQualifier.tsx`, `InlineCTA.tsx`, `ExitIntentModal.tsx`, `WhatsAppBubble.tsx` (mejora de `FloatingWhatsApp`).
+- **Nueva página**: `src/pages/Gracias.tsx` + ruta en `App.tsx`.
+- **Esquema DB**: añadir columnas opcionales a `leads`: `industry`, `company_size`, `urgency`, `source` (string nullable, sin breaking changes). Migración simple.
+- **Validación**: zod en todos los forms (ya patrón establecido en `LeadForm`).
+- **Animaciones**: `framer-motion` ya disponible.
+- **Sin nuevas dependencias**.
+- **Accesibilidad**: focus trap en modales, aria-labels, escape key.
 
-## Pregunta antes de implementar
+## Orden de implementación sugerido (1 sola pasada)
 
-¿Por dónde quieres empezar? Te recomiendo **Fase 1 completa en una sola pasada** porque transforma el look & feel inmediatamente sin cambiar la estructura de datos. Confírmame cuál fase (o qué items específicos) quieres y arrancamos.
+1. Migración DB (añadir columnas a `leads`).
+2. `UrgencyBar` + nuevo `PortfolioConversionHero` con `LeadMagnetCard`.
+3. `LeadQualifier` wizard insertado tras `ImpactMetrics`.
+4. `InlineCTA` × 3 entre secciones.
+5. `ExitIntentModal` global.
+6. Mejora `FloatingWhatsApp` con bubble.
+7. Página `/gracias` + redirección.
+8. Tracking de eventos.
+
+## Pregunta antes de arrancar
+
+¿Quieres que aplique **TODO el paquete completo** (mayor impacto, ~8 componentes nuevos) o prefieres empezar por los **3 cambios de mayor ROI** (Hero conversión + Lead Qualifier + Exit Intent)? Yo recomiendo el paquete completo porque cada pieza refuerza a la siguiente y el efecto compuesto es lo que hace que la conversión salte de ~1% a ~5-8%.
 
