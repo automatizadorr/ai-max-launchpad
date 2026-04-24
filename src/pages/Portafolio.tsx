@@ -471,14 +471,43 @@ const Portafolio = () => {
         {/* Antes vs Después */}
         <BeforeAfter />
 
+        {/* Inline CTA tras BeforeAfter */}
+        <InlineCTA
+          variant="primary"
+          location="after_before_after"
+          title="¿Quieres resultados así en tu negocio?"
+          description="Agenda un diagnóstico gratuito y diseñamos tu plan en 24h."
+          ctaLabel="Agendar diagnóstico"
+          targetId="qualifier"
+        />
+
         {/* Industrias */}
         <Industries />
+
+        {/* Inline CTA tras Industries */}
+        <InlineCTA
+          variant="soft"
+          location="after_industries"
+          title="¿Tu industria está aquí? Cuéntanos tu caso."
+          description="Adaptamos cualquier solución a tu sector específico."
+          ctaLabel="Hablemos de tu caso"
+          targetId="contacto"
+        />
 
         {/* Proceso de trabajo */}
         <ProcessTimeline />
 
         {/* Testimonios */}
         <PortfolioTestimonials />
+
+        {/* Inline CTA WhatsApp tras testimonios */}
+        <InlineCTA
+          variant="whatsapp"
+          location="after_testimonials"
+          title="Únete a +30 empresas que ya automatizan con IA"
+          description="Conversa directo con nuestro equipo por WhatsApp."
+          ctaLabel="Escribir por WhatsApp"
+        />
 
         {/* Certificaciones / Partners */}
         <PortfolioCertifications />
