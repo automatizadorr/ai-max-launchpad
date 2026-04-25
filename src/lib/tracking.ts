@@ -2,7 +2,7 @@
 // Hooks into window.dataLayer (GA4 / GTM ready) and logs in dev for visibility.
 // Add real GA4 / Meta Pixel later without changing call sites.
 
-type EventName =
+export type EventName =
   | "lead_magnet_submit"
   | "qualifier_started"
   | "qualifier_step"
