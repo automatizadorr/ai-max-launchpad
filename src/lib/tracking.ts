@@ -21,7 +21,7 @@ declare global {
   }
 }
 
-export const trackEvent = (event: EventName, payload: Record<string, unknown> = {}) => {
+export const trackEvent = (event: EventName | (string & {}), payload: Record<string, unknown> = {}) => {
   try {
     if (typeof window === "undefined") return;
     window.dataLayer = window.dataLayer || [];
