@@ -26,6 +26,7 @@ const LeadForm = () => {
     pain_point: "",
   });
   const [customPain, setCustomPain] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState(false);
   
 
   // Listen for prefill events (e.g. from use-case modal CTA)
@@ -132,48 +133,7 @@ const LeadForm = () => {
             className="glass rounded-3xl p-6 md:p-8 space-y-4 shadow-glow"
             aria-label="Formulario de solicitud de presupuesto"
           >
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-white/80 mb-2">
-                Nombre completo
-              </label>
-              <input
-                id="name"
-                type="text"
-                required
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                placeholder="Juan Pérez"
-                className={inputCls}
-              />
-            </div>
-            <div>
-              <label htmlFor="company" className="block text-sm font-medium text-white/80 mb-2">
-                Empresa
-              </label>
-              <input
-                id="company"
-                type="text"
-                value={form.company}
-                onChange={(e) => setForm({ ...form, company: e.target.value })}
-                placeholder="Mi Empresa SpA"
-                className={inputCls}
-              />
-            </div>
             <div className="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-white/80 mb-2">
-                  WhatsApp
-                </label>
-                <input
-                  id="phone"
-                  type="tel"
-                  required
-                  value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  placeholder="+56 9 1234 5678"
-                  className={inputCls}
-                />
-              </div>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-white/80 mb-2">
                   Correo
@@ -184,31 +144,89 @@ const LeadForm = () => {
                   required
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  onFocus={() => setExpanded(true)}
                   placeholder="contacto@empresa.cl"
                   className={inputCls}
                 />
               </div>
+              <div>
+                <label htmlFor="phone" className="block text-sm font-medium text-white/80 mb-2">
+                  WhatsApp
+                </label>
+                <input
+                  id="phone"
+                  type="tel"
+                  required
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  onFocus={() => setExpanded(true)}
+                  placeholder="+56 9 1234 5678"
+                  className={inputCls}
+                />
+              </div>
             </div>
-            <div>
-              <label htmlFor="pain_point" className="block text-sm font-medium text-white/80 mb-2">
-                ¿Qué desea automatizar?
-              </label>
-              <select
-                id="pain_point"
-                required
-                value={form.pain_point}
-                onChange={(e) => setForm({ ...form, pain_point: e.target.value })}
-                className={`${inputCls} appearance-none cursor-pointer`}
-              >
-                <option value="" disabled className="text-foreground">Selecciona una opción</option>
-                {customPain && !["Ventas", "Operaciones", "Atención al Cliente"].includes(customPain) && (
-                  <option value={customPain} className="text-foreground">{customPain}</option>
-                )}
-                <option value="Ventas" className="text-foreground">Ventas</option>
-                <option value="Operaciones" className="text-foreground">Operaciones</option>
-                <option value="Atención al Cliente" className="text-foreground">Atención al Cliente</option>
-              </select>
-            </div>
+
+            <motion.div
+              initial={false}
+              animate={{
+                height: expanded || customPain ? "auto" : 0,
+                opacity: expanded || customPain ? 1 : 0,
+              }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="overflow-hidden space-y-4"
+              aria-hidden={!(expanded || customPain)}
+            >
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-white/80 mb-2">
+                  Nombre completo
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  required
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  placeholder="Juan Pérez"
+                  className={inputCls}
+                  tabIndex={expanded || customPain ? 0 : -1}
+                />
+              </div>
+              <div>
+                <label htmlFor="company" className="block text-sm font-medium text-white/80 mb-2">
+                  Empresa
+                </label>
+                <input
+                  id="company"
+                  type="text"
+                  value={form.company}
+                  onChange={(e) => setForm({ ...form, company: e.target.value })}
+                  placeholder="Mi Empresa SpA"
+                  className={inputCls}
+                  tabIndex={expanded || customPain ? 0 : -1}
+                />
+              </div>
+              <div>
+                <label htmlFor="pain_point" className="block text-sm font-medium text-white/80 mb-2">
+                  ¿Qué desea automatizar?
+                </label>
+                <select
+                  id="pain_point"
+                  required
+                  value={form.pain_point}
+                  onChange={(e) => setForm({ ...form, pain_point: e.target.value })}
+                  className={`${inputCls} appearance-none cursor-pointer`}
+                  tabIndex={expanded || customPain ? 0 : -1}
+                >
+                  <option value="" disabled className="text-foreground">Selecciona una opción</option>
+                  {customPain && !["Ventas", "Operaciones", "Atención al Cliente"].includes(customPain) && (
+                    <option value={customPain} className="text-foreground">{customPain}</option>
+                  )}
+                  <option value="Ventas" className="text-foreground">Ventas</option>
+                  <option value="Operaciones" className="text-foreground">Operaciones</option>
+                  <option value="Atención al Cliente" className="text-foreground">Atención al Cliente</option>
+                </select>
+              </div>
+            </motion.div>
 
             <button
               type="submit"

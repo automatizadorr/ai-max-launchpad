@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { CheckCircle2, Calendar, MessageCircle, ArrowLeft, Sparkles } from "lucide-react";
+import { CheckCircle2, Calendar, MessageCircle, ArrowLeft, Sparkles, Share2 } from "lucide-react";
+import { toast } from "sonner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -9,7 +10,23 @@ const WHATSAPP =
   "https://wa.me/56971806730?text=" +
   encodeURIComponent("Hola AI-MaX, acabo de enviar el formulario y quisiera agendar lo antes posible.");
 
-const Gracias = () => (
+const Gracias = () => {
+  const handleShare = async () => {
+    const url = "https://ai-max-intelligence.lovable.app";
+    const text = "Estoy automatizando mi negocio con AI-MaX 🚀";
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: "AI-MaX", text, url });
+      } else {
+        await navigator.clipboard.writeText(`${text} ${url}`);
+        toast.success("¡Link copiado al portapapeles!");
+      }
+    } catch {
+      /* user cancelled */
+    }
+  };
+
+  return (
   <div className="min-h-screen bg-background flex flex-col">
     <SEO
       title="¡Gracias! Te contactamos pronto | AI-MaX"
@@ -71,6 +88,15 @@ const Gracias = () => (
             </Link>
           </div>
 
+          <button
+            type="button"
+            onClick={handleShare}
+            className="mt-4 inline-flex items-center gap-2 text-white/70 hover:text-white text-sm transition-colors"
+          >
+            <Share2 className="w-4 h-4" />
+            Compartir AI-MaX con un colega
+          </button>
+
           <div className="mt-10 grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
             {[
               { icon: Calendar, t: "Agendamos sesión", d: "30 min sin costo" },
@@ -92,6 +118,7 @@ const Gracias = () => (
     </main>
     <Footer />
   </div>
-);
+  );
+};
 
 export default Gracias;
