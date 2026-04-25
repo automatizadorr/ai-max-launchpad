@@ -6,6 +6,7 @@ import PortfolioSection from "@/components/PortfolioSection";
 import TechMarquee from "@/components/TechMarquee";
 import Testimonials from "@/components/Testimonials";
 import LeadForm from "@/components/LeadForm";
+import LocalSEO from "@/components/LocalSEO";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -19,6 +20,7 @@ const Index = () => {
         <PortfolioSection />
         <Testimonials />
         <TechMarquee />
+        <LocalSEO />
         <LeadForm />
       </main>
       <Footer />
