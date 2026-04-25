@@ -120,7 +120,7 @@ const LocalSEO = () => {
             </a>
             <a
               href="/contacto"
-              onClick={() => trackEvent("local_booking_click", { source: "local_seo" })}
+              onClick={() => trackEvent("inline_cta_click", { source: "local_seo", variant: "booking" })}
               aria-label="Reservar cita gratuita con AI-MaX"
               className="group inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground px-7 py-4 rounded-full text-base font-semibold shadow-card transition-all duration-300 hover:scale-[1.03]"
             >
