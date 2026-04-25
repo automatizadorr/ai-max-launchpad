@@ -2,7 +2,7 @@
 // Hooks into window.dataLayer (GA4 / GTM ready) and logs in dev for visibility.
 // Add real GA4 / Meta Pixel later without changing call sites.
 
-type EventName =
+export type EventName =
   | "lead_magnet_submit"
   | "qualifier_started"
   | "qualifier_step"
@@ -21,7 +21,7 @@ declare global {
   }
 }
 
-export const trackEvent = (event: EventName, payload: Record<string, unknown> = {}) => {
+export const trackEvent = (event: EventName | (string & {}), payload: Record<string, unknown> = {}) => {
   try {
     if (typeof window === "undefined") return;
     window.dataLayer = window.dataLayer || [];
