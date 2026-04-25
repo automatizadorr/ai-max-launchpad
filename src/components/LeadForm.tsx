@@ -26,6 +26,7 @@ const LeadForm = () => {
     pain_point: "",
   });
   const [customPain, setCustomPain] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState(false);
   
 
   // Listen for prefill events (e.g. from use-case modal CTA)
