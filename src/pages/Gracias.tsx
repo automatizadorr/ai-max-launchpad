@@ -10,7 +10,23 @@ const WHATSAPP =
   "https://wa.me/56971806730?text=" +
   encodeURIComponent("Hola AI-MaX, acabo de enviar el formulario y quisiera agendar lo antes posible.");
 
-const Gracias = () => (
+const Gracias = () => {
+  const handleShare = async () => {
+    const url = "https://ai-max-intelligence.lovable.app";
+    const text = "Estoy automatizando mi negocio con AI-MaX 🚀";
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: "AI-MaX", text, url });
+      } else {
+        await navigator.clipboard.writeText(`${text} ${url}`);
+        toast.success("¡Link copiado al portapapeles!");
+      }
+    } catch {
+      /* user cancelled */
+    }
+  };
+
+  return (
   <div className="min-h-screen bg-background flex flex-col">
     <SEO
       title="¡Gracias! Te contactamos pronto | AI-MaX"
