@@ -11,7 +11,9 @@ type EventName =
   | "whatsapp_click"
   | "exit_intent_shown"
   | "inline_cta_click"
-  | "urgency_bar_click";
+  | "urgency_bar_click"
+  | "local_whatsapp_click"
+  | "local_booking_click";
 
 declare global {
   interface Window {
