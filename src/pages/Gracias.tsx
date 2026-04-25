@@ -88,6 +88,15 @@ const Gracias = () => {
             </Link>
           </div>
 
+          <button
+            type="button"
+            onClick={handleShare}
+            className="mt-4 inline-flex items-center gap-2 text-white/70 hover:text-white text-sm transition-colors"
+          >
+            <Share2 className="w-4 h-4" />
+            Compartir AI-MaX con un colega
+          </button>
+
           <div className="mt-10 grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
             {[
               { icon: Calendar, t: "Agendamos sesión", d: "30 min sin costo" },
@@ -109,6 +118,7 @@ const Gracias = () => {
     </main>
     <Footer />
   </div>
-);
+  );
+};
 
 export default Gracias;
