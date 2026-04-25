@@ -111,7 +111,7 @@ const LocalSEO = () => {
               href="https://wa.me/56971806730?text=Hola%20AI-MaX%2C%20soy%20de%20La%20Serena%20y%20quiero%20automatizar%20mi%20empresa"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackEvent("local_whatsapp_click", { source: "local_seo" })}
+              onClick={() => trackEvent("whatsapp_click", { source: "local_seo", variant: "local" })}
               aria-label="Llamar por WhatsApp a AI-MaX La Serena"
               className="group inline-flex items-center gap-2 bg-action hover:bg-action-glow text-action-foreground px-7 py-4 rounded-full text-base font-semibold shadow-action transition-all duration-300 hover:scale-[1.03]"
             >
@@ -120,7 +120,7 @@ const LocalSEO = () => {
             </a>
             <a
               href="/contacto"
-              onClick={() => trackEvent("local_booking_click", { source: "local_seo" })}
+              onClick={() => trackEvent("inline_cta_click", { source: "local_seo", variant: "booking" })}
               aria-label="Reservar cita gratuita con AI-MaX"
               className="group inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground px-7 py-4 rounded-full text-base font-semibold shadow-card transition-all duration-300 hover:scale-[1.03]"
             >
