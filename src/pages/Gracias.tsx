@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { CheckCircle2, Calendar, MessageCircle, ArrowLeft, Sparkles } from "lucide-react";
+import { CheckCircle2, Calendar, MessageCircle, ArrowLeft, Sparkles, Share2 } from "lucide-react";
+import { toast } from "sonner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
