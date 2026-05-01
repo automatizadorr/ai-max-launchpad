@@ -90,7 +90,7 @@ const PortfolioShowcase = () => {
           </div>
         ) : (
           <>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
               {projects.map((p, i) => (
                 <motion.button
                   key={p.id}
@@ -103,7 +103,7 @@ const PortfolioShowcase = () => {
                   className="group relative block text-left rounded-2xl overflow-hidden bg-card border border-border shadow-card hover:shadow-elegant transition-all duration-500 hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-primary"
                   aria-label={`Ver detalles de ${p.title}`}
                 >
-                  <div className="relative aspect-[16/10] overflow-hidden bg-muted">
+                  <div className="relative aspect-[4/3] sm:aspect-[16/10] overflow-hidden bg-muted">
                     <img
                       src={p.image_url}
                       alt={p.title}
