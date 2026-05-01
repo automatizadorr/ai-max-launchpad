@@ -90,7 +90,7 @@ const PortfolioShowcase = () => {
           </div>
         ) : (
           <>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
               {projects.map((p, i) => (
                 <motion.button
                   key={p.id}
