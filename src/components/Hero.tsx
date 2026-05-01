@@ -48,7 +48,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display font-black text-white text-[2rem] sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] sm:leading-[1.05] max-w-5xl mx-auto break-words hyphens-auto"
+          className="font-display font-black text-white text-[clamp(1.75rem,8vw,2.5rem)] sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] sm:leading-[1.05] max-w-5xl mx-auto break-words hyphens-auto [text-wrap:balance]"
         >
           Transformamos tu Empresa con{" "}
           <span className="text-gradient-primary">Inteligencia Artificial</span>{" "}
