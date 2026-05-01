@@ -80,7 +80,12 @@ const LeadForm = () => {
   };
 
   const inputCls =
-    "w-full bg-white/10 backdrop-blur-md border border-white/20 text-white placeholder:text-white/50 rounded-xl px-4 py-3.5 focus:outline-none focus:border-white/60 focus:ring-2 focus:ring-white/20 transition-all";
+    "w-full bg-white/10 backdrop-blur-md border border-white/20 text-white placeholder:text-white/50 rounded-xl px-4 py-3.5 focus:outline-none focus:border-action focus-visible:ring-2 focus-visible:ring-action/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent transition-all";
+
+  const expandAndSet = (key: keyof typeof form, value: string) => {
+    if (!expanded) setExpanded(true);
+    setForm((f) => ({ ...f, [key]: value }));
+  };
 
   return (
     <section id="contacto" className="py-24 md:py-32 bg-gradient-hero relative overflow-hidden" aria-labelledby="form-heading">
