@@ -190,7 +190,8 @@ const LeadForm = () => {
                   type="text"
                   required
                   value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  onChange={(e) => expandAndSet("name", e.target.value)}
+                  onFocus={() => setExpanded(true)}
                   placeholder="Juan Pérez"
                   className={inputCls}
                   tabIndex={expanded || customPain ? 0 : -1}
@@ -204,7 +205,8 @@ const LeadForm = () => {
                   id="company"
                   type="text"
                   value={form.company}
-                  onChange={(e) => setForm({ ...form, company: e.target.value })}
+                  onChange={(e) => expandAndSet("company", e.target.value)}
+                  onFocus={() => setExpanded(true)}
                   placeholder="Mi Empresa SpA"
                   className={inputCls}
                   tabIndex={expanded || customPain ? 0 : -1}
@@ -218,7 +220,8 @@ const LeadForm = () => {
                   id="pain_point"
                   required
                   value={form.pain_point}
-                  onChange={(e) => setForm({ ...form, pain_point: e.target.value })}
+                  onChange={(e) => expandAndSet("pain_point", e.target.value)}
+                  onFocus={() => setExpanded(true)}
                   className={`${inputCls} appearance-none cursor-pointer`}
                   tabIndex={expanded || customPain ? 0 : -1}
                 >
