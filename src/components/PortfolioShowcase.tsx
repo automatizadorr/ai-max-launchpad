@@ -206,13 +206,18 @@ const PortfolioShowcase = () => {
               </div>
 
               {/* Contenido: scrollable */}
-              <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-5 sm:p-6 md:p-8 lg:h-full">
+              <div
+                className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-5 sm:p-6 md:p-8 lg:h-full"
+                role="region"
+                aria-label="Detalles del proyecto"
+                tabIndex={0}
+              >
                 <DialogHeader className="text-left space-y-2 mb-5">
-                  <DialogTitle className="font-display font-black text-2xl md:text-3xl text-foreground leading-tight">
+                  <DialogTitle id="project-modal-title" className="font-display font-black text-2xl md:text-3xl text-foreground leading-tight">
                     {selected.title}
                   </DialogTitle>
                   {selected.description && (
-                    <DialogDescription className="text-base text-muted-foreground leading-relaxed">
+                    <DialogDescription id="project-modal-description" className="text-base text-muted-foreground leading-relaxed">
                       {selected.description}
                     </DialogDescription>
                   )}
@@ -267,7 +272,13 @@ const PortfolioShowcase = () => {
 
                 <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-border">
                   <Button asChild size="lg" className="flex-1">
-                    <a href={selected.project_url} target="_blank" rel="noopener noreferrer">
+                    <a
+                      ref={initialFocusRef}
+                      href={selected.project_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Visitar proyecto ${selected.title} (se abre en una nueva pestaña)`}
+                    >
                       Visitar proyecto
                       <ExternalLink className="w-4 h-4 ml-2" />
                     </a>
