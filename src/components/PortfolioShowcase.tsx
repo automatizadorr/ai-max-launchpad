@@ -155,13 +155,13 @@ const PortfolioShowcase = () => {
 
       {/* Detail Modal */}
       <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
-        <DialogContent className="max-w-6xl w-[95vw] max-h-[92vh] p-0 overflow-hidden gap-0">
+        <DialogContent className="max-w-6xl w-[96vw] sm:w-[95vw] h-[92vh] sm:h-[90vh] max-h-[92dvh] sm:max-h-[90dvh] p-0 overflow-hidden gap-0">
           {selected && (
-            <div className="flex flex-col lg:flex-row max-h-[92vh] lg:h-[85vh]">
+            <div className="flex flex-col lg:flex-row h-full min-h-0">
               {/* Media: arriba en mobile/tablet, izquierda en desktop */}
-              <div className="relative bg-dark shrink-0 lg:w-[52%] lg:h-full">
+              <div className="relative bg-dark shrink-0 lg:w-[52%] lg:h-full h-[26vh] sm:h-[32vh] md:h-[36vh] lg:h-auto">
                 {embed ? (
-                  <div className="relative w-full bg-black aspect-video lg:aspect-auto lg:h-full">
+                  <div className="relative w-full bg-black h-full lg:aspect-auto">
                     {embed.type === "iframe" ? (
                       <iframe
                         src={embed.src}
@@ -180,7 +180,7 @@ const PortfolioShowcase = () => {
                     )}
                   </div>
                 ) : (
-                  <div className="relative w-full overflow-hidden h-[28vh] sm:h-[34vh] md:h-[38vh] lg:h-full">
+                  <div className="relative w-full h-full overflow-hidden">
                     <img src={selected.image_url} alt={selected.title} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-dark/40" />
                   </div>
@@ -193,7 +193,7 @@ const PortfolioShowcase = () => {
               </div>
 
               {/* Contenido: scrollable */}
-              <div className="overflow-y-auto p-5 sm:p-6 md:p-8 lg:flex-1 lg:h-full">
+              <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-5 sm:p-6 md:p-8 lg:h-full">
                 <DialogHeader className="text-left space-y-2 mb-5">
                   <DialogTitle className="font-display font-black text-2xl md:text-3xl text-foreground leading-tight">
                     {selected.title}
