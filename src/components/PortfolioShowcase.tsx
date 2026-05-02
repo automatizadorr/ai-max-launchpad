@@ -158,9 +158,9 @@ const PortfolioShowcase = () => {
         <DialogContent className="max-w-4xl w-[95vw] max-h-[92vh] p-0 overflow-hidden gap-0">
           {selected && (
             <div className="flex flex-col max-h-[92vh]">
-              <div className="relative bg-dark shrink-0">
+              <div className="relative bg-dark shrink-0 max-h-[40vh] sm:max-h-[45vh] md:max-h-[50vh] overflow-hidden">
                 {embed ? (
-                  <div className="relative aspect-video w-full bg-black">
+                  <div className="relative aspect-video w-full bg-black max-h-[40vh] sm:max-h-[45vh] md:max-h-[50vh] mx-auto">
                     {embed.type === "iframe" ? (
                       <iframe
                         src={embed.src}
@@ -179,7 +179,7 @@ const PortfolioShowcase = () => {
                     )}
                   </div>
                 ) : (
-                  <div className="relative aspect-[16/9] w-full overflow-hidden">
+                  <div className="relative w-full overflow-hidden h-[32vh] sm:h-[38vh] md:h-[42vh]">
                     <img src={selected.image_url} alt={selected.title} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/30 to-transparent" />
                   </div>
