@@ -123,16 +123,16 @@ const PortfolioShowcase = () => {
                       </div>
                     )}
                   </div>
-                  <div className="p-6">
-                    <h3 className="font-display font-black text-lg md:text-xl text-foreground leading-tight mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                  <div className="p-5 sm:p-5 md:p-6 lg:p-7">
+                    <h3 className="font-display font-black text-base sm:text-lg lg:text-xl text-foreground leading-snug mb-2 group-hover:text-primary transition-colors line-clamp-2">
                       {p.title}
                     </h3>
                     {p.description && (
-                      <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">
+                      <p className="text-muted-foreground text-[13px] sm:text-sm lg:text-[15px] leading-relaxed line-clamp-3">
                         {p.description}
                       </p>
                     )}
-                    <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-action">
+                    <div className="mt-4 lg:mt-5 inline-flex items-center gap-2 text-sm font-semibold text-action">
                       Ver detalles
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </div>
