@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ExternalLink, Loader2, Play, User, TrendingUp, X, ArrowRight } from "lucide-react";
@@ -41,6 +41,7 @@ const PortfolioShowcase = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Project | null>(null);
+  const initialFocusRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -155,11 +156,23 @@ const PortfolioShowcase = () => {
 
       {/* Detail Modal */}
       <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
-        <DialogContent className="max-w-6xl w-[96vw] sm:w-[95vw] h-[92vh] sm:h-[90vh] max-h-[92dvh] sm:max-h-[90dvh] p-0 overflow-hidden gap-0">
+        <DialogContent
+          className="max-w-6xl w-[96vw] sm:w-[95vw] h-[92vh] sm:h-[90vh] max-h-[92dvh] sm:max-h-[90dvh] p-0 overflow-hidden gap-0"
+          aria-labelledby="project-modal-title"
+          aria-describedby={selected?.description ? "project-modal-description" : undefined}
+          onOpenAutoFocus={(e) => {
+            e.preventDefault();
+            initialFocusRef.current?.focus();
+          }}
+        >
           {selected && (
             <div className="flex flex-col lg:flex-row h-full min-h-0">
               {/* Media: arriba en mobile/tablet, izquierda en desktop */}
-              <div className="relative bg-dark shrink-0 lg:w-[52%] lg:h-full h-[26vh] sm:h-[32vh] md:h-[36vh] lg:h-auto">
+              <div
+                role="img"
+                aria-label={`Vista previa de ${selected.title}`}
+                className="relative bg-dark shrink-0 lg:w-[52%] lg:h-full h-[26vh] sm:h-[32vh] md:h-[36vh] lg:h-auto"
+              >
                 {embed ? (
                   <div className="relative w-full bg-black h-full lg:aspect-auto">
                     {embed.type === "iframe" ? (
