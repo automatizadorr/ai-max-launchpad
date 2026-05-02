@@ -155,12 +155,13 @@ const PortfolioShowcase = () => {
 
       {/* Detail Modal */}
       <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
-        <DialogContent className="max-w-4xl w-[95vw] max-h-[92vh] p-0 overflow-hidden gap-0">
+        <DialogContent className="max-w-6xl w-[95vw] max-h-[92vh] p-0 overflow-hidden gap-0">
           {selected && (
-            <div className="flex flex-col max-h-[92vh]">
-              <div className="relative bg-dark shrink-0 max-h-[40vh] sm:max-h-[45vh] md:max-h-[50vh] overflow-hidden">
+            <div className="flex flex-col lg:flex-row max-h-[92vh] lg:h-[85vh]">
+              {/* Media: arriba en mobile/tablet, izquierda en desktop */}
+              <div className="relative bg-dark shrink-0 lg:w-[52%] lg:h-full">
                 {embed ? (
-                  <div className="relative aspect-video w-full bg-black max-h-[40vh] sm:max-h-[45vh] md:max-h-[50vh] mx-auto">
+                  <div className="relative w-full bg-black aspect-video lg:aspect-auto lg:h-full">
                     {embed.type === "iframe" ? (
                       <iframe
                         src={embed.src}
@@ -179,9 +180,9 @@ const PortfolioShowcase = () => {
                     )}
                   </div>
                 ) : (
-                  <div className="relative w-full overflow-hidden h-[32vh] sm:h-[38vh] md:h-[42vh]">
+                  <div className="relative w-full overflow-hidden h-[28vh] sm:h-[34vh] md:h-[38vh] lg:h-full">
                     <img src={selected.image_url} alt={selected.title} className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/30 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-dark/40" />
                   </div>
                 )}
                 {selected.category && (
@@ -191,7 +192,8 @@ const PortfolioShowcase = () => {
                 )}
               </div>
 
-              <div className="overflow-y-auto p-6 md:p-8">
+              {/* Contenido: scrollable */}
+              <div className="overflow-y-auto p-5 sm:p-6 md:p-8 lg:flex-1 lg:h-full">
                 <DialogHeader className="text-left space-y-2 mb-5">
                   <DialogTitle className="font-display font-black text-2xl md:text-3xl text-foreground leading-tight">
                     {selected.title}
