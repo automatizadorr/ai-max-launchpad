@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ExternalLink, Loader2, Play, User, TrendingUp, X, ArrowRight } from "lucide-react";
@@ -41,6 +41,7 @@ const PortfolioShowcase = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Project | null>(null);
+  const initialFocusRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -155,11 +156,23 @@ const PortfolioShowcase = () => {
 
       {/* Detail Modal */}
       <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
-        <DialogContent className="max-w-6xl w-[96vw] sm:w-[95vw] h-[92vh] sm:h-[90vh] max-h-[92dvh] sm:max-h-[90dvh] p-0 overflow-hidden gap-0">
+        <DialogContent
+          className="max-w-6xl w-[96vw] sm:w-[95vw] h-[92vh] sm:h-[90vh] max-h-[92dvh] sm:max-h-[90dvh] p-0 overflow-hidden gap-0"
+          aria-labelledby="project-modal-title"
+          aria-describedby={selected?.description ? "project-modal-description" : undefined}
+          onOpenAutoFocus={(e) => {
+            e.preventDefault();
+            initialFocusRef.current?.focus();
+          }}
+        >
           {selected && (
             <div className="flex flex-col lg:flex-row h-full min-h-0">
               {/* Media: arriba en mobile/tablet, izquierda en desktop */}
-              <div className="relative bg-dark shrink-0 lg:w-[52%] lg:h-full h-[26vh] sm:h-[32vh] md:h-[36vh] lg:h-auto">
+              <div
+                role="img"
+                aria-label={`Vista previa de ${selected.title}`}
+                className="relative bg-dark shrink-0 lg:w-[52%] lg:h-full h-[26vh] sm:h-[32vh] md:h-[36vh] lg:h-auto"
+              >
                 {embed ? (
                   <div className="relative w-full bg-black h-full lg:aspect-auto">
                     {embed.type === "iframe" ? (
@@ -193,13 +206,18 @@ const PortfolioShowcase = () => {
               </div>
 
               {/* Contenido: scrollable */}
-              <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-5 sm:p-6 md:p-8 lg:h-full">
+              <div
+                className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-5 sm:p-6 md:p-8 lg:h-full"
+                role="region"
+                aria-label="Detalles del proyecto"
+                tabIndex={0}
+              >
                 <DialogHeader className="text-left space-y-2 mb-5">
-                  <DialogTitle className="font-display font-black text-2xl md:text-3xl text-foreground leading-tight">
+                  <DialogTitle id="project-modal-title" className="font-display font-black text-2xl md:text-3xl text-foreground leading-tight">
                     {selected.title}
                   </DialogTitle>
                   {selected.description && (
-                    <DialogDescription className="text-base text-muted-foreground leading-relaxed">
+                    <DialogDescription id="project-modal-description" className="text-base text-muted-foreground leading-relaxed">
                       {selected.description}
                     </DialogDescription>
                   )}
@@ -254,13 +272,19 @@ const PortfolioShowcase = () => {
 
                 <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-border">
                   <Button asChild size="lg" className="flex-1">
-                    <a href={selected.project_url} target="_blank" rel="noopener noreferrer">
+                    <a
+                      ref={initialFocusRef}
+                      href={selected.project_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Visitar proyecto ${selected.title} (se abre en una nueva pestaña)`}
+                    >
                       Visitar proyecto
                       <ExternalLink className="w-4 h-4 ml-2" />
                     </a>
                   </Button>
-                  <Button variant="outline" size="lg" onClick={() => setSelected(null)}>
-                    <X className="w-4 h-4 mr-2" />
+                  <Button variant="outline" size="lg" onClick={() => setSelected(null)} aria-label="Cerrar ventana de detalles del proyecto">
+                    <X className="w-4 h-4 mr-2" aria-hidden="true" />
                     Cerrar
                   </Button>
                 </div>
