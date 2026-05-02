@@ -283,8 +283,8 @@ const PortfolioShowcase = () => {
                       <ExternalLink className="w-4 h-4 ml-2" />
                     </a>
                   </Button>
-                  <Button variant="outline" size="lg" onClick={() => setSelected(null)}>
-                    <X className="w-4 h-4 mr-2" />
+                  <Button variant="outline" size="lg" onClick={() => setSelected(null)} aria-label="Cerrar ventana de detalles del proyecto">
+                    <X className="w-4 h-4 mr-2" aria-hidden="true" />
                     Cerrar
                   </Button>
                 </div>
