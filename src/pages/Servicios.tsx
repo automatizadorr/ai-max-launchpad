@@ -14,8 +14,8 @@ const Servicios = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Servicios de IA y Automatización | AI-MaX"
-        description="Agentes conversacionales, asistentes de voz IA y automatización de flujos de trabajo (n8n) para empresas en Chile y Latinoamérica."
+        title="Servicios IA: Agentes, Voz y n8n 24/7 | AI-MaX"
+        description="Implementamos agentes conversacionales, asistentes de voz IA y automatizaciones n8n integradas a tu CRM. Operativos en 4-6 semanas. Chile y LATAM."
         path="/servicios"
         ogImage="/og-servicios.png"
       />
