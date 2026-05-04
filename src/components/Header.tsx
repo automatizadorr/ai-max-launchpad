@@ -95,15 +95,7 @@ const Header = () => {
           )}
         </Link>
 
-        <ul className="hidden md:flex items-center gap-8">
-          {navLinks.map((l) => (
-            <li key={l.href}>
-              <Link
-                to={l.href}
-                className={`text-sm font-medium transition-colors hover:text-action ${
-                  scrolled ? "text-foreground" : "text-white/80"
-                }`}
-              >
+
 
         <ul className="hidden md:flex items-center gap-8">
           {navLinks.map((l) => (
