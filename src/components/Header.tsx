@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import logo from "@/assets/ai-max-logo.png";
@@ -8,13 +8,24 @@ const WHATSAPP = "https://wa.me/56971806730";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     onScroll();
     window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    const mq = window.matchMedia("(max-width: 767px)");
+    const onMq = () => setIsMobile(mq.matches);
+    onMq();
+    mq.addEventListener("change", onMq);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      mq.removeEventListener("change", onMq);
+    };
   }, []);
+
+  const calmMotion = reduceMotion || isMobile;
 
   const navLinks = [
     { href: "/servicios", label: "Servicios" },
