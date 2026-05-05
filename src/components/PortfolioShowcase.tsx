@@ -39,6 +39,7 @@ const getEmbedUrl = (url: string): { type: "iframe" | "video"; src: string } | n
 };
 
 const RankBadge = ({ rank }: { rank: number }) => {
+  const idx = rank - 1;
   const config = [
     {
       label: "1° Lugar",
