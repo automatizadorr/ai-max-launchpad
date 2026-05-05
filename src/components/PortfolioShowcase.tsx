@@ -94,7 +94,7 @@ const RankBadge = ({ rank }: { rank: number }) => {
           />
           <Icon className={`w-6 h-6 ${icon} drop-shadow-sm relative z-10`} strokeWidth={2.4} />
           <span className={`absolute bottom-1 text-[8px] font-black ${text} tracking-wider z-10`}>
-            #{rank + 1}
+            #{rank}
           </span>
         </div>
       </div>
