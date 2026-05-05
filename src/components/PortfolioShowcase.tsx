@@ -68,7 +68,7 @@ const RankBadge = ({ rank }: { rank: number }) => {
       icon: "text-[#4A2308]",
       text: "text-[#3A1B05]",
     },
-  ][rank];
+  ][idx];
 
   if (!config) return null;
   const { label, Icon, ring, core, shadow, icon, text } = config;
