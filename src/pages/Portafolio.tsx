@@ -42,6 +42,7 @@ interface Project {
   client_name: string | null;
   result_metric: string | null;
   tags: string[] | null;
+  rank: number | null;
 }
 
 // Convierte URLs de YouTube/Vimeo/Instagram a formato embed
