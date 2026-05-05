@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ExternalLink, Loader2, Play, User, TrendingUp, X, ArrowRight, Trophy, Medal, Award } from "lucide-react";
+import { ExternalLink, Loader2, Play, User, TrendingUp, X, ArrowRight } from "lucide-react";
+import RankBadge from "@/components/RankBadge";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
