@@ -54,6 +54,7 @@ const projectSchema = z.object({
   result_metric: z.string().trim().max(120).optional().or(z.literal("")),
   tags: z.array(z.string().trim().max(40)).max(10).optional(),
   display_order: z.number().int().min(0).max(9999),
+  rank: z.number().int().min(1).max(3).nullable(),
 });
 
 const emptyForm = {
