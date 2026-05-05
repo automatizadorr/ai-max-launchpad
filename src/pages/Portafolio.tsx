@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import RankBadge from "@/components/RankBadge";
 
 interface Project {
   id: string;
