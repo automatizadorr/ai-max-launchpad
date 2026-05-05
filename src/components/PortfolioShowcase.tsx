@@ -25,6 +25,7 @@ interface Project {
   client_name: string | null;
   result_metric: string | null;
   tags: string[] | null;
+  rank: number | null;
 }
 
 const getEmbedUrl = (url: string): { type: "iframe" | "video"; src: string } | null => {
