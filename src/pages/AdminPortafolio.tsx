@@ -223,6 +223,7 @@ const AdminPortafolio = () => {
       result_metric: p.result_metric || "",
       tags: p.tags || [],
       display_order: p.display_order,
+      rank: p.rank,
     });
     setDialogOpen(true);
   };
