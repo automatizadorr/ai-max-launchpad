@@ -16,44 +16,53 @@ const AnimatedLogo = ({ scrolled }: AnimatedLogoProps) => {
   const ringRef = useRef<HTMLSpanElement>(null);
   const sheenRef = useRef<HTMLSpanElement>(null);
 
-  // Reduced motion / mobile detection
-  const isCalm =
+  // Detect environment: reduced motion vs mobile (fine-pointer absent)
+  const reduceMotion =
     typeof window !== "undefined" &&
-    (window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-      window.matchMedia("(max-width: 767px)").matches);
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const isMobile =
+    typeof window !== "undefined" &&
+    (window.matchMedia("(max-width: 767px)").matches ||
+      window.matchMedia("(hover: none), (pointer: coarse)").matches);
 
   useGSAP(
     () => {
       if (!imgRef.current) return;
 
-      // Cinematic intro timeline
+      // Cinematic intro timeline (always plays, lighter when reduced)
       const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
       intro
         .from(imgRef.current, {
           opacity: 0,
-          scale: 0.7,
-          rotateY: -45,
-          filter: "blur(14px) brightness(1.6)",
-          duration: 1.1,
+          scale: reduceMotion ? 0.95 : 0.7,
+          rotateY: reduceMotion ? 0 : -45,
+          filter: reduceMotion
+            ? "blur(4px) brightness(1.1)"
+            : "blur(14px) brightness(1.6)",
+          duration: reduceMotion ? 0.6 : 1.1,
         })
         .from(
           haloRef.current,
-          { opacity: 0, scale: 0.4, duration: 1, ease: "power2.out" },
-          "-=0.8"
+          { opacity: 0, scale: 0.6, duration: 0.8, ease: "power2.out" },
+          "-=0.6"
         )
         .from(
           ringRef.current,
-          { opacity: 0, scale: 0.6, duration: 0.9 },
-          "-=0.7"
+          { opacity: 0, scale: 0.7, duration: 0.7 },
+          "-=0.5"
         );
 
-      if (isCalm) return;
+      // Hard stop only if user explicitly requested reduced motion
+      if (reduceMotion) return;
+
+      // Intensity factor: mobile gets lighter ambient motion
+      const k = isMobile ? 0.45 : 1;
 
       // Continuous breathing on the halo (depth pulsing)
       gsap.to(haloRef.current, {
-        scale: 1.18,
-        opacity: 0.95,
-        duration: 2.6,
+        scale: 1 + 0.18 * k,
+        opacity: 0.6 + 0.35 * k,
+        duration: isMobile ? 3.4 : 2.6,
         ease: "sine.inOut",
         yoyo: true,
         repeat: -1,
@@ -62,34 +71,50 @@ const AnimatedLogo = ({ scrolled }: AnimatedLogoProps) => {
       // Slow rotation of the conic ring
       gsap.to(ringRef.current, {
         rotation: 360,
-        duration: 22,
+        duration: isMobile ? 32 : 22,
         ease: "none",
         repeat: -1,
         transformOrigin: "50% 50%",
       });
 
-      // Subtle floating
+      // Subtle floating (works on mobile too — no pointer needed)
       gsap.to(imgRef.current, {
-        y: -4,
-        duration: 3.4,
+        y: -4 * k - 1,
+        duration: isMobile ? 4.2 : 3.4,
         ease: "sine.inOut",
         yoyo: true,
         repeat: -1,
       });
 
       // Periodic sheen sweep across the logo
-      const sheenTl = gsap.timeline({ repeat: -1, repeatDelay: 3.5 });
+      const sheenTl = gsap.timeline({
+        repeat: -1,
+        repeatDelay: isMobile ? 6 : 3.5,
+      });
       sheenTl
         .set(sheenRef.current, { xPercent: -160, opacity: 0 })
-        .to(sheenRef.current, { opacity: 1, duration: 0.2 })
+        .to(sheenRef.current, { opacity: isMobile ? 0.6 : 1, duration: 0.2 })
         .to(sheenRef.current, {
           xPercent: 260,
-          duration: 1.4,
+          duration: isMobile ? 1.8 : 1.4,
           ease: "power2.inOut",
         })
         .to(sheenRef.current, { opacity: 0, duration: 0.25 }, "-=0.3");
 
-      // 3D magnetic tilt on pointer move
+      // Mobile: gentle auto-tilt instead of pointer tilt (no dizziness)
+      if (isMobile) {
+        gsap.to(imgRef.current, {
+          rotationY: 6,
+          rotationX: -3,
+          duration: 5,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+        });
+        return;
+      }
+
+      // Desktop: 3D magnetic tilt on pointer move
       const el = containerRef.current!;
       const qX = gsap.quickTo(imgRef.current, "rotationY", {
         duration: 0.6,
