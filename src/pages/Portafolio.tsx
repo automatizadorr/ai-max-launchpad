@@ -186,6 +186,7 @@ const Portafolio = () => {
                   >
                     {/* Image */}
                     <div className="relative aspect-[16/10] overflow-hidden bg-muted">
+                      {p.rank && p.rank >= 1 && p.rank <= 3 && <RankBadge rank={p.rank} />}
                       <img
                         src={p.image_url}
                         alt={p.title}
