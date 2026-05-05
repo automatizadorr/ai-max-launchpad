@@ -112,7 +112,8 @@ const PortfolioShowcase = () => {
     const fetchProjects = async () => {
       const { data, error } = await supabase
         .from("portfolio_projects")
-        .select("id, title, description, long_description, project_url, image_url, video_url, category, client_name, result_metric, tags")
+        .select("id, title, description, long_description, project_url, image_url, video_url, category, client_name, result_metric, tags, rank")
+        .order("rank", { ascending: true, nullsFirst: false })
         .order("display_order", { ascending: true })
         .limit(6);
 
