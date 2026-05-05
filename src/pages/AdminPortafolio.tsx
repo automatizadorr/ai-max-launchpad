@@ -248,6 +248,7 @@ const AdminPortafolio = () => {
       result_metric: parsed.data.result_metric || null,
       tags: parsed.data.tags || [],
       display_order: parsed.data.display_order,
+      rank: parsed.data.rank,
     };
 
     const { error } = editing
