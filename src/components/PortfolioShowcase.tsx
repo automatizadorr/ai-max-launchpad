@@ -171,7 +171,7 @@ const PortfolioShowcase = () => {
                   aria-label={`Ver detalles de ${p.title}`}
                 >
                   <div className="relative aspect-[4/3] sm:aspect-[16/10] overflow-hidden bg-muted">
-                    <RankBadge rank={i} />
+                    {p.rank && p.rank >= 1 && p.rank <= 3 && <RankBadge rank={p.rank} />}
                     <img
                       src={p.image_url}
                       alt={p.title}
