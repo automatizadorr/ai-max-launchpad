@@ -39,6 +39,7 @@ interface Project {
   result_metric: string | null;
   tags: string[] | null;
   display_order: number;
+  rank: number | null;
 }
 
 const projectSchema = z.object({
