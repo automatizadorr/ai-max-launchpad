@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ExternalLink, Loader2, Play, User, TrendingUp, X, ArrowRight, Trophy, Medal, Award } from "lucide-react";
+import { ExternalLink, Loader2, Play, User, TrendingUp, X, ArrowRight } from "lucide-react";
+import RankBadge from "@/components/RankBadge";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
@@ -25,6 +26,7 @@ interface Project {
   client_name: string | null;
   result_metric: string | null;
   tags: string[] | null;
+  rank: number | null;
 }
 
 const getEmbedUrl = (url: string): { type: "iframe" | "video"; src: string } | null => {
@@ -37,68 +39,6 @@ const getEmbedUrl = (url: string): { type: "iframe" | "video"; src: string } | n
   return { type: "iframe", src: url };
 };
 
-const RankBadge = ({ rank }: { rank: number }) => {
-  const config = [
-    {
-      label: "1° Lugar",
-      Icon: Trophy,
-      ring: "from-[#FFE27A] via-[#F5B301] to-[#9C6B00]",
-      core: "from-[#FFF4B8] via-[#FFD24A] to-[#B8860B]",
-      shadow: "shadow-[0_8px_28px_-6px_rgba(245,179,1,0.7)]",
-      icon: "text-[#7A4F00]",
-      text: "text-[#5C3A00]",
-    },
-    {
-      label: "2° Lugar",
-      Icon: Medal,
-      ring: "from-[#F5F7FA] via-[#C0C5CC] to-[#6E7681]",
-      core: "from-[#FAFBFC] via-[#D7DBE0] to-[#8A9099]",
-      shadow: "shadow-[0_8px_28px_-6px_rgba(160,170,180,0.65)]",
-      icon: "text-[#3F4A55]",
-      text: "text-[#2E3640]",
-    },
-    {
-      label: "3° Lugar",
-      Icon: Award,
-      ring: "from-[#F2B98A] via-[#C97B3B] to-[#7A3F12]",
-      core: "from-[#F8D2AC] via-[#D88A4C] to-[#8A4717]",
-      shadow: "shadow-[0_8px_28px_-6px_rgba(201,123,59,0.65)]",
-      icon: "text-[#4A2308]",
-      text: "text-[#3A1B05]",
-    },
-  ][rank];
-
-  if (!config) return null;
-  const { label, Icon, ring, core, shadow, icon, text } = config;
-
-  return (
-    <div className={`absolute top-3 right-3 z-20 ${shadow}`} aria-label={label}>
-      <div className={`relative w-14 h-14 rounded-full bg-gradient-to-br ${ring} p-[2px]`}>
-        {/* notched/medallion ring with serrated edge */}
-        <div
-          className={`relative w-full h-full rounded-full bg-gradient-to-br ${core} flex items-center justify-center overflow-hidden`}
-          style={{
-            backgroundImage: `radial-gradient(circle at 30% 25%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 40%), var(--tw-gradient-stops, none)`,
-          }}
-        >
-          <div
-            className="absolute inset-0 rounded-full opacity-60"
-            style={{
-              background:
-                "repeating-conic-gradient(from 0deg, rgba(0,0,0,0.18) 0deg 6deg, transparent 6deg 18deg)",
-              maskImage: "radial-gradient(circle, transparent 58%, black 60%, black 100%)",
-              WebkitMaskImage: "radial-gradient(circle, transparent 58%, black 60%, black 100%)",
-            }}
-          />
-          <Icon className={`w-6 h-6 ${icon} drop-shadow-sm relative z-10`} strokeWidth={2.4} />
-          <span className={`absolute bottom-1 text-[8px] font-black ${text} tracking-wider z-10`}>
-            #{rank + 1}
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const PortfolioShowcase = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -110,7 +50,8 @@ const PortfolioShowcase = () => {
     const fetchProjects = async () => {
       const { data, error } = await supabase
         .from("portfolio_projects")
-        .select("id, title, description, long_description, project_url, image_url, video_url, category, client_name, result_metric, tags")
+        .select("id, title, description, long_description, project_url, image_url, video_url, category, client_name, result_metric, tags, rank")
+        .order("rank", { ascending: true, nullsFirst: false })
         .order("display_order", { ascending: true })
         .limit(6);
 
@@ -168,7 +109,7 @@ const PortfolioShowcase = () => {
                   aria-label={`Ver detalles de ${p.title}`}
                 >
                   <div className="relative aspect-[4/3] sm:aspect-[16/10] overflow-hidden bg-muted">
-                    <RankBadge rank={i} />
+                    {p.rank && p.rank >= 1 && p.rank <= 3 && <RankBadge rank={p.rank} />}
                     <img
                       src={p.image_url}
                       alt={p.title}
