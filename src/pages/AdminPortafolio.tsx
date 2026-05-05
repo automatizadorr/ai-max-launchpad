@@ -69,6 +69,7 @@ const emptyForm = {
   result_metric: "",
   tags: [] as string[],
   display_order: 0,
+  rank: null as number | null,
 };
 
 const AdminPortafolio = () => {
