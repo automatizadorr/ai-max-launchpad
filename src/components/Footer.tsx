@@ -72,20 +72,20 @@ const Footer = () => {
         </div>
 
         <div className="mt-14 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+          <a
+            href="/auth"
+            className="text-white/30 hover:text-white/60 text-xs flex items-center gap-1 transition-colors order-first"
+            aria-label="Acceso administrador"
+          >
+            <Lock className="w-3 h-3" aria-hidden="true" />
+            Admin
+          </a>
           <p className="text-white/50 text-xs">
             © {new Date().getFullYear()} AI-MaX. Todos los derechos reservados.
           </p>
           <p className="text-white/40 text-xs">
             Construido con Inteligencia Artificial · Chile · Latinoamérica
           </p>
-          <a
-            href="/auth"
-            className="text-white/30 hover:text-white/60 text-xs flex items-center gap-1 transition-colors"
-            aria-label="Acceso administrador"
-          >
-            <Lock className="w-3 h-3" aria-hidden="true" />
-            Admin
-          </a>
         </div>
       </div>
     </footer>
