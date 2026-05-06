@@ -10,6 +10,7 @@ import CasosExito from "./pages/CasosExito.tsx";
 import Contacto from "./pages/Contacto.tsx";
 import Portafolio from "./pages/Portafolio.tsx";
 import Auth from "./pages/Auth.tsx";
+import ResetPassword from "./pages/ResetPassword.tsx";
 import AdminPortafolio from "./pages/AdminPortafolio.tsx";
 import Gracias from "./pages/Gracias.tsx";
 import NotFound from "./pages/NotFound.tsx";
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/portafolio" element={<Portafolio />} />
             <Route path="/gracias" element={<Gracias />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/admin/portafolio" element={<AdminPortafolio />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
