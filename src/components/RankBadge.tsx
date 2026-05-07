@@ -85,8 +85,8 @@ const RankBadge = ({ rank, size = "md" }: { rank: number; size?: "sm" | "md" }) 
             #{rank}
           </span>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
