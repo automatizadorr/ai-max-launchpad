@@ -1,4 +1,5 @@
 import { Trophy, Medal, Award } from "lucide-react";
+import { motion } from "framer-motion";
 
 const CONFIGS = [
   {
@@ -37,10 +38,34 @@ const RankBadge = ({ rank, size = "md" }: { rank: number; size?: "sm" | "md" }) 
   const dim = size === "sm" ? "w-12 h-12" : "w-14 h-14";
   const iconSize = size === "sm" ? "w-5 h-5" : "w-6 h-6";
 
+  const delay = 0.15 + (rank - 1) * 0.12;
+
   return (
-    <div className={`absolute top-3 right-3 z-20 ${shadow}`} aria-label={label}>
-      <div className={`relative ${dim} rounded-full bg-gradient-to-br ${ring} p-[2px]`}>
+    <motion.div
+      initial={{ opacity: 0, y: -16, scale: 0.6, rotate: -12 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ delay, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ scale: 1.08, rotate: 4, transition: { duration: 0.3 } }}
+      className={`absolute top-3 right-3 z-20 ${shadow}`}
+      aria-label={label}
+    >
+      <motion.div
+        className={`relative ${dim} rounded-full bg-gradient-to-br ${ring} p-[2px]`}
+        animate={{ y: [0, -3, 0] }}
+        transition={{ delay: delay + 0.7, duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+      >
         <div className={`relative w-full h-full rounded-full bg-gradient-to-br ${core} flex items-center justify-center overflow-hidden`}>
+          <motion.div
+            className="absolute inset-0 rounded-full"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: [0, 0.9, 0] }}
+            viewport={{ once: true }}
+            transition={{ delay: delay + 0.3, duration: 1.2, ease: "easeOut" }}
+            style={{
+              background: "linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.85) 50%, transparent 65%)",
+            }}
+          />
           <div
             className="absolute inset-0 rounded-full opacity-60"
             style={{
