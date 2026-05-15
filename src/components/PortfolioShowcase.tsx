@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ExternalLink, Loader2, Play, User, TrendingUp, X, ArrowRight } from "lucide-react";
-import RankBadge from "@/components/RankBadge";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
@@ -26,7 +25,6 @@ interface Project {
   client_name: string | null;
   result_metric: string | null;
   tags: string[] | null;
-  rank: number | null;
 }
 
 const getEmbedUrl = (url: string): { type: "iframe" | "video"; src: string } | null => {
@@ -39,19 +37,16 @@ const getEmbedUrl = (url: string): { type: "iframe" | "video"; src: string } | n
   return { type: "iframe", src: url };
 };
 
-
 const PortfolioShowcase = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Project | null>(null);
-  const initialFocusRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const fetchProjects = async () => {
       const { data, error } = await supabase
         .from("portfolio_projects")
-        .select("id, title, description, long_description, project_url, image_url, video_url, category, client_name, result_metric, tags, rank")
-        .order("rank", { ascending: true, nullsFirst: false })
+        .select("id, title, description, long_description, project_url, image_url, video_url, category, client_name, result_metric, tags")
         .order("display_order", { ascending: true })
         .limit(6);
 
@@ -109,7 +104,6 @@ const PortfolioShowcase = () => {
                   aria-label={`Ver detalles de ${p.title}`}
                 >
                   <div className="relative aspect-[4/3] sm:aspect-[16/10] overflow-hidden bg-muted">
-                    {p.rank && p.rank >= 1 && p.rank <= 3 && <RankBadge rank={p.rank} />}
                     <img
                       src={p.image_url}
                       alt={p.title}
@@ -161,25 +155,12 @@ const PortfolioShowcase = () => {
 
       {/* Detail Modal */}
       <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
-        <DialogContent
-          className="max-w-6xl w-[96vw] sm:w-[95vw] h-[92vh] sm:h-[90vh] max-h-[92dvh] sm:max-h-[90dvh] p-0 overflow-hidden gap-0"
-          aria-labelledby="project-modal-title"
-          aria-describedby={selected?.description ? "project-modal-description" : undefined}
-          onOpenAutoFocus={(e) => {
-            e.preventDefault();
-            initialFocusRef.current?.focus();
-          }}
-        >
+        <DialogContent className="max-w-4xl w-[95vw] max-h-[92vh] p-0 overflow-hidden gap-0">
           {selected && (
-            <div className="flex flex-col lg:flex-row h-full min-h-0">
-              {/* Media: arriba en mobile/tablet, izquierda en desktop */}
-              <div
-                role="img"
-                aria-label={`Vista previa de ${selected.title}`}
-                className="relative bg-dark shrink-0 lg:w-[52%] lg:h-full h-[26vh] sm:h-[32vh] md:h-[36vh] lg:h-auto"
-              >
+            <div className="flex flex-col max-h-[92vh]">
+              <div className="relative bg-dark shrink-0">
                 {embed ? (
-                  <div className="relative w-full bg-black h-full lg:aspect-auto">
+                  <div className="relative aspect-video w-full bg-black">
                     {embed.type === "iframe" ? (
                       <iframe
                         src={embed.src}
@@ -198,9 +179,9 @@ const PortfolioShowcase = () => {
                     )}
                   </div>
                 ) : (
-                  <div className="relative w-full h-full overflow-hidden">
+                  <div className="relative aspect-[16/9] w-full overflow-hidden">
                     <img src={selected.image_url} alt={selected.title} className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-dark/40" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/30 to-transparent" />
                   </div>
                 )}
                 {selected.category && (
@@ -210,19 +191,13 @@ const PortfolioShowcase = () => {
                 )}
               </div>
 
-              {/* Contenido: scrollable */}
-              <div
-                className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-5 sm:p-6 md:p-8 lg:h-full"
-                role="region"
-                aria-label="Detalles del proyecto"
-                tabIndex={0}
-              >
+              <div className="overflow-y-auto p-6 md:p-8">
                 <DialogHeader className="text-left space-y-2 mb-5">
-                  <DialogTitle id="project-modal-title" className="font-display font-black text-2xl md:text-3xl text-foreground leading-tight">
+                  <DialogTitle className="font-display font-black text-2xl md:text-3xl text-foreground leading-tight">
                     {selected.title}
                   </DialogTitle>
                   {selected.description && (
-                    <DialogDescription id="project-modal-description" className="text-base text-muted-foreground leading-relaxed">
+                    <DialogDescription className="text-base text-muted-foreground leading-relaxed">
                       {selected.description}
                     </DialogDescription>
                   )}
@@ -277,19 +252,13 @@ const PortfolioShowcase = () => {
 
                 <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-border">
                   <Button asChild size="lg" className="flex-1">
-                    <a
-                      ref={initialFocusRef}
-                      href={selected.project_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Visitar proyecto ${selected.title} (se abre en una nueva pestaña)`}
-                    >
+                    <a href={selected.project_url} target="_blank" rel="noopener noreferrer">
                       Visitar proyecto
                       <ExternalLink className="w-4 h-4 ml-2" />
                     </a>
                   </Button>
-                  <Button variant="outline" size="lg" onClick={() => setSelected(null)} aria-label="Cerrar ventana de detalles del proyecto">
-                    <X className="w-4 h-4 mr-2" aria-hidden="true" />
+                  <Button variant="outline" size="lg" onClick={() => setSelected(null)}>
+                    <X className="w-4 h-4 mr-2" />
                     Cerrar
                   </Button>
                 </div>

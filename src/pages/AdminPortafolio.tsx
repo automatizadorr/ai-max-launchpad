@@ -39,7 +39,6 @@ interface Project {
   result_metric: string | null;
   tags: string[] | null;
   display_order: number;
-  rank: number | null;
 }
 
 const projectSchema = z.object({
@@ -54,7 +53,6 @@ const projectSchema = z.object({
   result_metric: z.string().trim().max(120).optional().or(z.literal("")),
   tags: z.array(z.string().trim().max(40)).max(10).optional(),
   display_order: z.number().int().min(0).max(9999),
-  rank: z.number().int().min(1).max(3).nullable(),
 });
 
 const emptyForm = {
@@ -69,7 +67,6 @@ const emptyForm = {
   result_metric: "",
   tags: [] as string[],
   display_order: 0,
-  rank: null as number | null,
 };
 
 const AdminPortafolio = () => {
@@ -223,7 +220,6 @@ const AdminPortafolio = () => {
       result_metric: p.result_metric || "",
       tags: p.tags || [],
       display_order: p.display_order,
-      rank: p.rank,
     });
     setDialogOpen(true);
   };
@@ -248,7 +244,6 @@ const AdminPortafolio = () => {
       result_metric: parsed.data.result_metric || null,
       tags: parsed.data.tags || [],
       display_order: parsed.data.display_order,
-      rank: parsed.data.rank,
     };
 
     const { error } = editing
@@ -635,24 +630,6 @@ const AdminPortafolio = () => {
                 value={form.display_order}
                 onChange={(e) => setForm({ ...form, display_order: parseInt(e.target.value) || 0 })}
               />
-            </div>
-
-            <div>
-              <Label htmlFor="rank">Ranking destacado (insignia dorada)</Label>
-              <select
-                id="rank"
-                value={form.rank ?? ""}
-                onChange={(e) => setForm({ ...form, rank: e.target.value ? parseInt(e.target.value) : null })}
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                <option value="">Sin ranking</option>
-                <option value="1">🥇 1° Lugar (Oro)</option>
-                <option value="2">🥈 2° Lugar (Plata)</option>
-                <option value="3">🥉 3° Lugar (Bronce)</option>
-              </select>
-              <p className="text-[11px] text-muted-foreground mt-1">
-                Solo un proyecto puede ocupar cada posición. Los rankings se muestran en las tarjetas del portafolio.
-              </p>
             </div>
 
             <DialogFooter className="flex-col-reverse sm:flex-row gap-2 sm:gap-0 pt-4 border-t border-border -mx-5 sm:-mx-6 px-5 sm:px-6 sticky bottom-0 bg-background">

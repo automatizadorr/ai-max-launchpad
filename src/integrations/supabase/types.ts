@@ -67,7 +67,6 @@ export type Database = {
           image_url: string
           long_description: string | null
           project_url: string
-          rank: number | null
           result_metric: string | null
           tags: string[] | null
           title: string
@@ -84,7 +83,6 @@ export type Database = {
           image_url: string
           long_description?: string | null
           project_url: string
-          rank?: number | null
           result_metric?: string | null
           tags?: string[] | null
           title: string
@@ -101,7 +99,6 @@ export type Database = {
           image_url?: string
           long_description?: string | null
           project_url?: string
-          rank?: number | null
           result_metric?: string | null
           tags?: string[] | null
           title?: string

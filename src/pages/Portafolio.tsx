@@ -29,7 +29,6 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import RankBadge from "@/components/RankBadge";
 
 interface Project {
   id: string;
@@ -43,7 +42,6 @@ interface Project {
   client_name: string | null;
   result_metric: string | null;
   tags: string[] | null;
-  rank: number | null;
 }
 
 // Convierte URLs de YouTube/Vimeo/Instagram a formato embed
@@ -92,8 +90,7 @@ const Portafolio = () => {
     const fetchProjects = async () => {
       const { data, error } = await supabase
         .from("portfolio_projects")
-        .select("id, title, description, long_description, project_url, image_url, video_url, category, client_name, result_metric, tags, rank")
-        .order("rank", { ascending: true, nullsFirst: false })
+        .select("id, title, description, long_description, project_url, image_url, video_url, category, client_name, result_metric, tags")
         .order("display_order", { ascending: true });
 
       if (!error && data) setProjects(data as Project[]);
@@ -186,7 +183,6 @@ const Portafolio = () => {
                   >
                     {/* Image */}
                     <div className="relative aspect-[16/10] overflow-hidden bg-muted">
-                      {p.rank && p.rank >= 1 && p.rank <= 3 && <RankBadge rank={p.rank} />}
                       <img
                         src={p.image_url}
                         alt={p.title}
