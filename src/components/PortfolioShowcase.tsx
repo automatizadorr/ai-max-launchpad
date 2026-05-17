@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ExternalLink, Loader2, Play, User, TrendingUp, X, ArrowRight } from "lucide-react";
+import RankBadge from "@/components/RankBadge";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
@@ -25,6 +26,7 @@ interface Project {
   client_name: string | null;
   result_metric: string | null;
   tags: string[] | null;
+  rank: number | null;
 }
 
 const getEmbedUrl = (url: string): { type: "iframe" | "video"; src: string } | null => {
@@ -37,16 +39,19 @@ const getEmbedUrl = (url: string): { type: "iframe" | "video"; src: string } | n
   return { type: "iframe", src: url };
 };
 
+
 const PortfolioShowcase = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Project | null>(null);
+  const initialFocusRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const fetchProjects = async () => {
       const { data, error } = await supabase
         .from("portfolio_projects")
-        .select("id, title, description, long_description, project_url, image_url, video_url, category, client_name, result_metric, tags")
+        .select("id, title, description, long_description, project_url, image_url, video_url, category, client_name, result_metric, tags, rank")
+        .order("rank", { ascending: true, nullsFirst: false })
         .order("display_order", { ascending: true })
         .limit(6);
 
@@ -104,6 +109,7 @@ const PortfolioShowcase = () => {
                   aria-label={`Ver detalles de ${p.title}`}
                 >
                   <div className="relative aspect-[4/3] sm:aspect-[16/10] overflow-hidden bg-muted">
+                    {p.rank && p.rank >= 1 && p.rank <= 3 && <RankBadge rank={p.rank} />}
                     <img
                       src={p.image_url}
                       alt={p.title}
@@ -123,16 +129,16 @@ const PortfolioShowcase = () => {
                       </div>
                     )}
                   </div>
-                  <div className="p-6">
-                    <h3 className="font-display font-black text-lg md:text-xl text-foreground leading-tight mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                  <div className="p-5 sm:p-5 md:p-6 lg:p-7">
+                    <h3 className="font-display font-black text-base sm:text-lg lg:text-xl text-foreground leading-snug mb-2 group-hover:text-primary transition-colors line-clamp-2">
                       {p.title}
                     </h3>
                     {p.description && (
-                      <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">
+                      <p className="text-muted-foreground text-[13px] sm:text-sm lg:text-[15px] leading-relaxed line-clamp-3">
                         {p.description}
                       </p>
                     )}
-                    <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-action">
+                    <div className="mt-4 lg:mt-5 inline-flex items-center gap-2 text-sm font-semibold text-action">
                       Ver detalles
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </div>
@@ -155,12 +161,25 @@ const PortfolioShowcase = () => {
 
       {/* Detail Modal */}
       <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
-        <DialogContent className="max-w-4xl w-[95vw] max-h-[92vh] p-0 overflow-hidden gap-0">
+        <DialogContent
+          className="max-w-6xl w-[96vw] sm:w-[95vw] h-[92vh] sm:h-[90vh] max-h-[92dvh] sm:max-h-[90dvh] p-0 overflow-hidden gap-0"
+          aria-labelledby="project-modal-title"
+          aria-describedby={selected?.description ? "project-modal-description" : undefined}
+          onOpenAutoFocus={(e) => {
+            e.preventDefault();
+            initialFocusRef.current?.focus();
+          }}
+        >
           {selected && (
-            <div className="flex flex-col max-h-[92vh]">
-              <div className="relative bg-dark shrink-0">
+            <div className="flex flex-col lg:flex-row h-full min-h-0">
+              {/* Media: arriba en mobile/tablet, izquierda en desktop */}
+              <div
+                role="img"
+                aria-label={`Vista previa de ${selected.title}`}
+                className="relative bg-dark shrink-0 lg:w-[52%] lg:h-full h-[26vh] sm:h-[32vh] md:h-[36vh] lg:h-auto"
+              >
                 {embed ? (
-                  <div className="relative aspect-video w-full bg-black">
+                  <div className="relative w-full bg-black h-full lg:aspect-auto">
                     {embed.type === "iframe" ? (
                       <iframe
                         src={embed.src}
@@ -179,9 +198,9 @@ const PortfolioShowcase = () => {
                     )}
                   </div>
                 ) : (
-                  <div className="relative aspect-[16/9] w-full overflow-hidden">
+                  <div className="relative w-full h-full overflow-hidden">
                     <img src={selected.image_url} alt={selected.title} className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/30 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-dark/40" />
                   </div>
                 )}
                 {selected.category && (
@@ -191,13 +210,19 @@ const PortfolioShowcase = () => {
                 )}
               </div>
 
-              <div className="overflow-y-auto p-6 md:p-8">
+              {/* Contenido: scrollable */}
+              <div
+                className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-5 sm:p-6 md:p-8 lg:h-full"
+                role="region"
+                aria-label="Detalles del proyecto"
+                tabIndex={0}
+              >
                 <DialogHeader className="text-left space-y-2 mb-5">
-                  <DialogTitle className="font-display font-black text-2xl md:text-3xl text-foreground leading-tight">
+                  <DialogTitle id="project-modal-title" className="font-display font-black text-2xl md:text-3xl text-foreground leading-tight">
                     {selected.title}
                   </DialogTitle>
                   {selected.description && (
-                    <DialogDescription className="text-base text-muted-foreground leading-relaxed">
+                    <DialogDescription id="project-modal-description" className="text-base text-muted-foreground leading-relaxed">
                       {selected.description}
                     </DialogDescription>
                   )}
@@ -252,13 +277,19 @@ const PortfolioShowcase = () => {
 
                 <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-border">
                   <Button asChild size="lg" className="flex-1">
-                    <a href={selected.project_url} target="_blank" rel="noopener noreferrer">
+                    <a
+                      ref={initialFocusRef}
+                      href={selected.project_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Visitar proyecto ${selected.title} (se abre en una nueva pestaña)`}
+                    >
                       Visitar proyecto
                       <ExternalLink className="w-4 h-4 ml-2" />
                     </a>
                   </Button>
-                  <Button variant="outline" size="lg" onClick={() => setSelected(null)}>
-                    <X className="w-4 h-4 mr-2" />
+                  <Button variant="outline" size="lg" onClick={() => setSelected(null)} aria-label="Cerrar ventana de detalles del proyecto">
+                    <X className="w-4 h-4 mr-2" aria-hidden="true" />
                     Cerrar
                   </Button>
                 </div>

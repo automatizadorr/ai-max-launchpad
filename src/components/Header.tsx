@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
-import logo from "@/assets/ai-max-logo.png";
+import AnimatedLogo from "@/components/AnimatedLogo";
 
 const WHATSAPP = "https://wa.me/56971806730";
 
@@ -34,13 +34,16 @@ const Header = () => {
           : "bg-transparent"
       }`}
     >
-      <nav className="container mx-auto flex items-center justify-between h-20 md:h-28" aria-label="Navegación principal">
-        <Link to="/" aria-label="Ir al inicio AI-MaX" className="flex items-center">
-          <img
-            src={logo}
-            alt="AI-MaX — Automatización Inteligente para Empresas"
-            className={`w-auto transition-all duration-500 ${scrolled ? "h-14 md:h-16" : "h-16 md:h-20"} ${scrolled ? "" : "drop-shadow-[0_2px_16px_rgba(0,0,0,0.5)]"}`}
-          />
+      <nav
+        className="container mx-auto flex items-center justify-between h-24 md:h-36"
+        aria-label="Navegación principal"
+      >
+        <Link
+          to="/"
+          aria-label="Ir al inicio AI-MaX"
+          className="flex items-center"
+        >
+          <AnimatedLogo scrolled={scrolled} />
         </Link>
 
         <ul className="hidden md:flex items-center gap-8">
