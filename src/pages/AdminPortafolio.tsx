@@ -691,7 +691,30 @@ const AdminPortafolio = () => {
             </div>
 
             <div>
-              <Label htmlFor="tags-input">Etiquetas / Tecnologías</Label>
+              <div className="flex items-center justify-between mb-1">
+                <Label htmlFor="tags-input">Etiquetas / Tecnologías</Label>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  className="h-7 px-2 text-xs text-primary hover:text-primary"
+                  onClick={() => {
+                    const suggested = generateHormoziTags(form);
+                    const merged = [...form.tags];
+                    for (const t of suggested) {
+                      if (merged.length >= 10) break;
+                      if (!merged.some((m) => m.toLowerCase() === t.toLowerCase())) merged.push(t);
+                    }
+                    setForm({ ...form, tags: merged });
+                    toast.success("Etiquetas generadas estilo Hormozi");
+                  }}
+                  disabled={!form.title.trim()}
+                  title={!form.title.trim() ? "Añade primero un título" : "Generar etiquetas persuasivas"}
+                >
+                  <Sparkles className="w-3 h-3" />
+                  Sugerir estilo Hormozi
+                </Button>
+              </div>
               <div className="flex flex-wrap gap-1.5 mb-2 min-h-[28px]">
                 {form.tags.map((tag, i) => (
                   <span
