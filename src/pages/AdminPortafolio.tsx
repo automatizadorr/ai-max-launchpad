@@ -72,6 +72,88 @@ const emptyForm = {
   rank: null as number | null,
 };
 
+// Generador de copy persuasivo estilo Alex Hormozi (100% código, sin IA externa).
+// Combina hooks, problema, solución, mecanismo único, prueba, oferta y CTA
+// usando la información que el admin ya rellenó en las demás casillas.
+function generateHormoziCopy(form: {
+  title: string;
+  description: string;
+  project_url: string;
+  category: string;
+  client_name: string;
+  result_metric: string;
+  tags: string[];
+}): string {
+  const title = form.title.trim() || "este proyecto";
+  const category = form.category.trim().toLowerCase();
+  const client = form.client_name.trim();
+  const metric = form.result_metric.trim();
+  const desc = form.description.trim();
+  const tags = (form.tags || []).filter(Boolean);
+  const techLine = tags.length ? tags.slice(0, 6).join(" · ") : "";
+
+  const pick = <T,>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
+
+  // 1) HOOK — patrón Hormozi: contrarian / promesa / curiosidad
+  const hooks = [
+    `La mayoría intenta resolver ${category || "esto"} contratando más gente. Nosotros lo resolvimos con ${title} — y los números hablan solos.`,
+    `${client ? `${client} estaba` : "El cliente estaba"} quemando dinero en procesos manuales. En semanas le entregamos ${title} y dejó de perder ventas mientras dormía.`,
+    `Si crees que automatizar ${category || "tu negocio"} es caro, espera a calcular lo que te cuesta NO hacerlo. ${title} fue la prueba.`,
+    `${title}: el sistema que convierte el caos operativo de ${category || "un negocio real"} en una máquina que produce resultados 24/7.`,
+  ];
+
+  // 2) PROBLEMA — dolor concreto
+  const problems = [
+    `Antes del proyecto, ${client || "el cliente"} vivía atrapado en tareas repetitivas, leads sin responder y reportes que nadie leía. Cada hora perdida era dinero que se iba a la competencia.`,
+    `El reto era claro: demasiada operación manual, equipo saturado y procesos que no escalaban. Crecer significaba contratar más, no facturar más.`,
+    `${category ? `En ${category}, ` : ""}los márgenes se evaporan cuando el equipo apaga incendios en vez de cerrar ventas. Ese era exactamente el cuello de botella.`,
+  ];
+
+  // 3) SOLUCIÓN + MECANISMO ÚNICO
+  const solutionIntro = desc
+    ? `Construimos ${title} con un enfoque distinto: ${desc}`
+    : `Diseñamos ${title} como un sistema end-to-end pensado para eliminar fricción, no para sumar más herramientas.`;
+  const mechanism = techLine
+    ? `Bajo el capó combinamos ${techLine} para que cada pieza haga UNA cosa y la haga perfecta — automatización real, no parches.`
+    : `Cada componente fue diseñado para hacer UNA cosa y hacerla perfecta — automatización real, no parches.`;
+
+  // 4) RESULTADO — prueba dura
+  const proof = metric
+    ? `El resultado en números: ${metric}. Sin humo, sin "depende", sin meses de implementación interminable.`
+    : `El resultado: menos horas humanas, más conversiones y un equipo que por fin puede enfocarse en lo que mueve la aguja.`;
+
+  // 5) OFERTA / VALOR PARA EL LECTOR (cliente potencial mirando el portafolio)
+  const offers = [
+    `Si tu negocio se parece al de ${client || "este caso"}, podemos replicar el mismo sistema adaptado a tu operación — sin que tengas que entender una sola línea de código.`,
+    `Si ${category || "tu sector"} te suena familiar, este mismo motor se puede adaptar a tu empresa en cuestión de semanas, no de trimestres.`,
+    `Lo que hicimos aquí no es un experimento: es un playbook listo para replicarse en cualquier negocio con el mismo dolor.`,
+  ];
+
+  // 6) CTA suave
+  const ctas = [
+    `👉 Si quieres ver cómo se vería esto en TU negocio, agenda un diagnóstico gratuito${form.project_url ? ` o explora el caso en vivo: ${form.project_url}` : ""}.`,
+    `👉 Hablemos. En 20 minutos te decimos si esto encaja en tu operación o no — sin rodeos.`,
+    `👉 Reserva una llamada de diagnóstico. Si no vemos un ROI claro, te lo decimos de frente.`,
+  ];
+
+  const parts = [
+    pick(hooks),
+    "",
+    pick(problems),
+    "",
+    solutionIntro,
+    mechanism,
+    "",
+    proof,
+    "",
+    pick(offers),
+    "",
+    pick(ctas),
+  ];
+
+  return parts.join("\n").slice(0, 3000);
+}
+
 const AdminPortafolio = () => {
   const navigate = useNavigate();
   const { session, isAdmin, loading: authLoading } = useAdmin();
@@ -577,12 +659,30 @@ const AdminPortafolio = () => {
             </div>
 
             <div>
-              <Label htmlFor="long_description">Explicación detallada</Label>
+              <div className="flex items-center justify-between mb-1">
+                <Label htmlFor="long_description">Explicación detallada</Label>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  className="h-7 px-2 text-xs text-primary hover:text-primary"
+                  onClick={() => {
+                    const generated = generateHormoziCopy(form);
+                    setForm((f) => ({ ...f, long_description: generated }));
+                    toast.success("Copy generado al estilo Hormozi");
+                  }}
+                  disabled={!form.title.trim()}
+                  title={!form.title.trim() ? "Añade primero un título" : "Generar copy persuasivo"}
+                >
+                  <Sparkles className="w-3 h-3" />
+                  Redactar estilo Hormozi
+                </Button>
+              </div>
               <Textarea
                 id="long_description"
                 value={form.long_description}
                 onChange={(e) => setForm({ ...form, long_description: e.target.value })}
-                rows={5}
+                rows={8}
                 placeholder="Cuenta el desafío, la solución, tecnologías usadas y resultados. Soporta saltos de línea."
               />
               <p className="text-[11px] text-muted-foreground mt-1 text-right">
