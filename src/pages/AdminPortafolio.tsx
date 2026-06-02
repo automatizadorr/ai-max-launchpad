@@ -577,12 +577,30 @@ const AdminPortafolio = () => {
             </div>
 
             <div>
-              <Label htmlFor="long_description">Explicación detallada</Label>
+              <div className="flex items-center justify-between mb-1">
+                <Label htmlFor="long_description">Explicación detallada</Label>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  className="h-7 px-2 text-xs text-primary hover:text-primary"
+                  onClick={() => {
+                    const generated = generateHormoziCopy(form);
+                    setForm((f) => ({ ...f, long_description: generated }));
+                    toast.success("Copy generado al estilo Hormozi");
+                  }}
+                  disabled={!form.title.trim()}
+                  title={!form.title.trim() ? "Añade primero un título" : "Generar copy persuasivo"}
+                >
+                  <Sparkles className="w-3 h-3" />
+                  Redactar estilo Hormozi
+                </Button>
+              </div>
               <Textarea
                 id="long_description"
                 value={form.long_description}
                 onChange={(e) => setForm({ ...form, long_description: e.target.value })}
-                rows={5}
+                rows={8}
                 placeholder="Cuenta el desafío, la solución, tecnologías usadas y resultados. Soporta saltos de línea."
               />
               <p className="text-[11px] text-muted-foreground mt-1 text-right">
