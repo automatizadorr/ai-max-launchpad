@@ -154,6 +154,70 @@ function generateHormoziCopy(form: {
   return parts.join("\n").slice(0, 3000);
 }
 
+// Genera etiquetas/tecnologías persuasivas estilo Hormozi (beneficio + categoría + stack)
+// 100% código, personalizadas con el contenido de las otras casillas.
+function generateHormoziTags(form: {
+  title: string;
+  description: string;
+  long_description: string;
+  category: string;
+  client_name: string;
+  result_metric: string;
+}): string[] {
+  const haystack = [
+    form.title,
+    form.description,
+    form.long_description,
+    form.category,
+    form.client_name,
+    form.result_metric,
+  ]
+    .join(" ")
+    .toLowerCase();
+
+  const has = (...words: string[]) => words.some((w) => haystack.includes(w));
+
+  const tags = new Set<string>();
+
+  // Categoría como tag base (capitalizada)
+  if (form.category.trim()) {
+    tags.add(form.category.trim().replace(/\b\w/g, (c) => c.toUpperCase()));
+  }
+
+  // Stack técnico inferido por keywords
+  if (has("whatsapp", "wa.me", "wsp")) tags.add("WhatsApp");
+  if (has("n8n", "make", "zapier", "automatiz")) tags.add("Automatización");
+  if (has("openai", "gpt", "chatgpt", "llm", "ia ", " ai ", "inteligencia artificial")) tags.add("IA");
+  if (has("voz", "voice", "elevenlabs", "vapi", "retell", "llamada")) tags.add("Voz IA");
+  if (has("chatbot", "bot ", "asistente")) tags.add("Chatbot");
+  if (has("crm", "hubspot", "pipedrive", "salesforce")) tags.add("CRM");
+  if (has("supabase", "postgres", "base de datos", "database")) tags.add("Supabase");
+  if (has("react", "next", "vite", "web ", "landing", "sitio")) tags.add("Web");
+  if (has("api", "integraci", "webhook")) tags.add("Integración API");
+  if (has("ecommerce", "shopify", "tienda", "carrito")) tags.add("E-commerce");
+  if (has("inmobiliar", "propiedad", "real estate")) tags.add("Inmobiliaria");
+  if (has("salud", "clínica", "clinica", "médic", "medic", "paciente")) tags.add("Salud");
+  if (has("agente", "agent ", "agentic")) tags.add("Agente IA");
+
+  // Tags de beneficio (Hormozi: vender resultado, no proceso)
+  if (form.result_metric.trim()) tags.add("ROI Comprobado");
+  if (has("24/7", "24 7", "siempre", "automátic", "automatic")) tags.add("24/7");
+  if (has("lead", "ventas", "conversi", "cierre")) tags.add("Más Ventas");
+  if (has("ahorr", "redujo", "menos tiempo", "eficien")) tags.add("Ahorro de Tiempo");
+  if (has("escal", "crecim", "10x", "5x", "x2", "duplic", "triplic")) tags.add("Escalable");
+
+  // Asegurar mínimo de tags útiles aunque haya poca info
+  if (tags.size < 3) {
+    tags.add("IA");
+    tags.add("Automatización");
+    tags.add("Resultados Reales");
+  }
+
+  return Array.from(tags).slice(0, 10);
+}
+
+
+
 const AdminPortafolio = () => {
   const navigate = useNavigate();
   const { session, isAdmin, loading: authLoading } = useAdmin();
@@ -691,7 +755,30 @@ const AdminPortafolio = () => {
             </div>
 
             <div>
-              <Label htmlFor="tags-input">Etiquetas / Tecnologías</Label>
+              <div className="flex items-center justify-between mb-1">
+                <Label htmlFor="tags-input">Etiquetas / Tecnologías</Label>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  className="h-7 px-2 text-xs text-primary hover:text-primary"
+                  onClick={() => {
+                    const suggested = generateHormoziTags(form);
+                    const merged = [...form.tags];
+                    for (const t of suggested) {
+                      if (merged.length >= 10) break;
+                      if (!merged.some((m) => m.toLowerCase() === t.toLowerCase())) merged.push(t);
+                    }
+                    setForm({ ...form, tags: merged });
+                    toast.success("Etiquetas generadas estilo Hormozi");
+                  }}
+                  disabled={!form.title.trim()}
+                  title={!form.title.trim() ? "Añade primero un título" : "Generar etiquetas persuasivas"}
+                >
+                  <Sparkles className="w-3 h-3" />
+                  Sugerir estilo Hormozi
+                </Button>
+              </div>
               <div className="flex flex-wrap gap-1.5 mb-2 min-h-[28px]">
                 {form.tags.map((tag, i) => (
                   <span
