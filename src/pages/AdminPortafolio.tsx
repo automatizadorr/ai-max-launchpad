@@ -216,6 +216,126 @@ function generateHormoziTags(form: {
   return Array.from(tags).slice(0, 10);
 }
 
+// Generador de TÍTULO estilo Hormozi: corto, con beneficio o mecanismo único.
+function generateHormoziTitle(form: {
+  title: string;
+  description: string;
+  category: string;
+  client_name: string;
+  result_metric: string;
+}): string {
+  const base = form.title.trim();
+  const cat = form.category.trim();
+  const client = form.client_name.trim();
+  const metric = form.result_metric.trim();
+  const pick = <T,>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
+
+  const seed = base || cat || "Sistema IA";
+  const candidates = [
+    metric ? `${seed} — ${metric}` : "",
+    client ? `${seed} para ${client}` : "",
+    cat ? `${seed}: el motor de ${cat} 24/7` : "",
+    `${seed} que vende mientras duermes`,
+    `${seed}: de manual a máquina`,
+    cat ? `Cómo automatizamos ${cat} con ${seed}` : `Cómo escalamos con ${seed}`,
+  ].filter(Boolean);
+
+  return (pick(candidates) || seed).slice(0, 120);
+}
+
+// Generador de CATEGORÍA estilo Hormozi: corta, vendedora, orientada a resultado.
+function generateHormoziCategory(form: {
+  title: string;
+  description: string;
+  long_description: string;
+  category: string;
+}): string {
+  const hay = [form.title, form.description, form.long_description, form.category].join(" ").toLowerCase();
+  const has = (...w: string[]) => w.some((x) => hay.includes(x));
+
+  if (has("voz", "voice", "vapi", "retell", "elevenlabs", "llamada")) return "Voz IA";
+  if (has("whatsapp", "wa.me")) return "WhatsApp IA";
+  if (has("chatbot", "asistente", "bot")) return "Chatbot IA";
+  if (has("agente", "agent")) return "Agente IA";
+  if (has("n8n", "make", "zapier", "automatiz", "workflow")) return "Automatización IA";
+  if (has("crm", "hubspot", "pipedrive")) return "CRM Inteligente";
+  if (has("ecommerce", "shopify", "tienda")) return "E-commerce IA";
+  if (has("inmobiliar", "propiedad")) return "Inmobiliaria IA";
+  if (has("salud", "clínica", "clinica", "paciente")) return "Salud IA";
+  if (has("web", "landing", "sitio")) return "Web + IA";
+  return "Automatización IA";
+}
+
+// Generador de NOMBRE DE CLIENTE / posicionamiento estilo Hormozi (si está vacío,
+// sugiere un descriptor de avatar; si tiene nombre, lo deja y añade nicho).
+function generateHormoziClient(form: {
+  client_name: string;
+  category: string;
+  title: string;
+}): string {
+  const name = form.client_name.trim();
+  const cat = form.category.trim();
+  if (name && cat) return `${name} (${cat})`;
+  if (name) return name;
+  if (cat) return `Empresa de ${cat} que quería escalar sin contratar más gente`;
+  return "Negocio que perdía ventas por procesos manuales";
+}
+
+// Generador de RESULTADO DESTACADO estilo Hormozi: número + tiempo + dolor evitado.
+function generateHormoziMetric(form: {
+  title: string;
+  description: string;
+  long_description: string;
+  category: string;
+  result_metric: string;
+}): string {
+  const existing = form.result_metric.trim();
+  if (existing) {
+    // Reformatea lo que ya hay en formato Hormozi (número + plazo claro)
+    return existing.includes("en ") || existing.includes("/")
+      ? existing
+      : `${existing} en menos de 90 días`;
+  }
+  const hay = [form.title, form.description, form.long_description, form.category].join(" ").toLowerCase();
+  const has = (...w: string[]) => w.some((x) => hay.includes(x));
+  const pick = <T,>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
+
+  const options: string[] = [];
+  if (has("lead", "ventas", "conversi")) options.push("+312% leads cualificados en 60 días");
+  if (has("voz", "llamada", "voice")) options.push("87% de llamadas atendidas en <3 seg, 24/7");
+  if (has("whatsapp", "chat", "bot")) options.push("Respuesta automática <30 seg · +4x conversación");
+  if (has("automatiz", "n8n", "workflow")) options.push("Ahorro de 120 h/mes en tareas operativas");
+  if (has("ecommerce", "tienda")) options.push("+38% AOV y -22% carritos abandonados en 45 días");
+  if (has("crm")) options.push("Pipeline 3x más limpio · 0 leads perdidos");
+  if (!options.length) options.push("ROI positivo en menos de 90 días · Sistema 24/7");
+  return pick(options);
+}
+
+// Generador de DESCRIPCIÓN CORTA estilo Hormozi: 1-2 frases, beneficio claro.
+function generateHormoziShortDescription(form: {
+  title: string;
+  description: string;
+  category: string;
+  client_name: string;
+  result_metric: string;
+}): string {
+  const title = form.title.trim() || "Este sistema";
+  const cat = form.category.trim();
+  const client = form.client_name.trim();
+  const metric = form.result_metric.trim();
+  const pick = <T,>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
+
+  const lines = [
+    `${title} convierte ${cat || "operación manual"} en una máquina que produce resultados 24/7${metric ? ` — ${metric}.` : "."}`,
+    `${client ? `${client} dejó de perder ventas` : "Dejamos de perder ventas"} con ${title}: automatización real, no parches${metric ? `. Resultado: ${metric}.` : "."}`,
+    `${title}: el sistema que ${cat ? `transformó ${cat}` : "elimina fricción"} y libera al equipo para cerrar más${metric ? `. ${metric}.` : "."}`,
+  ];
+  return pick(lines).slice(0, 500);
+}
+
+
+
+
 
 
 const AdminPortafolio = () => {
