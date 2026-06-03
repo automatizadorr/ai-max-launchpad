@@ -685,7 +685,24 @@ const AdminPortafolio = () => {
           <form onSubmit={handleSave} className="flex-1 overflow-y-auto px-5 sm:px-6 py-5 space-y-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="sm:col-span-2">
-                <Label htmlFor="title">Título *</Label>
+                <div className="flex items-center justify-between mb-1">
+                  <Label htmlFor="title">Título *</Label>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="ghost"
+                    className="h-7 px-2 text-xs text-primary hover:text-primary"
+                    onClick={() => {
+                      const t = generateHormoziTitle(form);
+                      setForm((f) => ({ ...f, title: t }));
+                      toast.success("Título generado estilo Hormozi");
+                    }}
+                    title="Generar título persuasivo"
+                  >
+                    <Sparkles className="w-3 h-3" />
+                    Estilo Hormozi
+                  </Button>
+                </div>
                 <Input id="title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required />
               </div>
 
@@ -697,11 +714,15 @@ const AdminPortafolio = () => {
                     size="sm"
                     variant="ghost"
                     className="h-7 px-2 text-xs text-primary hover:text-primary"
-                    onClick={() => handleEnhance("category")}
-                    disabled={enhancing === "category"}
+                    onClick={() => {
+                      const c = generateHormoziCategory(form);
+                      setForm((f) => ({ ...f, category: c }));
+                      toast.success("Categoría sugerida estilo Hormozi");
+                    }}
+                    title="Sugerir categoría"
                   >
-                    {enhancing === "category" ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
-                    IA
+                    <Sparkles className="w-3 h-3" />
+                    Estilo Hormozi
                   </Button>
                 </div>
                 <Input
@@ -713,7 +734,24 @@ const AdminPortafolio = () => {
               </div>
 
               <div>
-                <Label htmlFor="client_name">Cliente</Label>
+                <div className="flex items-center justify-between mb-1">
+                  <Label htmlFor="client_name">Cliente</Label>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="ghost"
+                    className="h-7 px-2 text-xs text-primary hover:text-primary"
+                    onClick={() => {
+                      const c = generateHormoziClient(form);
+                      setForm((f) => ({ ...f, client_name: c }));
+                      toast.success("Cliente posicionado estilo Hormozi");
+                    }}
+                    title="Sugerir avatar de cliente"
+                  >
+                    <Sparkles className="w-3 h-3" />
+                    Estilo Hormozi
+                  </Button>
+                </div>
                 <Input
                   id="client_name"
                   value={form.client_name}
@@ -723,7 +761,24 @@ const AdminPortafolio = () => {
               </div>
 
               <div className="sm:col-span-2">
-                <Label htmlFor="result_metric">Resultado destacado</Label>
+                <div className="flex items-center justify-between mb-1">
+                  <Label htmlFor="result_metric">Resultado destacado</Label>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="ghost"
+                    className="h-7 px-2 text-xs text-primary hover:text-primary"
+                    onClick={() => {
+                      const m = generateHormoziMetric(form);
+                      setForm((f) => ({ ...f, result_metric: m }));
+                      toast.success("Métrica generada estilo Hormozi");
+                    }}
+                    title="Generar métrica persuasiva"
+                  >
+                    <Sparkles className="w-3 h-3" />
+                    Estilo Hormozi
+                  </Button>
+                </div>
                 <Input
                   id="result_metric"
                   value={form.result_metric}
@@ -823,11 +878,16 @@ const AdminPortafolio = () => {
                   size="sm"
                   variant="ghost"
                   className="h-7 px-2 text-xs text-primary hover:text-primary"
-                  onClick={() => handleEnhance("description")}
-                  disabled={enhancing === "description"}
+                  onClick={() => {
+                    const d = generateHormoziShortDescription(form);
+                    setForm((f) => ({ ...f, description: d }));
+                    toast.success("Descripción generada estilo Hormozi");
+                  }}
+                  disabled={!form.title.trim()}
+                  title={!form.title.trim() ? "Añade primero un título" : "Generar descripción persuasiva"}
                 >
-                  {enhancing === "description" ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
-                  Mejorar con IA
+                  <Sparkles className="w-3 h-3" />
+                  Estilo Hormozi
                 </Button>
               </div>
               <Textarea
