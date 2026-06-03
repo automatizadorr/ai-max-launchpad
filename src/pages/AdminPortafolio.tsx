@@ -216,6 +216,126 @@ function generateHormoziTags(form: {
   return Array.from(tags).slice(0, 10);
 }
 
+// Generador de TÍTULO estilo Hormozi: corto, con beneficio o mecanismo único.
+function generateHormoziTitle(form: {
+  title: string;
+  description: string;
+  category: string;
+  client_name: string;
+  result_metric: string;
+}): string {
+  const base = form.title.trim();
+  const cat = form.category.trim();
+  const client = form.client_name.trim();
+  const metric = form.result_metric.trim();
+  const pick = <T,>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
+
+  const seed = base || cat || "Sistema IA";
+  const candidates = [
+    metric ? `${seed} — ${metric}` : "",
+    client ? `${seed} para ${client}` : "",
+    cat ? `${seed}: el motor de ${cat} 24/7` : "",
+    `${seed} que vende mientras duermes`,
+    `${seed}: de manual a máquina`,
+    cat ? `Cómo automatizamos ${cat} con ${seed}` : `Cómo escalamos con ${seed}`,
+  ].filter(Boolean);
+
+  return (pick(candidates) || seed).slice(0, 120);
+}
+
+// Generador de CATEGORÍA estilo Hormozi: corta, vendedora, orientada a resultado.
+function generateHormoziCategory(form: {
+  title: string;
+  description: string;
+  long_description: string;
+  category: string;
+}): string {
+  const hay = [form.title, form.description, form.long_description, form.category].join(" ").toLowerCase();
+  const has = (...w: string[]) => w.some((x) => hay.includes(x));
+
+  if (has("voz", "voice", "vapi", "retell", "elevenlabs", "llamada")) return "Voz IA";
+  if (has("whatsapp", "wa.me")) return "WhatsApp IA";
+  if (has("chatbot", "asistente", "bot")) return "Chatbot IA";
+  if (has("agente", "agent")) return "Agente IA";
+  if (has("n8n", "make", "zapier", "automatiz", "workflow")) return "Automatización IA";
+  if (has("crm", "hubspot", "pipedrive")) return "CRM Inteligente";
+  if (has("ecommerce", "shopify", "tienda")) return "E-commerce IA";
+  if (has("inmobiliar", "propiedad")) return "Inmobiliaria IA";
+  if (has("salud", "clínica", "clinica", "paciente")) return "Salud IA";
+  if (has("web", "landing", "sitio")) return "Web + IA";
+  return "Automatización IA";
+}
+
+// Generador de NOMBRE DE CLIENTE / posicionamiento estilo Hormozi (si está vacío,
+// sugiere un descriptor de avatar; si tiene nombre, lo deja y añade nicho).
+function generateHormoziClient(form: {
+  client_name: string;
+  category: string;
+  title: string;
+}): string {
+  const name = form.client_name.trim();
+  const cat = form.category.trim();
+  if (name && cat) return `${name} (${cat})`;
+  if (name) return name;
+  if (cat) return `Empresa de ${cat} que quería escalar sin contratar más gente`;
+  return "Negocio que perdía ventas por procesos manuales";
+}
+
+// Generador de RESULTADO DESTACADO estilo Hormozi: número + tiempo + dolor evitado.
+function generateHormoziMetric(form: {
+  title: string;
+  description: string;
+  long_description: string;
+  category: string;
+  result_metric: string;
+}): string {
+  const existing = form.result_metric.trim();
+  if (existing) {
+    // Reformatea lo que ya hay en formato Hormozi (número + plazo claro)
+    return existing.includes("en ") || existing.includes("/")
+      ? existing
+      : `${existing} en menos de 90 días`;
+  }
+  const hay = [form.title, form.description, form.long_description, form.category].join(" ").toLowerCase();
+  const has = (...w: string[]) => w.some((x) => hay.includes(x));
+  const pick = <T,>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
+
+  const options: string[] = [];
+  if (has("lead", "ventas", "conversi")) options.push("+312% leads cualificados en 60 días");
+  if (has("voz", "llamada", "voice")) options.push("87% de llamadas atendidas en <3 seg, 24/7");
+  if (has("whatsapp", "chat", "bot")) options.push("Respuesta automática <30 seg · +4x conversación");
+  if (has("automatiz", "n8n", "workflow")) options.push("Ahorro de 120 h/mes en tareas operativas");
+  if (has("ecommerce", "tienda")) options.push("+38% AOV y -22% carritos abandonados en 45 días");
+  if (has("crm")) options.push("Pipeline 3x más limpio · 0 leads perdidos");
+  if (!options.length) options.push("ROI positivo en menos de 90 días · Sistema 24/7");
+  return pick(options);
+}
+
+// Generador de DESCRIPCIÓN CORTA estilo Hormozi: 1-2 frases, beneficio claro.
+function generateHormoziShortDescription(form: {
+  title: string;
+  description: string;
+  category: string;
+  client_name: string;
+  result_metric: string;
+}): string {
+  const title = form.title.trim() || "Este sistema";
+  const cat = form.category.trim();
+  const client = form.client_name.trim();
+  const metric = form.result_metric.trim();
+  const pick = <T,>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
+
+  const lines = [
+    `${title} convierte ${cat || "operación manual"} en una máquina que produce resultados 24/7${metric ? ` — ${metric}.` : "."}`,
+    `${client ? `${client} dejó de perder ventas` : "Dejamos de perder ventas"} con ${title}: automatización real, no parches${metric ? `. Resultado: ${metric}.` : "."}`,
+    `${title}: el sistema que ${cat ? `transformó ${cat}` : "elimina fricción"} y libera al equipo para cerrar más${metric ? `. ${metric}.` : "."}`,
+  ];
+  return pick(lines).slice(0, 500);
+}
+
+
+
+
 
 
 const AdminPortafolio = () => {
@@ -565,7 +685,24 @@ const AdminPortafolio = () => {
           <form onSubmit={handleSave} className="flex-1 overflow-y-auto px-5 sm:px-6 py-5 space-y-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="sm:col-span-2">
-                <Label htmlFor="title">Título *</Label>
+                <div className="flex items-center justify-between mb-1">
+                  <Label htmlFor="title">Título *</Label>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="ghost"
+                    className="h-7 px-2 text-xs text-primary hover:text-primary"
+                    onClick={() => {
+                      const t = generateHormoziTitle(form);
+                      setForm((f) => ({ ...f, title: t }));
+                      toast.success("Título generado estilo Hormozi");
+                    }}
+                    title="Generar título persuasivo"
+                  >
+                    <Sparkles className="w-3 h-3" />
+                    Estilo Hormozi
+                  </Button>
+                </div>
                 <Input id="title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required />
               </div>
 
@@ -577,11 +714,15 @@ const AdminPortafolio = () => {
                     size="sm"
                     variant="ghost"
                     className="h-7 px-2 text-xs text-primary hover:text-primary"
-                    onClick={() => handleEnhance("category")}
-                    disabled={enhancing === "category"}
+                    onClick={() => {
+                      const c = generateHormoziCategory(form);
+                      setForm((f) => ({ ...f, category: c }));
+                      toast.success("Categoría sugerida estilo Hormozi");
+                    }}
+                    title="Sugerir categoría"
                   >
-                    {enhancing === "category" ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
-                    IA
+                    <Sparkles className="w-3 h-3" />
+                    Estilo Hormozi
                   </Button>
                 </div>
                 <Input
@@ -593,7 +734,24 @@ const AdminPortafolio = () => {
               </div>
 
               <div>
-                <Label htmlFor="client_name">Cliente</Label>
+                <div className="flex items-center justify-between mb-1">
+                  <Label htmlFor="client_name">Cliente</Label>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="ghost"
+                    className="h-7 px-2 text-xs text-primary hover:text-primary"
+                    onClick={() => {
+                      const c = generateHormoziClient(form);
+                      setForm((f) => ({ ...f, client_name: c }));
+                      toast.success("Cliente posicionado estilo Hormozi");
+                    }}
+                    title="Sugerir avatar de cliente"
+                  >
+                    <Sparkles className="w-3 h-3" />
+                    Estilo Hormozi
+                  </Button>
+                </div>
                 <Input
                   id="client_name"
                   value={form.client_name}
@@ -603,7 +761,24 @@ const AdminPortafolio = () => {
               </div>
 
               <div className="sm:col-span-2">
-                <Label htmlFor="result_metric">Resultado destacado</Label>
+                <div className="flex items-center justify-between mb-1">
+                  <Label htmlFor="result_metric">Resultado destacado</Label>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="ghost"
+                    className="h-7 px-2 text-xs text-primary hover:text-primary"
+                    onClick={() => {
+                      const m = generateHormoziMetric(form);
+                      setForm((f) => ({ ...f, result_metric: m }));
+                      toast.success("Métrica generada estilo Hormozi");
+                    }}
+                    title="Generar métrica persuasiva"
+                  >
+                    <Sparkles className="w-3 h-3" />
+                    Estilo Hormozi
+                  </Button>
+                </div>
                 <Input
                   id="result_metric"
                   value={form.result_metric}
@@ -703,11 +878,16 @@ const AdminPortafolio = () => {
                   size="sm"
                   variant="ghost"
                   className="h-7 px-2 text-xs text-primary hover:text-primary"
-                  onClick={() => handleEnhance("description")}
-                  disabled={enhancing === "description"}
+                  onClick={() => {
+                    const d = generateHormoziShortDescription(form);
+                    setForm((f) => ({ ...f, description: d }));
+                    toast.success("Descripción generada estilo Hormozi");
+                  }}
+                  disabled={!form.title.trim()}
+                  title={!form.title.trim() ? "Añade primero un título" : "Generar descripción persuasiva"}
                 >
-                  {enhancing === "description" ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
-                  Mejorar con IA
+                  <Sparkles className="w-3 h-3" />
+                  Estilo Hormozi
                 </Button>
               </div>
               <Textarea
