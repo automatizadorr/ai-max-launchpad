@@ -64,20 +64,20 @@ const ExitIntentModal = () => {
       return;
     }
     setLoading(true);
-    const { error } = await supabase.from("leads").insert([
-      {
-        name: "Exit intent lead",
-        email: parsed.data.email,
-        phone: parsed.data.phone,
-        pain_point: "3 ideas de automatización",
-        source: "exit_intent",
-      },
-    ]);
+    const leadData = {
+      name: "Exit intent lead",
+      email: parsed.data.email,
+      phone: parsed.data.phone,
+      pain_point: "3 ideas de automatización",
+      source: "exit_intent",
+    };
+    const { error } = await supabase.from("leads").insert([leadData]);
     setLoading(false);
     if (error) {
       toast.error("No pudimos enviar tu solicitud. Intenta nuevamente.");
       return;
     }
+    supabase.functions.invoke("notify-lead", { body: leadData }).catch(() => {});
     setDone(true);
     toast.success("¡Te enviaremos las 3 ideas por WhatsApp en breve!");
   };

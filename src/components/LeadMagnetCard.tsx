@@ -25,20 +25,20 @@ const LeadMagnetCard = () => {
       return;
     }
     setLoading(true);
-    const { error } = await supabase.from("leads").insert([
-      {
-        name: "Lead magnet",
-        email: parsed.data.email,
-        phone: parsed.data.phone || null,
-        pain_point: "Auditoría IA gratuita",
-        source: "lead_magnet_hero",
-      },
-    ]);
+    const leadData = {
+      name: "Lead magnet",
+      email: parsed.data.email,
+      phone: parsed.data.phone || null,
+      pain_point: "Auditoría IA gratuita",
+      source: "lead_magnet_hero",
+    };
+    const { error } = await supabase.from("leads").insert([leadData]);
     setLoading(false);
     if (error) {
       toast.error("No pudimos enviar tu solicitud. Intenta nuevamente.");
       return;
     }
+    supabase.functions.invoke("notify-lead", { body: leadData }).catch(() => {});
     trackEvent("lead_magnet_submit", { source: "hero" });
     setDone(true);
     toast.success("¡Listo! Te enviaremos la auditoría en breve.");
