@@ -57,21 +57,21 @@ const LeadForm = () => {
       return;
     }
     setLoading(true);
-    const { error } = await supabase.from("leads").insert([
-      {
-        name: parsed.data.name,
-        company: parsed.data.company || null,
-        phone: parsed.data.phone,
-        email: parsed.data.email,
-        pain_point: parsed.data.pain_point,
-        source: "lead_form_main",
-      },
-    ]);
+    const leadData = {
+      name: parsed.data.name,
+      company: parsed.data.company || null,
+      phone: parsed.data.phone,
+      email: parsed.data.email,
+      pain_point: parsed.data.pain_point,
+      source: "lead_form_main",
+    };
+    const { error } = await supabase.from("leads").insert([leadData]);
     setLoading(false);
     if (error) {
       toast.error("No pudimos enviar tu solicitud. Intenta nuevamente.");
       return;
     }
+    supabase.functions.invoke("notify-lead", { body: leadData }).catch(() => {});
     trackEvent("lead_form_submit", { pain_point: parsed.data.pain_point });
     toast.success("¡Solicitud recibida! Te contactaremos en menos de 24h.");
     setForm({ name: "", company: "", phone: "", email: "", pain_point: "" });
