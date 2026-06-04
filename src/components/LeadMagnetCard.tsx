@@ -38,6 +38,7 @@ const LeadMagnetCard = () => {
       toast.error("No pudimos enviar tu solicitud. Intenta nuevamente.");
       return;
     }
+    supabase.functions.invoke("notify-lead", { body: leadData }).catch(() => {});
     trackEvent("lead_magnet_submit", { source: "hero" });
     setDone(true);
     toast.success("¡Listo! Te enviaremos la auditoría en breve.");
