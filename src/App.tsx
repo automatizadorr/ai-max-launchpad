@@ -13,6 +13,7 @@ import Auth from "./pages/Auth.tsx";
 import ResetPassword from "./pages/ResetPassword.tsx";
 import AdminPortafolio from "./pages/AdminPortafolio.tsx";
 import Gracias from "./pages/Gracias.tsx";
+import TestWebhook from "./pages/TestWebhook.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import FloatingWhatsApp from "./components/FloatingWhatsApp.tsx";
 import UrgencyBar from "./components/UrgencyBar.tsx";
