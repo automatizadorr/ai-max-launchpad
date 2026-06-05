@@ -13,6 +13,7 @@ import Auth from "./pages/Auth.tsx";
 import ResetPassword from "./pages/ResetPassword.tsx";
 import AdminPortafolio from "./pages/AdminPortafolio.tsx";
 import Gracias from "./pages/Gracias.tsx";
+import TestWebhook from "./pages/TestWebhook.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import FloatingWhatsApp from "./components/FloatingWhatsApp.tsx";
 import UrgencyBar from "./components/UrgencyBar.tsx";
@@ -38,6 +39,7 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/admin/portafolio" element={<AdminPortafolio />} />
+            <Route path="/test-webhook" element={<TestWebhook />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
