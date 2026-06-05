@@ -8,6 +8,7 @@ import SEO from "@/components/SEO";
 import ParticleNetwork from "@/components/ParticleNetwork";
 import ImpactMetrics from "@/components/ImpactMetrics";
 import PortfolioStackMarquee from "@/components/PortfolioStackMarquee";
+import PortfolioShowcase from "@/components/PortfolioShowcase";
 
 import BeforeAfter from "@/components/BeforeAfter";
 import Industries from "@/components/Industries";
