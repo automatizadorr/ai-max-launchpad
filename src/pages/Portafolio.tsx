@@ -72,38 +72,8 @@ interface UseCase {
 }
 
 const Portafolio = () => {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [selected, setSelected] = useState<Project | null>(null);
   const [selectedCase, setSelectedCase] = useState<UseCase | null>(null);
-  const [activeCategory, setActiveCategory] = useState<string>("Todos");
 
-  const categories = useMemo(() => {
-    const set = new Set<string>();
-    projects.forEach((p) => p.category && set.add(p.category));
-    return ["Todos", ...Array.from(set)];
-  }, [projects]);
-
-  const filteredProjects = useMemo(() => {
-    if (activeCategory === "Todos") return projects;
-    return projects.filter((p) => p.category === activeCategory);
-  }, [projects, activeCategory]);
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      const { data, error } = await supabase
-        .from("portfolio_projects")
-        .select("id, title, description, long_description, project_url, image_url, video_url, category, client_name, result_metric, tags, rank")
-        .order("rank", { ascending: true, nullsFirst: false })
-        .order("display_order", { ascending: true });
-
-      if (!error && data) setProjects(data as Project[]);
-      setLoading(false);
-    };
-    fetchProjects();
-  }, []);
-
-  const embed = selected?.video_url ? getEmbedUrl(selected.video_url) : null;
 
   return (
     <div className="min-h-screen bg-background">
