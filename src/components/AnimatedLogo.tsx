@@ -79,6 +79,39 @@ const AnimatedLogo = ({ scrolled }: AnimatedLogoProps) => {
         transformOrigin: "50% 50%",
       });
 
+      // 3D orbiting spheres (blue + red) around the logo
+      const orbits = [
+        { el: orbit1Ref.current, dur: isMobile ? 9 : 7, dir: 1, offset: 0 },
+        { el: orbit2Ref.current, dur: isMobile ? 11 : 8.5, dir: -1, offset: 180 },
+      ];
+      orbits.forEach(({ el, dur, dir, offset }) => {
+        if (!el) return;
+        const proxy = { a: offset };
+        gsap.to(proxy, {
+          a: offset + 360 * dir,
+          duration: dur,
+          ease: "none",
+          repeat: -1,
+          onUpdate: () => {
+            const rad = (proxy.a * Math.PI) / 180;
+            const rx = 78; // horizontal radius
+            const ry = 26; // vertical radius (perspective)
+            const x = Math.cos(rad) * rx;
+            const y = Math.sin(rad) * ry;
+            const depth = Math.sin(rad); // -1..1
+            const scale = 0.75 + 0.45 * ((depth + 1) / 2);
+            const opacity = 0.45 + 0.55 * ((depth + 1) / 2);
+            gsap.set(el, {
+              x,
+              y,
+              scale,
+              opacity,
+              zIndex: depth > 0 ? 5 : -5,
+            });
+          },
+        });
+      });
+
       // Subtle floating (works on mobile too — no pointer needed)
       gsap.to(imgRef.current, {
         y: -4 * k - 1,
