@@ -16,7 +16,6 @@ import Gracias from "./pages/Gracias.tsx";
 import TestWebhook from "./pages/TestWebhook.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import FloatingWhatsApp from "./components/FloatingWhatsApp.tsx";
-import UrgencyBar from "./components/UrgencyBar.tsx";
 import ExitIntentModal from "./components/ExitIntentModal.tsx";
 
 const queryClient = new QueryClient();
@@ -28,7 +27,6 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <UrgencyBar />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/servicios" element={<Servicios />} />

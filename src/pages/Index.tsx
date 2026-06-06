@@ -8,10 +8,12 @@ import Testimonials from "@/components/Testimonials";
 import LeadForm from "@/components/LeadForm";
 import LocalSEO from "@/components/LocalSEO";
 import Footer from "@/components/Footer";
+import UrgencyBar from "@/components/UrgencyBar";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <UrgencyBar />
       <Header />
       <main>
         <Hero />
