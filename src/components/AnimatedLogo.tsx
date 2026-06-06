@@ -15,6 +15,8 @@ const AnimatedLogo = ({ scrolled }: AnimatedLogoProps) => {
   const haloRef = useRef<HTMLSpanElement>(null);
   const ringRef = useRef<HTMLSpanElement>(null);
   const sheenRef = useRef<HTMLSpanElement>(null);
+  const orbit1Ref = useRef<HTMLSpanElement>(null);
+  const orbit2Ref = useRef<HTMLSpanElement>(null);
 
   // Detect environment: reduced motion vs mobile (fine-pointer absent)
   const reduceMotion =
