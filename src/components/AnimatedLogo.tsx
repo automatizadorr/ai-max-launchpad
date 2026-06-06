@@ -245,6 +245,29 @@ const AnimatedLogo = ({ scrolled }: AnimatedLogoProps) => {
           style={{ left: 0 }}
         />
       </span>
+      {/* Esferas 3D orbitando (azul + roja) */}
+      <span
+        ref={orbit1Ref}
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 -ml-2 -mt-2 h-4 w-4 rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle at 30% 30%, hsl(215 100% 75%), hsl(215 100% 50%) 55%, hsl(215 100% 25%) 100%)",
+          boxShadow:
+            "0 0 14px hsl(var(--primary) / 0.85), 0 0 28px hsl(var(--primary-glow) / 0.55), inset -1px -2px 4px rgba(0,0,0,0.45)",
+        }}
+      />
+      <span
+        ref={orbit2Ref}
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 -ml-2 -mt-2 h-4 w-4 rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle at 30% 30%, hsl(358 100% 78%), hsl(358 86% 55%) 55%, hsl(358 80% 28%) 100%)",
+          boxShadow:
+            "0 0 14px hsl(var(--action) / 0.85), 0 0 28px hsl(var(--action-glow) / 0.55), inset -1px -2px 4px rgba(0,0,0,0.45)",
+        }}
+      />
     </div>
   );
 };
