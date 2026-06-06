@@ -15,6 +15,8 @@ const AnimatedLogo = ({ scrolled }: AnimatedLogoProps) => {
   const haloRef = useRef<HTMLSpanElement>(null);
   const ringRef = useRef<HTMLSpanElement>(null);
   const sheenRef = useRef<HTMLSpanElement>(null);
+  const orbit1Ref = useRef<HTMLSpanElement>(null);
+  const orbit2Ref = useRef<HTMLSpanElement>(null);
 
   // Detect environment: reduced motion vs mobile (fine-pointer absent)
   const reduceMotion =
@@ -75,6 +77,39 @@ const AnimatedLogo = ({ scrolled }: AnimatedLogoProps) => {
         ease: "none",
         repeat: -1,
         transformOrigin: "50% 50%",
+      });
+
+      // 3D orbiting spheres (blue + red) around the logo
+      const orbits = [
+        { el: orbit1Ref.current, dur: isMobile ? 9 : 7, dir: 1, offset: 0 },
+        { el: orbit2Ref.current, dur: isMobile ? 11 : 8.5, dir: -1, offset: 180 },
+      ];
+      orbits.forEach(({ el, dur, dir, offset }) => {
+        if (!el) return;
+        const proxy = { a: offset };
+        gsap.to(proxy, {
+          a: offset + 360 * dir,
+          duration: dur,
+          ease: "none",
+          repeat: -1,
+          onUpdate: () => {
+            const rad = (proxy.a * Math.PI) / 180;
+            const rx = 78; // horizontal radius
+            const ry = 26; // vertical radius (perspective)
+            const x = Math.cos(rad) * rx;
+            const y = Math.sin(rad) * ry;
+            const depth = Math.sin(rad); // -1..1
+            const scale = 0.75 + 0.45 * ((depth + 1) / 2);
+            const opacity = 0.45 + 0.55 * ((depth + 1) / 2);
+            gsap.set(el, {
+              x,
+              y,
+              scale,
+              opacity,
+              zIndex: depth > 0 ? 5 : -5,
+            });
+          },
+        });
       });
 
       // Subtle floating (works on mobile too — no pointer needed)
@@ -210,6 +245,29 @@ const AnimatedLogo = ({ scrolled }: AnimatedLogoProps) => {
           style={{ left: 0 }}
         />
       </span>
+      {/* Esferas 3D orbitando (azul + roja) */}
+      <span
+        ref={orbit1Ref}
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 -ml-2 -mt-2 h-4 w-4 rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle at 30% 30%, hsl(215 100% 75%), hsl(215 100% 50%) 55%, hsl(215 100% 25%) 100%)",
+          boxShadow:
+            "0 0 14px hsl(var(--primary) / 0.85), 0 0 28px hsl(var(--primary-glow) / 0.55), inset -1px -2px 4px rgba(0,0,0,0.45)",
+        }}
+      />
+      <span
+        ref={orbit2Ref}
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 -ml-2 -mt-2 h-4 w-4 rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle at 30% 30%, hsl(358 100% 78%), hsl(358 86% 55%) 55%, hsl(358 80% 28%) 100%)",
+          boxShadow:
+            "0 0 14px hsl(var(--action) / 0.85), 0 0 28px hsl(var(--action-glow) / 0.55), inset -1px -2px 4px rgba(0,0,0,0.45)",
+        }}
+      />
     </div>
   );
 };
