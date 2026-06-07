@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ExternalLink, Loader2, Play, User, TrendingUp, X, Bot, Phone, Workflow, MessageSquare, BarChart3, Brain, Sparkles, AlertCircle, Lightbulb, Layers, Target, ArrowRight, LayoutGrid } from "lucide-react";
 import Header from "@/components/Header";
+import UrgencyBar from "@/components/UrgencyBar";
 import Footer from "@/components/Footer";
 import LeadForm from "@/components/LeadForm";
 import SEO from "@/components/SEO";
@@ -83,6 +84,7 @@ const Portafolio = () => {
         path="/portafolio"
         ogImage="/og-casos.png"
       />
+      <UrgencyBar />
       <Header />
       <main>
         {/* Conversion Hero */}
