@@ -23,11 +23,7 @@ const Header = () => {
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className={`sticky top-0 inset-x-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-background/80 backdrop-blur-xl border-b border-border shadow-card"
-          : "bg-transparent"
-      }`}
+      className="sticky top-0 inset-x-0 z-50 transition-all duration-500 bg-transparent"
     >
       <nav
         className="container mx-auto flex items-center justify-between h-24 md:h-36"
