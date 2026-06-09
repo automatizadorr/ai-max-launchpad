@@ -49,8 +49,8 @@ const PortfolioConversionHero = () => {
               transition={{ delay: 0.1 }}
               className="font-display font-black text-white text-4xl sm:text-5xl md:text-6xl leading-[1.05]"
             >
-              Automatizamos tu negocio con{" "}
-              <span className="text-gradient-primary">IA en 30 días</span> o menos.
+              Recupera +20 horas a la semana y no pierdas{" "}
+              <span className="text-gradient-primary">un solo lead</span> — con IA, en 30 días.
             </motion.h1>
 
             <motion.p
@@ -59,8 +59,8 @@ const PortfolioConversionHero = () => {
               transition={{ delay: 0.2 }}
               className="mt-5 text-white/75 text-base md:text-lg max-w-xl mx-auto lg:mx-0"
             >
-              <span className="font-semibold text-white">+50 procesos automatizados</span>
-              {" · "}
+              Instalamos los agentes de IA que atienden, califican y agendan por ti —{" "}
+              <span className="font-semibold text-white">tú solo cierras.</span>{" "}
               <span className="font-semibold text-white">ROI promedio 340%</span>
               {" · "}Garantía de resultados o no pagas.
             </motion.p>

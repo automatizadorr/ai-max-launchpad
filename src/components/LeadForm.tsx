@@ -250,7 +250,7 @@ const LeadForm = () => {
               ) : (
                 <>
                   <Send className="w-5 h-5" aria-hidden="true" />
-                  Solicitar Presupuesto
+                  Quiero automatizar mi negocio
                 </>
               )}
             </button>

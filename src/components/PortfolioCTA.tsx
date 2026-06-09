@@ -67,7 +67,7 @@ const PortfolioCTA = () => {
               className="bg-transparent border-white/30 text-white hover:bg-white/10 hover:text-white h-14 px-8 text-base font-semibold"
             >
               <a href="#contacto">
-                Enviar mensaje
+                Quiero mi diagnóstico gratis
                 <ArrowRight className="w-5 h-5" />
               </a>
             </Button>

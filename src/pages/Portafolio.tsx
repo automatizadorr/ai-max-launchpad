@@ -16,6 +16,7 @@ import Industries from "@/components/Industries";
 import ProcessTimeline from "@/components/ProcessTimeline";
 import PortfolioTestimonials from "@/components/PortfolioTestimonials";
 import PortfolioCertifications from "@/components/PortfolioCertifications";
+import GuaranteeSection from "@/components/GuaranteeSection";
 import PortfolioFAQ from "@/components/PortfolioFAQ";
 import PortfolioCTA from "@/components/PortfolioCTA";
 import PortfolioConversionHero from "@/components/PortfolioConversionHero";
@@ -358,6 +359,9 @@ const Portafolio = () => {
 
         {/* Certificaciones / Partners */}
         <PortfolioCertifications />
+
+        {/* Garantía de resultados (invierte el riesgo) */}
+        <GuaranteeSection />
 
         {/* FAQ */}
         <PortfolioFAQ />
