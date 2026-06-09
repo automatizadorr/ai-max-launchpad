@@ -16,6 +16,7 @@ import Industries from "@/components/Industries";
 import ProcessTimeline from "@/components/ProcessTimeline";
 import PortfolioTestimonials from "@/components/PortfolioTestimonials";
 import PortfolioCertifications from "@/components/PortfolioCertifications";
+import OfferStack from "@/components/OfferStack";
 import GuaranteeSection from "@/components/GuaranteeSection";
 import PortfolioFAQ from "@/components/PortfolioFAQ";
 import PortfolioCTA from "@/components/PortfolioCTA";
@@ -359,6 +360,9 @@ const Portafolio = () => {
 
         {/* Certificaciones / Partners */}
         <PortfolioCertifications />
+
+        {/* Oferta empaquetada con stack de valor (Grand Slam Offer) */}
+        <OfferStack />
 
         {/* Garantía de resultados (invierte el riesgo) */}
         <GuaranteeSection />
