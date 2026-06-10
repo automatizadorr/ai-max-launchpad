@@ -88,6 +88,11 @@
     scroll-behavior: smooth;
   }
 
+  /* Compensa el header fijo al saltar a secciones con ancla (#contacto, #qualifier, etc.) */
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-feature-settings: "ss01", "cv11";

@@ -81,7 +81,7 @@ const RankBadge = ({ rank, size = "md" }: { rank: number; size?: "sm" | "md" }) 
             }}
           />
           <Icon className={`${iconSize} ${icon} drop-shadow-sm relative z-10`} strokeWidth={2.4} />
-          <span className={`absolute bottom-1 text-[8px] font-black ${text} tracking-wider z-10`}>
+          <span className={`absolute bottom-1 text-[10px] font-black ${text} tracking-wider z-10`}>
             #{rank}
           </span>
         </div>

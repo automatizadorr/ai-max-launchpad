@@ -58,7 +58,7 @@ const LeadMagnetCard = () => {
           <FileText className="w-5 h-5 text-white" />
         </div>
         <div className="min-w-0">
-          <span className="block text-[10px] font-bold tracking-[0.18em] text-action uppercase">
+          <span className="block text-[11px] font-bold tracking-[0.18em] text-action uppercase">
             Gratis · PDF
           </span>
           <h3 className="font-display font-bold text-white text-base leading-tight">
@@ -116,7 +116,7 @@ const LeadMagnetCard = () => {
               </>
             )}
           </button>
-          <p className="text-[10px] text-white/50 text-center">
+          <p className="text-[11px] text-white/50 text-center">
             Sin spam. Te contactamos solo si lo solicitas.
           </p>
         </form>

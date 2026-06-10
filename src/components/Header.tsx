@@ -57,7 +57,7 @@ const Header = () => {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Hablar con un agente IA por WhatsApp"
-          className="inline-flex items-center gap-2 bg-action hover:bg-action-glow text-action-foreground px-4 md:px-5 py-2.5 rounded-full text-sm font-semibold shadow-action transition-all duration-300 hover:scale-105"
+          className="inline-flex items-center justify-center gap-2 min-h-[44px] bg-action hover:bg-action-glow text-action-foreground px-4 md:px-5 py-3 rounded-full text-sm font-semibold shadow-action transition-all duration-300 hover:scale-105"
         >
           <MessageCircle className="w-4 h-4" aria-hidden="true" />
           <span className="hidden sm:inline">Hablar con un Agente IA</span>

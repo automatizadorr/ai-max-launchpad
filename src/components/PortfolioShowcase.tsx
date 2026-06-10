@@ -118,12 +118,12 @@ const PortfolioShowcase = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
                     {p.category && (
-                      <span className="absolute top-4 left-4 inline-block text-[10px] font-bold tracking-[0.18em] uppercase bg-action text-action-foreground px-3 py-1.5 rounded-full shadow-action">
+                      <span className="absolute top-4 left-4 inline-block text-[11px] font-bold tracking-[0.18em] uppercase bg-action text-action-foreground px-3 py-1.5 rounded-full shadow-action">
                         {p.category}
                       </span>
                     )}
                     {p.video_url && (
-                      <div className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider bg-dark/70 text-white px-2.5 py-1.5 rounded-full backdrop-blur-sm">
+                      <div className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider bg-dark/70 text-white px-2.5 py-1.5 rounded-full backdrop-blur-sm">
                         <Play className="w-3 h-3 fill-current" />
                         Video
                       </div>
@@ -204,7 +204,7 @@ const PortfolioShowcase = () => {
                   </div>
                 )}
                 {selected.category && (
-                  <span className="absolute top-4 left-4 inline-block text-[10px] font-bold tracking-[0.18em] uppercase bg-action text-action-foreground px-3 py-1.5 rounded-full shadow-action z-10">
+                  <span className="absolute top-4 left-4 inline-block text-[11px] font-bold tracking-[0.18em] uppercase bg-action text-action-foreground px-3 py-1.5 rounded-full shadow-action z-10">
                     {selected.category}
                   </span>
                 )}
@@ -236,7 +236,7 @@ const PortfolioShowcase = () => {
                           <User className="w-5 h-5 text-primary" />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Cliente</p>
+                          <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Cliente</p>
                           <p className="font-semibold text-foreground truncate">{selected.client_name}</p>
                         </div>
                       </div>
@@ -247,7 +247,7 @@ const PortfolioShowcase = () => {
                           <TrendingUp className="w-5 h-5 text-action" />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Resultado</p>
+                          <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Resultado</p>
                           <p className="font-semibold text-foreground truncate">{selected.result_metric}</p>
                         </div>
                       </div>
