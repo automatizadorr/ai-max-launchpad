@@ -18,9 +18,12 @@ const FloatingWhatsApp = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Bubble appears once after delay or scroll progress
+  // Bubble appears once after delay or scroll progress.
+  // Solo en desktop (>=768px): en móvil el globo tapa los precios/CTAs, así que ahí solo mostramos el botón.
   useEffect(() => {
     if (typeof window === "undefined") return;
+    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+    if (!isDesktop) return;
     if (sessionStorage.getItem(BUBBLE_KEY)) return;
 
     const timer = window.setTimeout(() => {
