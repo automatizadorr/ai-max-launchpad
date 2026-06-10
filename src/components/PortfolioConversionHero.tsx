@@ -1,8 +1,11 @@
+import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck, Zap, Award, Calendar } from "lucide-react";
-import ParticleNetwork from "./ParticleNetwork";
 import LeadMagnetCard from "./LeadMagnetCard";
 import { trackEvent } from "@/lib/tracking";
+
+// Fondo decorativo: se carga aparte para no bloquear el primer render del hero.
+const ParticleNetwork = lazy(() => import("./ParticleNetwork"));
 
 const PortfolioConversionHero = () => {
   const scrollTo = (id: string) => {
@@ -15,7 +18,9 @@ const PortfolioConversionHero = () => {
       aria-label="Hero de conversión"
     >
       <div className="absolute inset-0 z-0">
-        <ParticleNetwork />
+        <Suspense fallback={null}>
+          <ParticleNetwork />
+        </Suspense>
       </div>
       <div
         className="absolute inset-0 opacity-[0.05] pointer-events-none"

@@ -19,4 +19,17 @@ export default defineConfig(({ mode }) => ({
     },
     dedupe: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime", "@tanstack/react-query", "@tanstack/query-core"],
   },
+  build: {
+    rollupOptions: {
+      output: {
+        // Separa librerías grandes en chunks cacheables (mejor caché entre visitas).
+        manualChunks: {
+          "react-vendor": ["react", "react-dom", "react-router-dom"],
+          motion: ["framer-motion"],
+          particles: ["@tsparticles/react", "@tsparticles/slim"],
+          supabase: ["@supabase/supabase-js"],
+        },
+      },
+    },
+  },
 }));
