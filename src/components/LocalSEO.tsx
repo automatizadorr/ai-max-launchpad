@@ -13,7 +13,7 @@ const NAP = {
   phone: "+56971806730",
   phoneDisplay: "+56 9 7180 6730",
   email: "automatizador.ex@gmail.com",
-  url: "https://ai-max.lovable.app",
+  url: "https://ai-max-five.vercel.app",
   hours: "Lun a Vie · 09:00 – 19:00 (CLT)",
   geo: { lat: -29.9027, lng: -71.2519 },
 };
@@ -58,7 +58,7 @@ const LocalSEO = () => {
     areaServed: areas.map((a) => ({ "@type": "Place", name: a })),
     sameAs: [
       "https://wa.me/56971806730",
-      "https://ai-max.lovable.app",
+      "https://ai-max-five.vercel.app",
     ],
   };
 
@@ -222,7 +222,7 @@ const LocalSEO = () => {
                       className="text-foreground font-semibold hover:text-action transition-colors"
                       itemProp="url"
                     >
-                      ai-max.lovable.app
+                      ai-max-five.vercel.app
                     </a>
                   </dd>
                 </div>

@@ -81,10 +81,10 @@ const Portafolio = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Portafolio de Proyectos IA | AI-MaX"
-        description="Explora nuestros proyectos de IA, agentes de voz, automatización n8n y plataformas a medida implementados en empresas reales."
-        path="/portafolio"
-        ogImage="/og-casos.png"
+        title="AI-MaX | Agentes de IA, Automatización n8n y Software a Medida para Empresas"
+        description="Recupera +20 horas a la semana con agentes de IA que atienden, califican y agendan por ti. Automatización con n8n, asistentes de voz y software a medida en La Serena, Chile y Latinoamérica."
+        path="/"
+        ogImage="/og-image.png"
       />
       <UrgencyBar />
       <Header />

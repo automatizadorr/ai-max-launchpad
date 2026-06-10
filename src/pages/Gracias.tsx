@@ -12,7 +12,7 @@ const WHATSAPP =
 
 const Gracias = () => {
   const handleShare = async () => {
-    const url = "https://ai-max-intelligence.lovable.app";
+    const url = "https://ai-max-five.vercel.app";
     const text = "Estoy automatizando mi negocio con AI-MaX 🚀";
     try {
       if (navigator.share) {

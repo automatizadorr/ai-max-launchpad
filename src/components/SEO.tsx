@@ -7,7 +7,7 @@ interface SEOProps {
   ogImage: string;
 }
 
-const SITE = "https://ai-max.lovable.app";
+const SITE = "https://ai-max-five.vercel.app";
 
 const SEO = ({ title, description, path, ogImage }: SEOProps) => {
   const url = `${SITE}${path}`;
