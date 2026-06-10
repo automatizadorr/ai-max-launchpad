@@ -11,10 +11,10 @@ interface Metric {
 }
 
 const metrics: Metric[] = [
-  { icon: Rocket, value: 30, suffix: "+", label: "Proyectos entregados", color: "text-action" },
-  { icon: Clock, value: 5000, suffix: "+", label: "Horas automatizadas", color: "text-primary-glow" },
-  { icon: Users, value: 25, suffix: "+", label: "Clientes activos", color: "text-action" },
-  { icon: TrendingUp, value: 320, suffix: "%", label: "ROI promedio", color: "text-primary-glow" },
+  { icon: Rocket, value: 4, suffix: "+", label: "Proyectos en producción", color: "text-action" },
+  { icon: Clock, value: 771, suffix: "+", label: "Horas automatizadas", color: "text-primary-glow" },
+  { icon: Users, value: 3, suffix: "+", label: "Empresas operando con IA", color: "text-action" },
+  { icon: TrendingUp, value: 340, suffix: "%", label: "ROI promedio", color: "text-primary-glow" },
 ];
 
 const Counter = ({ to, suffix }: { to: number; suffix: string }) => {

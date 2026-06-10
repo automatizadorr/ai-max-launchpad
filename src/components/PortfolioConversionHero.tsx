@@ -86,7 +86,7 @@ const PortfolioConversionHero = () => {
               </button>
               <button
                 type="button"
-                onClick={() => scrollTo("casos")}
+                onClick={() => scrollTo("portafolio")}
                 className="inline-flex items-center justify-center gap-2 glass border border-white/20 hover:border-white/40 text-white font-semibold px-7 py-4 rounded-xl transition-all"
               >
                 Ver casos reales

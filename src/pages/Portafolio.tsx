@@ -353,7 +353,7 @@ const Portafolio = () => {
         <InlineCTA
           variant="whatsapp"
           location="after_testimonials"
-          title="Únete a +30 empresas que ya automatizan con IA"
+          title="Suma tu empresa a las que ya operan con IA 24/7"
           description="Conversa directo con nuestro equipo por WhatsApp."
           ctaLabel="Escribir por WhatsApp"
         />
