@@ -49,7 +49,7 @@ const PortfolioSection = () => {
           </span>
           <h2 id="portfolio-heading" className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight">
             Ecosistemas Digitales que{" "}
-            <span className="text-gradient-primary">Trabajan por Usted 24/7</span>.
+            <span className="text-gradient-primary">Trabajan por Ti 24/7</span>.
           </h2>
         </motion.div>
 

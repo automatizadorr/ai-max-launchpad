@@ -105,11 +105,11 @@ const LeadForm = () => {
               Hablemos
             </span>
             <h2 id="form-heading" className="font-display font-black text-3xl md:text-5xl text-white leading-tight mb-6">
-              ¿Listo para automatizar su empresa?
+              ¿Listo para automatizar tu empresa?
             </h2>
             <p className="text-white/70 text-lg leading-relaxed mb-8">
-              Déjenos sus datos y nuestro sistema agendará una sesión estratégica
-              personalizada para identificar oportunidades de automatización en su negocio.
+              Déjanos tus datos y nuestro sistema agendará una sesión estratégica
+              personalizada para identificar oportunidades de automatización en tu negocio.
             </p>
             <ul className="space-y-3 text-white/80">
               {[
@@ -214,7 +214,7 @@ const LeadForm = () => {
               </div>
               <div>
                 <label htmlFor="pain_point" className="block text-sm font-medium text-white/80 mb-2">
-                  ¿Qué desea automatizar?
+                  ¿Qué quieres automatizar?
                 </label>
                 <select
                   id="pain_point"
