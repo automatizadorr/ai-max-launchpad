@@ -50,10 +50,21 @@ const FloatingWhatsApp = () => {
     setBubble(false);
   };
 
+  // Ping halo solo en desktop (>=768px): reduce distractores y espacio visual en móvil.
+  const [showPing, setShowPing] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setShowPing(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
   return (
     <AnimatePresence>
       {show && (
-        <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+        <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end gap-3">
           <AnimatePresence>
             {bubble && (
               <motion.div
@@ -89,10 +100,12 @@ const FloatingWhatsApp = () => {
             exit={{ opacity: 0, scale: 0.6, y: 20 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             onClick={() => trackEvent("whatsapp_click", { location: "floating" })}
-            className="group"
+            className="group relative flex items-center justify-center w-12 h-12 sm:w-auto sm:h-auto"
           >
-            <span className="absolute inset-0 rounded-full bg-[hsl(142,70%,45%)] animate-ping opacity-30" />
-            <span className="relative flex items-center gap-2 bg-[hsl(142,70%,45%)] hover:bg-[hsl(142,70%,40%)] text-white shadow-elegant rounded-full pl-4 pr-5 py-3.5 transition-all hover:scale-105">
+            {showPing && (
+              <span className="absolute inset-0 rounded-full bg-[hsl(142,70%,45%)] animate-ping opacity-30" />
+            )}
+            <span className="relative flex items-center gap-2 bg-[hsl(142,70%,45%)] hover:bg-[hsl(142,70%,40%)] text-white shadow-elegant rounded-full sm:pl-4 sm:pr-5 sm:py-3.5 p-3 transition-all hover:scale-105">
               <MessageCircle className="w-5 h-5 fill-white" />
               <span className="hidden sm:inline font-semibold text-sm">Hablemos</span>
             </span>
