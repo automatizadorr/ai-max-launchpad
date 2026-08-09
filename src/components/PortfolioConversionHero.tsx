@@ -1,4 +1,4 @@
-import { lazy, Suspense, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck, Zap, Award, Calendar } from "lucide-react";
 import LeadMagnetCard from "./LeadMagnetCard";
@@ -9,29 +9,43 @@ import { trackEvent } from "@/lib/tracking";
 const ParticleNetwork = lazy(() => import("./ParticleNetwork"));
 
 const HERO_VIDEO = "/hero.mp4";
-const HERO_POSTER = "/hero-poster.svg";
+const HERO_POSTER = "/hero-poster.jpg";
+const HERO_MOBILE_POSTER = "/hero-mobile-poster.jpg";
 
 const PortfolioConversionHero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoFailed, setVideoFailed] = useState(false);
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+  // Mobile = imagen estática (mejor rendimiento en datos móvil). Desktop = video.
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches
+  );
 
   // Respect reduced motion: si el usuario lo pide, no autoplay del video.
   const reduceMotion =
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const showVideo = !reduceMotion && !videoFailed;
+  const showVideo = !isMobile && !reduceMotion && !videoFailed;
+
+  // Listener reactivo a cambios de viewport (portrait/landscape rotate en mobile)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(max-width: 768px)");
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   return (
     <section
       className="relative pt-28 md:pt-32 pb-16 md:pb-24 bg-gradient-hero overflow-hidden"
       aria-label="Hero de conversión"
     >
-      {/* ───── Capa 0 · Video Veo 3.1 fullbleed (o fallback ParticleNetwork) ───── */}
+      {/* ───── Capa 0 · Media fullbleed ───── */}
+      {/*  · Desktop (>768px): video Veo 3.1 optimizado (muteado, 1080p, 3.6MB)
+          · Mobile (≤768px):   imagen estática JPG (40KB) — sin video para ahorrar datos
+          · Fallback final:    ParticleNetwork si video falla o reduced-motion */}
       <div className="absolute inset-0 z-0">
         {showVideo ? (
           <video
@@ -48,6 +62,15 @@ const PortfolioConversionHero = () => {
           >
             <source src={HERO_VIDEO} type="video/mp4" />
           </video>
+        ) : isMobile ? (
+          <img
+            src={HERO_MOBILE_POSTER}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="eager"
+            decoding="async"
+          />
         ) : (
           <Suspense fallback={null}>
             <ParticleNetwork />
