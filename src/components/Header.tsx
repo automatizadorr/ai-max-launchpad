@@ -23,7 +23,7 @@ const Header = () => {
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="sticky top-0 inset-x-0 z-50 transition-all duration-500 bg-transparent backdrop-blur-[2px]"
+      className="sticky top-0 inset-x-0 z-50 bg-transparent"
     >
       <nav
         className="container mx-auto flex items-center justify-between h-24 md:h-36"
@@ -34,7 +34,7 @@ const Header = () => {
           aria-label="Ir al inicio AI-MaX"
           className="flex items-center"
         >
-          <AnimatedLogo scrolled={scrolled} />
+          <AnimatedLogo scrolled={false} />
         </Link>
 
         <ul className="hidden md:flex items-center gap-8">
@@ -42,9 +42,7 @@ const Header = () => {
             <li key={l.href}>
               <Link
                 to={l.href}
-                className={`text-sm font-medium transition-colors hover:text-action ${
-                  scrolled ? "text-foreground" : "text-white/80"
-                }`}
+                className="text-sm font-medium text-white/80 transition-colors hover:text-action"
               >
                 {l.label}
               </Link>
