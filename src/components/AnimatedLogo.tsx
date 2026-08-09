@@ -231,7 +231,7 @@ const AnimatedLogo = ({ scrolled }: AnimatedLogoProps) => {
         src={logo}
         alt="AI-MaX — Automatización Inteligente para Empresas"
         className={`w-auto will-change-transform transition-[height] duration-500 ${
-          scrolled ? "h-16 md:h-24" : "h-20 md:h-32"
+          scrolled ? "h-14 sm:h-16 md:h-24" : "h-14 sm:h-20 md:h-28"
         } drop-shadow-[0_8px_28px_rgba(0,0,0,0.55)] md:[filter:drop-shadow(0_0_22px_hsl(var(--action)/0.45))]`}
         style={{ transformStyle: "preserve-3d", backfaceVisibility: "hidden" }}
       />

@@ -7,9 +7,9 @@ const Header = () => (
     initial={{ y: -40, opacity: 0 }}
     animate={{ y: 0, opacity: 1 }}
     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-    className="sticky top-0 inset-x-0 z-50 bg-transparent"
+    className="absolute top-0 inset-x-0 z-50 bg-transparent pointer-events-none"
   >
-    <div className="container mx-auto flex items-center h-24 md:h-36">
+    <div className="container mx-auto flex items-center h-16 sm:h-20 md:h-28 pointer-events-auto">
       <Link to="/" aria-label="Ir al inicio AI-MaX" className="flex items-center">
         <AnimatedLogo scrolled={false} />
       </Link>

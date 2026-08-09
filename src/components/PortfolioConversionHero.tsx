@@ -39,7 +39,7 @@ const PortfolioConversionHero = () => {
 
   return (
     <section
-      className="relative pt-28 md:pt-32 pb-16 md:pb-24 bg-gradient-hero overflow-hidden"
+      className="relative pt-32 sm:pt-36 md:pt-44 pb-16 md:pb-24 bg-gradient-hero overflow-hidden"
       aria-label="Hero de conversión"
     >
       {/* ───── Capa 0 · Media fullbleed ───── */}
