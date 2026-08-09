@@ -10,14 +10,8 @@ const WA_MESSAGE = encodeURIComponent(
 const PortfolioCTA = () => {
   return (
     <section className="relative py-20 md:py-28 bg-gradient-hero overflow-hidden" aria-labelledby="portfolio-cta-heading">
-      {/* Grid pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.06] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)`,
-          backgroundSize: "60px 60px",
-        }}
-      />
+      {/* Blueprint grid (signature del rediseño) */}
+      <div className="absolute inset-0 blueprint-grid opacity-50 pointer-events-none" />
       {/* Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/20 blur-[120px] pointer-events-none" />
 
@@ -29,9 +23,9 @@ const PortfolioCTA = () => {
           transition={{ duration: 0.7 }}
           className="max-w-3xl mx-auto text-center"
         >
-          <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-action uppercase mb-5">
+          <span className="mono-label inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-action uppercase mb-5">
             <Sparkles className="w-3.5 h-3.5" />
-            Diagnóstico Gratuito
+            // Diagnóstico Gratuito
           </span>
           <h2
             id="portfolio-cta-heading"

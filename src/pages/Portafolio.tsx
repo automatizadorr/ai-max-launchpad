@@ -105,11 +105,12 @@ const Portafolio = () => {
         <PortfolioShowcase />
 
         {/* Videos educativos */}
-        <section className="py-20 md:py-28 bg-muted/30 border-y border-border">
-          <div className="container mx-auto px-6">
+        <section className="relative py-20 md:py-28 bg-muted/30 border-y border-border overflow-hidden">
+          <div className="absolute inset-0 blueprint-grid-soft opacity-30 pointer-events-none" />
+          <div className="container mx-auto px-6 relative">
             <div className="text-center max-w-3xl mx-auto mb-14">
-              <span className="inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
-                Aprende sobre IA
+              <span className="mono-label inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
+                // Aprende sobre IA
               </span>
               <h2 className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight">
                 Videos & <span className="text-gradient-primary">Demos en Acción</span>
@@ -158,7 +159,7 @@ const Portafolio = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-60px" }}
                     transition={{ duration: 0.5, delay: i * 0.1 }}
-                    className="group rounded-2xl overflow-hidden bg-card border border-border shadow-card hover:shadow-elegant transition-all duration-500"
+                    className="clip-terminal group rounded-2xl overflow-hidden bg-card border border-border shadow-card hover:shadow-elegant transition-all duration-500"
                   >
                     <div className={`relative ${v.platform === "instagram" ? "aspect-[9/12]" : "aspect-video"} bg-dark overflow-hidden`}>
                       {e && (
@@ -174,7 +175,7 @@ const Portafolio = () => {
                       )}
                     </div>
                     <div className="p-6">
-                      <span className="inline-block text-[10px] font-bold tracking-[0.18em] uppercase bg-action/10 text-action px-2.5 py-1 rounded-full mb-3">
+                      <span className="mono-label inline-block text-[10px] font-bold tracking-[0.18em] uppercase bg-action/10 text-action px-2.5 py-1 rounded-full mb-3">
                         {v.tag}
                       </span>
                       <h3 className="font-display font-bold text-lg text-foreground leading-tight mb-2">
@@ -190,11 +191,12 @@ const Portafolio = () => {
         </section>
 
         {/* Casos de uso de IA */}
-        <section className="py-20 md:py-28 bg-background">
-          <div className="container mx-auto px-6">
+        <section className="relative py-20 md:py-28 bg-background overflow-hidden">
+          <div className="absolute inset-0 blueprint-grid-soft opacity-30 pointer-events-none" />
+          <div className="container mx-auto px-6 relative">
             <div className="text-center max-w-3xl mx-auto mb-14">
-              <span className="inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
-                Casos de Uso
+              <span className="mono-label inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
+                // Casos de Uso
               </span>
               <h2 className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight">
                 ¿Cómo puede la IA <span className="text-gradient-primary">transformar tu empresa?</span>
@@ -275,9 +277,12 @@ const Portafolio = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-60px" }}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
-                  className="group relative text-left p-7 rounded-2xl bg-card border border-border hover:border-primary/40 hover:shadow-elegant transition-all duration-500 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="clip-terminal group relative text-left p-7 rounded-2xl bg-card border border-border hover:border-primary/40 hover:shadow-elegant transition-all duration-500 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary"
                   aria-label={`Ver detalles de ${c.title}`}
                 >
+                  <div className="mono-label text-[10px] text-muted-foreground/60 mb-3 tracking-[0.18em]">
+                    USE_CASE_{String(i + 1).padStart(2, "0")}
+                  </div>
                   <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center mb-5 shadow-action group-hover:scale-110 transition-transform duration-500">
                     <c.icon className="w-6 h-6 text-white" />
                   </div>
@@ -289,7 +294,7 @@ const Portafolio = () => {
                     {c.industries.map((ind) => (
                       <span
                         key={ind}
-                        className="text-[10px] font-semibold uppercase tracking-wider bg-muted text-muted-foreground px-2 py-1 rounded-md"
+                        className="mono-label text-[10px] font-semibold uppercase tracking-wider bg-muted text-muted-foreground px-2 py-1 rounded-md"
                       >
                         {ind}
                       </span>

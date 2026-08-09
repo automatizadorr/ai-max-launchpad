@@ -41,11 +41,12 @@ const cases: Case[] = [
 
 const BeforeAfter = () => {
   return (
-    <section className="py-20 md:py-28 bg-secondary border-y border-border" aria-labelledby="before-after-heading">
-      <div className="container mx-auto px-6">
+    <section className="relative py-20 md:py-28 bg-secondary border-y border-border overflow-hidden" aria-labelledby="before-after-heading">
+      <div className="absolute inset-0 blueprint-grid-soft opacity-40 pointer-events-none" />
+      <div className="container mx-auto px-6 relative">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
-            Impacto medible
+          <span className="mono-label inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
+            // Impacto medible
           </span>
           <h2 id="before-after-heading" className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight">
             Antes vs <span className="text-gradient-primary">Después con IA</span>
@@ -63,10 +64,10 @@ const BeforeAfter = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="rounded-3xl bg-card border border-border shadow-card overflow-hidden"
+              className="clip-terminal rounded-2xl bg-card border border-border shadow-card overflow-hidden"
             >
               <div className="p-6 md:p-8 border-b border-border">
-                <span className="inline-block text-[10px] font-bold tracking-[0.18em] uppercase bg-primary/10 text-primary px-2.5 py-1 rounded-full mb-3">
+                <span className="mono-label inline-block text-[10px] font-bold tracking-[0.18em] uppercase bg-primary/10 text-primary px-2.5 py-1 rounded-full mb-3">
                   {c.industry}
                 </span>
                 <h3 className="font-display font-black text-xl md:text-2xl text-foreground leading-tight">

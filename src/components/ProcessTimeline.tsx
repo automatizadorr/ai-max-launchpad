@@ -36,11 +36,12 @@ const steps = [
 
 const ProcessTimeline = () => {
   return (
-    <section className="py-20 md:py-28 bg-background" aria-labelledby="process-heading">
-      <div className="container mx-auto px-6">
+    <section className="relative py-20 md:py-28 bg-background overflow-hidden" aria-labelledby="process-heading">
+      <div className="absolute inset-0 blueprint-grid-soft opacity-40 pointer-events-none" />
+      <div className="container mx-auto px-6 relative">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
-            Cómo trabajamos
+          <span className="mono-label inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
+            // Cómo trabajamos
           </span>
           <h2 id="process-heading" className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight">
             Nuestro proceso en <span className="text-gradient-primary">5 pasos</span>
@@ -51,8 +52,8 @@ const ProcessTimeline = () => {
         </div>
 
         <div className="relative max-w-5xl mx-auto">
-          {/* Línea vertical (desktop) */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/40 via-primary/20 to-transparent -translate-x-1/2" />
+          {/* Línea vertical (desktop) con hairline técnica */}
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px hairline -translate-x-1/2" />
 
           <div className="space-y-8 md:space-y-12">
             {steps.map((s, i) => {
@@ -69,14 +70,14 @@ const ProcessTimeline = () => {
                   }`}
                 >
                   {/* Card */}
-                  <div className={`p-7 rounded-2xl bg-card border border-border shadow-card hover:shadow-elegant transition-all ${
+                  <div className={`clip-terminal p-7 rounded-2xl bg-card border border-border shadow-card hover:shadow-elegant transition-all ${
                     isEven ? "md:text-right" : ""
                   }`}>
                     <div className={`flex items-center gap-3 mb-3 ${isEven ? "md:flex-row-reverse" : ""}`}>
-                      <span className="text-[10px] font-bold tracking-[0.18em] uppercase bg-action/10 text-action px-2.5 py-1 rounded-full">
-                        Paso {i + 1}
+                      <span className="mono-label text-[10px] font-bold tracking-[0.18em] uppercase bg-action/10 text-action px-2.5 py-1 rounded-full">
+                        STEP_{String(i + 1).padStart(2, "0")}
                       </span>
-                      <span className="text-xs text-muted-foreground font-semibold">{s.duration}</span>
+                      <span className="mono-label text-xs text-muted-foreground font-semibold">// {s.duration}</span>
                     </div>
                     <h3 className="font-display font-black text-xl md:text-2xl text-foreground mb-2">
                       {s.title}

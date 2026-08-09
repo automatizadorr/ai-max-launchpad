@@ -57,7 +57,7 @@ const InlineCTA = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
-          className={`max-w-5xl mx-auto rounded-2xl px-6 md:px-10 py-7 md:py-8 flex flex-col md:flex-row items-center justify-between gap-6 ${bgClass}`}
+          className={`clip-terminal max-w-5xl mx-auto rounded-2xl px-6 md:px-10 py-7 md:py-8 flex flex-col md:flex-row items-center justify-between gap-6 ${bgClass}`}
         >
           <div className={`text-center md:text-left ${variant === "soft" ? "" : ""}`}>
             <h3

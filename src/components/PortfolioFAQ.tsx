@@ -44,8 +44,9 @@ const faqs = [
 
 const PortfolioFAQ = () => {
   return (
-    <section className="py-20 md:py-28 bg-muted/30 border-y border-border" aria-labelledby="portfolio-faq-heading">
-      <div className="container mx-auto px-6 max-w-4xl">
+    <section className="relative py-20 md:py-28 bg-muted/30 border-y border-border overflow-hidden" aria-labelledby="portfolio-faq-heading">
+      <div className="absolute inset-0 blueprint-grid-soft opacity-40 pointer-events-none" />
+      <div className="container mx-auto px-6 max-w-4xl relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -53,9 +54,9 @@ const PortfolioFAQ = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
+          <span className="mono-label inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
             <HelpCircle className="w-3.5 h-3.5" />
-            Preguntas Frecuentes
+            // Preguntas Frecuentes
           </span>
           <h2
             id="portfolio-faq-heading"
@@ -73,8 +74,15 @@ const PortfolioFAQ = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="rounded-2xl bg-card border border-border shadow-card p-2 md:p-4"
+          className="clip-terminal rounded-2xl bg-card border border-border shadow-card p-2 md:p-4 relative"
         >
+          {/* Terminal bar */}
+          <div className="flex items-center gap-2 px-3 py-2 mb-1">
+            <span className="w-2.5 h-2.5 rounded-full bg-action/80" />
+            <span className="w-2.5 h-2.5 rounded-full bg-primary-glow/70" />
+            <span className="w-2.5 h-2.5 rounded-full bg-foreground/20" />
+            <span className="mono-label ml-3 text-[10px] text-muted-foreground tracking-wider">faq.md</span>
+          </div>
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((f, i) => (
               <AccordionItem
@@ -83,9 +91,14 @@ const PortfolioFAQ = () => {
                 className="border-border last:border-0 px-4"
               >
                 <AccordionTrigger className="text-left font-display font-bold text-base md:text-lg text-foreground hover:text-primary hover:no-underline py-5">
-                  {f.q}
+                  <span className="flex items-baseline gap-3">
+                    <span className="mono-label text-[10px] text-action/70 tabular-nums shrink-0 mt-1">
+                      Q{String(i + 1).padStart(2, "0")}
+                    </span>
+                    {f.q}
+                  </span>
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-sm md:text-base leading-relaxed pb-5">
+                <AccordionContent className="text-muted-foreground text-sm md:text-base leading-relaxed pb-5 pl-10">
                   {f.a}
                 </AccordionContent>
               </AccordionItem>

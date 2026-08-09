@@ -126,13 +126,14 @@ const LeadQualifier = () => {
   return (
     <section
       id="qualifier"
-      className="py-20 md:py-28 bg-gradient-to-br from-secondary via-background to-secondary border-y border-border"
+      className="relative py-20 md:py-28 bg-gradient-to-br from-secondary via-background to-secondary border-y border-border overflow-hidden"
       aria-label="Calificador de proyecto IA"
     >
-      <div className="container mx-auto px-6">
+      <div className="absolute inset-0 blueprint-grid-soft opacity-50 pointer-events-none" />
+      <div className="container mx-auto px-6 relative">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
-            <span className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.18em] text-action uppercase mb-3">
+            <span className="mono-label inline-flex items-center gap-2 text-xs font-bold tracking-[0.18em] text-action uppercase mb-3">
               <Sparkles className="w-3.5 h-3.5" />
               Diagnóstico en 30 segundos
             </span>
@@ -144,14 +145,18 @@ const LeadQualifier = () => {
             </p>
           </div>
 
-          <div className="rounded-3xl bg-card border border-border shadow-elegant p-6 md:p-10 relative overflow-hidden">
+          <div className="clip-terminal rounded-2xl bg-card border border-border shadow-elegant p-6 md:p-10 relative overflow-hidden">
             {/* Progress */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-muted">
+            <div className="absolute top-0 left-0 right-0 h-[3px] bg-muted">
               <motion.div
-                className="h-full bg-gradient-to-r from-primary to-action"
+                className="h-full bg-gradient-to-r from-primary via-primary-glow to-action"
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 0.4 }}
               />
+            </div>
+            {/* Marca corner técnica */}
+            <div className="absolute top-3 right-4 mono-label text-[10px] tracking-[0.18em] text-muted-foreground/70 uppercase pointer-events-none">
+              #[qualifier]
             </div>
 
             <AnimatePresence mode="wait">

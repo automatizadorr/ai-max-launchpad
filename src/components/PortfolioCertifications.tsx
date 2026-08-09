@@ -36,8 +36,9 @@ const credentials = [
 
 const PortfolioCertifications = () => {
   return (
-    <section className="py-20 md:py-28 bg-background" aria-labelledby="credentials-heading">
-      <div className="container mx-auto px-6">
+    <section className="relative py-20 md:py-28 bg-background overflow-hidden" aria-labelledby="credentials-heading">
+      <div className="absolute inset-0 blueprint-grid-fine opacity-25 pointer-events-none" />
+      <div className="container mx-auto px-6 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -45,9 +46,9 @@ const PortfolioCertifications = () => {
           transition={{ duration: 0.6 }}
           className="max-w-3xl mx-auto text-center mb-14"
         >
-          <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
+          <span className="mono-label inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
             <Award className="w-3.5 h-3.5" />
-            Expertise & Partners
+            // Expertise & Partners
           </span>
           <h2
             id="credentials-heading"
@@ -71,7 +72,7 @@ const PortfolioCertifications = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.5, delay: i * 0.07 }}
-                className="group relative rounded-2xl bg-card border border-border p-6 shadow-card hover:shadow-elegant hover:-translate-y-1 transition-all duration-500"
+                className="clip-terminal group relative rounded-2xl bg-card border border-border p-6 shadow-card hover:shadow-elegant hover:-translate-y-1 transition-all duration-500"
               >
                 <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center shadow-action mb-4 group-hover:scale-110 transition-transform duration-500">
                   <Icon className="w-6 h-6 text-white" />
@@ -91,9 +92,10 @@ const PortfolioCertifications = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-14 max-w-4xl mx-auto rounded-2xl bg-gradient-hero p-6 md:p-8 border border-border shadow-elegant"
+          className="clip-terminal mt-14 max-w-4xl mx-auto rounded-2xl bg-gradient-hero p-6 md:p-8 border border-white/10 shadow-elegant relative overflow-hidden"
         >
-          <div className="flex flex-col md:flex-row items-center gap-5 md:gap-7 text-center md:text-left">
+          <div className="absolute inset-0 blueprint-grid opacity-50 pointer-events-none" />
+          <div className="relative flex flex-col md:flex-row items-center gap-5 md:gap-7 text-center md:text-left">
             <div className="w-14 h-14 rounded-xl bg-action/15 flex items-center justify-center shrink-0">
               <ShieldCheck className="w-7 h-7 text-action" />
             </div>

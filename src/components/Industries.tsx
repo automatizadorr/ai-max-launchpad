@@ -19,11 +19,12 @@ const industries = [
 
 const Industries = () => {
   return (
-    <section className="py-20 md:py-28 bg-secondary border-y border-border" aria-labelledby="industries-heading">
-      <div className="container mx-auto px-6">
+    <section className="relative py-20 md:py-28 bg-secondary border-y border-border overflow-hidden" aria-labelledby="industries-heading">
+      <div className="absolute inset-0 blueprint-grid-soft opacity-40 pointer-events-none" />
+      <div className="container mx-auto px-6 relative">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
-            Industrias
+          <span className="mono-label inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
+            // Industrias
           </span>
           <h2 id="industries-heading" className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight">
             Sectores donde <span className="text-gradient-primary">ya operamos</span>
@@ -41,7 +42,7 @@ const Industries = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="group flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-card border border-border hover:border-primary/40 hover:shadow-elegant hover:-translate-y-1 transition-all duration-500"
+              className="clip-terminal group flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-card border border-border hover:border-primary/40 hover:shadow-elegant hover:-translate-y-1 transition-all duration-500"
             >
               <div className="w-14 h-14 rounded-2xl bg-primary/5 group-hover:bg-gradient-primary flex items-center justify-center transition-all duration-500">
                 <ind.icon className="w-7 h-7 text-primary group-hover:text-white transition-colors duration-500" />

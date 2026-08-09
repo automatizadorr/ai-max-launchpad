@@ -51,14 +51,21 @@ const LeadMagnetCard = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.4, duration: 0.6 }}
       aria-label="Descarga gratuita: Auditoría de Automatización IA"
-      className="glass rounded-2xl p-6 md:p-7 text-left shadow-glow border border-white/15 max-w-md w-full mx-auto lg:mx-0"
+      className="clip-terminal glass rounded-2xl p-6 md:p-7 text-left shadow-glow border border-white/15 max-w-md w-full mx-auto lg:mx-0 relative"
     >
+      {/* Terminal bar sutil */}
+      <div className="flex items-center gap-1.5 mb-4 opacity-60">
+        <span className="w-2 h-2 rounded-full bg-action/80" />
+        <span className="w-2 h-2 rounded-full bg-primary-glow/70" />
+        <span className="w-2 h-2 rounded-full bg-white/30" />
+        <span className="mono-label ml-2 text-[9px] text-white/60 tracking-wider">auditoria.sh</span>
+      </div>
       <div className="flex items-center gap-3 mb-4">
         <div className="w-11 h-11 rounded-xl bg-gradient-primary flex items-center justify-center shadow-action shrink-0">
           <FileText className="w-5 h-5 text-white" />
         </div>
         <div className="min-w-0">
-          <span className="block text-[11px] font-bold tracking-[0.18em] text-action uppercase">
+          <span className="mono-label block text-[11px] font-bold tracking-[0.18em] text-action uppercase">
             Gratis · PDF
           </span>
           <h3 className="font-display font-bold text-white text-base leading-tight">

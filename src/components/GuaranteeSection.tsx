@@ -30,14 +30,8 @@ const GuaranteeSection = () => {
       className="relative py-20 md:py-28 bg-gradient-hero overflow-hidden"
       aria-labelledby="guarantee-heading"
     >
-      {/* Grid pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.05] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)`,
-          backgroundSize: "60px 60px",
-        }}
-      />
+      {/* Blueprint grid (signature del rediseño) */}
+      <div className="absolute inset-0 blueprint-grid opacity-50 pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] h-[560px] rounded-full bg-action/15 blur-[130px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
@@ -48,9 +42,9 @@ const GuaranteeSection = () => {
           transition={{ duration: 0.7 }}
           className="max-w-3xl mx-auto text-center"
         >
-          <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-action uppercase mb-5">
+          <span className="mono-label inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-action uppercase mb-5">
             <ShieldCheck className="w-3.5 h-3.5" />
-            Garantía de Resultados AI-MaX
+            // Garantía de Resultados AI-MaX
           </span>
           <h2
             id="guarantee-heading"
@@ -75,8 +69,11 @@ const GuaranteeSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="glass rounded-2xl p-6 border border-white/15 text-left"
+              className="clip-terminal glass rounded-2xl p-6 border border-white/15 text-left"
             >
+              <div className="mono-label text-[10px] text-primary-glow/80 mb-3 tracking-[0.18em]">
+                ASSERT_{String(i + 1).padStart(2, "0")}
+              </div>
               <div className="w-11 h-11 rounded-xl bg-gradient-primary flex items-center justify-center shadow-action mb-4">
                 <p.icon className="w-5 h-5 text-white" />
               </div>

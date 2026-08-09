@@ -89,6 +89,8 @@ const LeadForm = () => {
 
   return (
     <section id="contacto" className="py-24 md:py-32 bg-gradient-hero relative overflow-hidden" aria-labelledby="form-heading">
+      {/* Blueprint grid (signature) */}
+      <div className="absolute inset-0 blueprint-grid opacity-50 pointer-events-none" />
       {/* Decorative glows */}
       <div className="absolute top-0 left-1/3 w-[500px] h-[500px] rounded-full bg-primary-glow/20 blur-[140px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-action/20 blur-[140px] pointer-events-none" />
@@ -101,8 +103,8 @@ const LeadForm = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7 }}
           >
-            <span className="inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
-              Hablemos
+            <span className="mono-label inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
+              // Hablemos
             </span>
             <h2 id="form-heading" className="font-display font-black text-3xl md:text-5xl text-white leading-tight mb-6">
               ¿Listo para automatizar tu empresa?
@@ -116,10 +118,10 @@ const LeadForm = () => {
                 "Diagnóstico gratuito de procesos",
                 "Propuesta a medida en 48 horas",
                 "Implementación con resultados medibles",
-              ].map((b) => (
+              ].map((b, i) => (
                 <li key={b} className="flex items-center gap-3">
                   <ShieldCheck className="w-5 h-5 text-action" aria-hidden="true" />
-                  {b}
+                  <span><span className="mono-label text-action/70 mr-1.5 tabular-nums">{String(i + 1).padStart(2, "0")}</span>{b}</span>
                 </li>
               ))}
             </ul>
@@ -135,9 +137,16 @@ const LeadForm = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="glass rounded-3xl p-6 md:p-8 space-y-4 shadow-glow"
+            className="clip-terminal glass rounded-2xl p-6 md:p-8 space-y-4 shadow-glow relative"
             aria-label="Formulario de solicitud de presupuesto"
           >
+            {/* Terminal bar */}
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-action/80" />
+              <span className="w-2.5 h-2.5 rounded-full bg-primary-glow/70" />
+              <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
+              <span className="mono-label ml-3 text-[10px] text-white/50 tracking-wider">contacto.sh</span>
+            </div>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-white/80 mb-2">

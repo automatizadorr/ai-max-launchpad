@@ -43,6 +43,7 @@ const OfferStack = () => {
       className="relative py-20 md:py-28 bg-background overflow-hidden"
       aria-labelledby="offer-heading"
     >
+      <div className="absolute inset-0 blueprint-grid-soft opacity-40 pointer-events-none" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full bg-primary/5 blur-[130px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
@@ -53,9 +54,9 @@ const OfferStack = () => {
           transition={{ duration: 0.7 }}
           className="max-w-2xl mx-auto text-center mb-12"
         >
-          <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
+          <span className="mono-label inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
             <Sparkles className="w-3.5 h-3.5" />
-            Todo en un solo sistema
+            // Todo en un solo sistema
           </span>
           <h2
             id="offer-heading"
@@ -75,11 +76,19 @@ const OfferStack = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="max-w-2xl mx-auto rounded-3xl border border-border bg-card shadow-elegant overflow-hidden"
+          className="clip-terminal max-w-2xl mx-auto rounded-2xl border border-border bg-card shadow-elegant overflow-hidden relative"
         >
+          {/* Stack header (terminal bar) */}
+          <div className="flex items-center gap-2 px-5 md:px-7 py-3 border-b border-border bg-muted/50">
+            <span className="w-3 h-3 rounded-full bg-action/80" />
+            <span className="w-3 h-3 rounded-full bg-primary-glow/70" />
+            <span className="w-3 h-3 rounded-full bg-foreground/20" />
+            <span className="mono-label ml-3 text-[11px] text-muted-foreground tracking-wider">ai-max-stack.md</span>
+          </div>
+
           {/* Stack list */}
           <ul className="divide-y divide-border">
-            {items.map((item) => (
+            {items.map((item, i) => (
               <li
                 key={item.label}
                 className={`flex items-center gap-4 px-5 md:px-7 py-4 ${
@@ -90,6 +99,9 @@ const OfferStack = () => {
                     : ""
                 }`}
               >
+                <span className="mono-label text-[10px] text-muted-foreground/60 tabular-nums shrink-0 hidden sm:inline">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
                 <div
                   className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${
                     item.highlight ? "bg-gradient-primary shadow-action" : "bg-muted"
@@ -106,7 +118,7 @@ const OfferStack = () => {
                   {item.label.replace(/^BONO: /, "")}
                 </span>
                 <span
-                  className={`shrink-0 text-sm md:text-base font-bold tabular-nums ${
+                  className={`mono-label shrink-0 text-sm md:text-base font-bold tabular-nums ${
                     item.highlight === "guarantee" ? "text-primary" : "text-foreground/60 line-through"
                   }`}
                 >
@@ -117,37 +129,40 @@ const OfferStack = () => {
           </ul>
 
           {/* Price anchor */}
-          <div className="bg-gradient-hero px-6 md:px-8 py-8 text-center">
-            <p className="text-white/60 text-sm">
-              Valor total:{" "}
-              <span className="line-through decoration-action decoration-2">$3.910.000</span>
-            </p>
-            <p className="mt-2 text-white/80 text-sm font-medium">Tu inversión:</p>
-            <p className="font-display font-black text-white text-4xl md:text-5xl mt-1">
-              desde $490.000
-              <span className="text-lg md:text-xl text-white/60 font-bold"> CLP</span>
-            </p>
+          <div className="bg-gradient-hero px-6 md:px-8 py-8 text-center relative overflow-hidden">
+            <div className="absolute inset-0 blueprint-grid opacity-30 pointer-events-none" />
+            <div className="relative">
+              <p className="text-white/60 text-sm">
+                Valor total:{" "}
+                <span className="line-through decoration-action decoration-2">$3.910.000</span>
+              </p>
+              <p className="mt-2 text-white/80 text-sm font-medium">Tu inversión:</p>
+              <p className="font-display font-black text-white text-4xl md:text-5xl mt-1 tabular-nums">
+                desde $490.000
+                <span className="text-lg md:text-xl text-white/60 font-bold"> CLP</span>
+              </p>
 
-            <ul className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-white/70">
-              {["Sin permanencia", "Implementación incluida", "Garantía de resultados"].map((b) => (
-                <li key={b} className="inline-flex items-center gap-1.5">
-                  <Check className="w-4 h-4 text-action" />
-                  {b}
-                </li>
-              ))}
-            </ul>
+              <ul className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-white/70">
+                {["Sin permanencia", "Implementación incluida", "Garantía de resultados"].map((b) => (
+                  <li key={b} className="inline-flex items-center gap-1.5">
+                    <Check className="w-4 h-4 text-action" />
+                    {b}
+                  </li>
+                ))}
+              </ul>
 
-            <button
-              type="button"
-              onClick={() => {
-                trackEvent("inline_cta_click", { location: "offer_stack" });
-                scrollTo("qualifier");
-              }}
-              className="mt-7 w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-action hover:bg-action-glow text-action-foreground font-bold px-8 py-4 rounded-xl shadow-action transition-all hover:scale-[1.02]"
-            >
-              Quiero mi Sistema AI-MaX
-              <ArrowRight className="w-4 h-4" />
-            </button>
+              <button
+                type="button"
+                onClick={() => {
+                  trackEvent("inline_cta_click", { location: "offer_stack" });
+                  scrollTo("qualifier");
+                }}
+                className="mt-7 w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-action hover:bg-action-glow text-action-foreground font-bold px-8 py-4 rounded-xl shadow-action transition-all hover:scale-[1.02]"
+              >
+                Quiero mi Sistema AI-MaX
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </motion.div>
       </div>

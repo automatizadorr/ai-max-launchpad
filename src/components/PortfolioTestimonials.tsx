@@ -63,11 +63,12 @@ const testimonials: Testimonial[] = [
 
 const Testimonials = () => {
   return (
-    <section className="py-20 md:py-28 bg-background" aria-labelledby="testimonials-heading">
-      <div className="container mx-auto px-6">
+    <section className="relative py-20 md:py-28 bg-background overflow-hidden" aria-labelledby="testimonials-heading">
+      <div className="absolute inset-0 blueprint-grid-fine opacity-30 pointer-events-none" />
+      <div className="container mx-auto px-6 relative">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
-            Lo que dicen
+          <span className="mono-label inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
+            // Lo que dicen
           </span>
           <h2 id="testimonials-heading" className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight">
             Clientes que <span className="text-gradient-primary">confían en nosotros</span>

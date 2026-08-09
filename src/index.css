@@ -99,8 +99,14 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', system-ui, sans-serif;
+    font-family: 'Inter Tight', 'Montserrat', system-ui, sans-serif;
     @apply tracking-tight;
+  }
+
+  /* Etiquetas técnicas mono (datos, marcadores, eyebrows) */
+  .mono-label {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    letter-spacing: 0.04em;
   }
 }
 
@@ -155,5 +161,54 @@
     25% { opacity: 0.9; }
     60% { transform: translateX(420%) rotate(12deg); opacity: 0; }
     100% { transform: translateX(420%) rotate(12deg); opacity: 0; }
+  }
+
+  /* ───── Blueprint grid (signature del rediseño) ───── */
+  .blueprint-grid {
+    background-image:
+      linear-gradient(to right, hsl(215 100% 50% / 0.10) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(215 100% 50% / 0.10) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  .blueprint-grid-soft {
+    background-image:
+      linear-gradient(to right, hsl(var(--foreground) / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--foreground) / 0.05) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  .blueprint-grid-fine {
+    background-image:
+      linear-gradient(to right, hsl(215 100% 50% / 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(215 100% 50% / 0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Hairline connector — Línea técnica que conecta elementos al grid */
+  .hairline {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsl(215 100% 50% / 0.4) 30%,
+      hsl(358 76% 49% / 0.5) 70%,
+      transparent 100%
+    );
+    height: 1px;
+    width: 100%;
+  }
+
+  /* Clip de esquinas (terminales técnicas) */
+  .clip-terminal {
+    clip-path: polygon(
+      0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)
+    );
+  }
+
+  /* Video del hero: suaviza transición al cargar */
+  @keyframes hero-video-reveal {
+    0% { opacity: 0; transform: scale(1.08); filter: blur(12px); }
+    100% { opacity: 1; transform: scale(1); filter: blur(0); }
+  }
+  .hero-video-reveal {
+    animation: hero-video-reveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 }
