@@ -8,15 +8,13 @@ interface Metric {
   suffix: string;
   label: string;
   color: string;
-  // clave del dato (mono label técnico)
-  key: string;
 }
 
 const metrics: Metric[] = [
-  { icon: Rocket, value: 4, suffix: "+", label: "Proyectos en producción", color: "text-action", key: "PROD" },
-  { icon: Clock, value: 771, suffix: "+", label: "Horas automatizadas", color: "text-primary-glow", key: "HRS" },
-  { icon: Users, value: 3, suffix: "+", label: "Empresas operando con IA", color: "text-action", key: "LIVE" },
-  { icon: TrendingUp, value: 340, suffix: "%", label: "ROI promedio", color: "text-primary-glow", key: "ROI" },
+  { icon: Rocket, value: 4, suffix: "+", label: "Proyectos en producción", color: "text-action" },
+  { icon: Clock, value: 771, suffix: "+", label: "Horas automatizadas", color: "text-primary-glow" },
+  { icon: Users, value: 3, suffix: "+", label: "Empresas operando con IA", color: "text-action" },
+  { icon: TrendingUp, value: 340, suffix: "%", label: "ROI promedio", color: "text-primary-glow" },
 ];
 
 const Counter = ({ to, suffix }: { to: number; suffix: string }) => {
@@ -85,9 +83,6 @@ const ImpactMetrics = () => {
 
               <div className={`inline-flex w-12 h-12 rounded-xl bg-white/5 border border-white/10 items-center justify-center mb-3 ${m.color}`}>
                 <m.icon className="w-6 h-6" />
-              </div>
-              <div className="mono-label text-[10px] tracking-[0.18em] text-primary-glow/70 uppercase mb-1">
-                {m.key}
               </div>
               <div className="font-display font-black text-3xl md:text-5xl text-white leading-none tabular-nums">
                 <Counter to={m.value} suffix={m.suffix} />

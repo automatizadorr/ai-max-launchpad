@@ -73,7 +73,7 @@ const LeadForm = () => {
     }
     supabase.functions.invoke("notify-lead", { body: leadData }).catch(() => {});
     trackEvent("lead_form_submit", { pain_point: parsed.data.pain_point });
-    toast.success("¡Solicitud recibida! Te contactaremos en menos de 24h.");
+    toast.success("¡Solicitud recibida! Te contactaremos en menos de 48h.");
     setForm({ name: "", company: "", phone: "", email: "", pain_point: "" });
     setCustomPain(null);
     setTimeout(() => navigate("/gracias"), 600);
@@ -106,7 +106,7 @@ const LeadForm = () => {
             <span className="mono-label inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
               // Hablemos
             </span>
-            <h2 id="form-heading" className="font-display font-black text-3xl md:text-5xl text-white leading-tight mb-6">
+            <h2 id="form-heading" className="font-display font-bold text-3xl md:text-5xl text-white leading-tight mb-6">
               ¿Listo para automatizar tu empresa?
             </h2>
             <p className="text-white/70 text-lg leading-relaxed mb-8">

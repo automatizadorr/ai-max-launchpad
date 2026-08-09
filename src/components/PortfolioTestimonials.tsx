@@ -70,8 +70,8 @@ const Testimonials = () => {
           <span className="mono-label inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
             // Lo que dicen
           </span>
-          <h2 id="testimonials-heading" className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight">
-            Clientes que <span className="text-gradient-primary">confían en nosotros</span>
+          <h2 id="testimonials-heading" className="font-display font-bold text-3xl md:text-5xl text-foreground leading-tight">
+            Clientes que confían en nosotros
           </h2>
           <p className="mt-5 text-muted-foreground text-base md:text-lg">
             Resultados reales de empresas LATAM que ya operan con IA.

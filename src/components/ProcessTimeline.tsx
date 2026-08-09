@@ -43,8 +43,8 @@ const ProcessTimeline = () => {
           <span className="mono-label inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
             // Cómo trabajamos
           </span>
-          <h2 id="process-heading" className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight">
-            Nuestro proceso en <span className="text-gradient-primary">5 pasos</span>
+          <h2 id="process-heading" className="font-display font-bold text-3xl md:text-5xl text-foreground leading-tight">
+            Nuestro proceso en 5 pasos
           </h2>
           <p className="mt-5 text-muted-foreground text-base md:text-lg">
             Metodología clara, entregables definidos y demos semanales. Sin sorpresas.

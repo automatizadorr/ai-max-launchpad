@@ -60,10 +60,9 @@ const OfferStack = () => {
           </span>
           <h2
             id="offer-heading"
-            className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight"
+            className="font-display font-bold text-3xl md:text-5xl text-foreground leading-tight"
           >
-            El Sistema AI-MaX de{" "}
-            <span className="text-gradient-primary">Captación 24/7</span>
+            El Sistema AI-MaX de Captación 24/7
           </h2>
           <p className="mt-5 text-muted-foreground text-base md:text-lg leading-relaxed">
             No contratas "servicios sueltos". Recibes un sistema completo que atiende,
@@ -91,26 +90,23 @@ const OfferStack = () => {
             {items.map((item, i) => (
               <li
                 key={item.label}
-                className={`flex items-center gap-4 px-5 md:px-7 py-4 ${
-                  item.highlight === "bonus"
-                    ? "bg-action/5"
-                    : item.highlight === "guarantee"
-                    ? "bg-primary/5"
-                    : ""
+              className={`flex items-center gap-4 px-5 md:px-7 py-4 ${
+                item.highlight === "bonus"
+                  ? "bg-action/5"
+                  : item.highlight === "guarantee"
+                  ? "bg-primary/5"
+                  : ""
+              }`}
+            >
+              <div
+                className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${
+                  item.highlight ? "bg-gradient-primary shadow-action" : "bg-muted"
                 }`}
               >
-                <span className="mono-label text-[10px] text-muted-foreground/60 tabular-nums shrink-0 hidden sm:inline">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div
-                  className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${
-                    item.highlight ? "bg-gradient-primary shadow-action" : "bg-muted"
-                  }`}
-                >
-                  <item.icon
-                    className={`w-4 h-4 ${item.highlight ? "text-white" : "text-foreground/70"}`}
-                  />
-                </div>
+                <item.icon
+                  className={`w-4 h-4 ${item.highlight ? "text-white" : "text-foreground/70"}`}
+                />
+              </div>
                 <span className="flex-1 text-sm md:text-base text-foreground/90 leading-snug">
                   {item.highlight === "bonus" && (
                     <span className="font-bold text-action">BONO · </span>

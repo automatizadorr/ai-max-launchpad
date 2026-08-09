@@ -48,10 +48,9 @@ const GuaranteeSection = () => {
           </span>
           <h2
             id="guarantee-heading"
-            className="font-display font-black text-3xl md:text-5xl text-white leading-tight"
+            className="font-display font-bold text-3xl md:text-5xl text-white leading-tight"
           >
-            El riesgo lo asumimos{" "}
-            <span className="text-gradient-primary">nosotros, no tú.</span>
+            El riesgo lo asumimos nosotros, no tú.
           </h2>
           <p className="mt-6 text-white/75 text-base md:text-lg leading-relaxed">
             Si en <span className="font-semibold text-white">30 días</span> tu sistema no te
@@ -71,9 +70,6 @@ const GuaranteeSection = () => {
               transition={{ duration: 0.5, delay: i * 0.1 }}
               className="clip-terminal glass rounded-2xl p-6 border border-white/15 text-left"
             >
-              <div className="mono-label text-[10px] text-primary-glow/80 mb-3 tracking-[0.18em]">
-                ASSERT_{String(i + 1).padStart(2, "0")}
-              </div>
               <div className="w-11 h-11 rounded-xl bg-gradient-primary flex items-center justify-center shadow-action mb-4">
                 <p.icon className="w-5 h-5 text-white" />
               </div>

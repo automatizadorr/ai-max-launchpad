@@ -30,7 +30,7 @@ const Gracias = () => {
   <div className="min-h-screen bg-background flex flex-col">
     <SEO
       title="¡Gracias! Te contactamos pronto | AI-MaX"
-      description="Recibimos tu solicitud. Te contactamos en menos de 24 horas para agendar tu diagnóstico gratuito."
+      description="Recibimos tu solicitud. Te contactamos en menos de 48 horas para agendar tu diagnóstico gratuito."
       path="/gracias"
       ogImage="/og-casos.png"
     />
@@ -62,7 +62,7 @@ const Gracias = () => {
 
           <h1 className="font-display font-black text-white text-4xl md:text-5xl leading-tight">
             ¡Gracias! Te contactamos en{" "}
-            <span className="text-gradient-primary">menos de 24h</span>
+            <span className="text-gradient-primary">menos de 48h</span>
           </h1>
 
           <p className="mt-5 text-white/75 text-base md:text-lg">

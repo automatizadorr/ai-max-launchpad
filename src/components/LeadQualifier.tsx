@@ -120,7 +120,7 @@ const LeadQualifier = () => {
     }
     trackEvent("qualifier_completed", { ...answers, solution });
     setDone(true);
-    toast.success("¡Listo! Te contactamos en menos de 24h.");
+    toast.success("¡Listo! Te contactamos en menos de 48h.");
   };
 
   return (
@@ -137,8 +137,8 @@ const LeadQualifier = () => {
               <Sparkles className="w-3.5 h-3.5" />
               Diagnóstico en 30 segundos
             </span>
-            <h2 className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight">
-              Descubre qué <span className="text-gradient-primary">solución IA</span> es ideal para ti
+            <h2 className="font-display font-bold text-3xl md:text-5xl text-foreground leading-tight">
+              Descubre qué solución IA es ideal para ti
             </h2>
             <p className="mt-4 text-muted-foreground text-base md:text-lg">
               Responde 4 preguntas rápidas y te enviamos una propuesta personalizada gratuita.
@@ -280,7 +280,7 @@ const LeadQualifier = () => {
                     Recibe tu propuesta personalizada
                   </h3>
                   <p className="text-sm text-muted-foreground mb-5">
-                    Te contactamos en menos de 24h con un plan a medida (sin costo).
+                    Te contactamos en menos de 48h con un plan a medida (sin costo).
                   </p>
 
                   <form onSubmit={submit} className="space-y-3">
@@ -290,7 +290,7 @@ const LeadQualifier = () => {
                       value={contact.name}
                       onChange={(e) => setContact({ ...contact, name: e.target.value })}
                       placeholder="Tu nombre"
-                      className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                      className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                     />
                     <div className="grid sm:grid-cols-2 gap-3">
                       <input
@@ -299,7 +299,7 @@ const LeadQualifier = () => {
                         value={contact.email}
                         onChange={(e) => setContact({ ...contact, email: e.target.value })}
                         placeholder="Correo"
-                        className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                        className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                       />
                       <input
                         type="tel"
@@ -307,7 +307,7 @@ const LeadQualifier = () => {
                         value={contact.phone}
                         onChange={(e) => setContact({ ...contact, phone: e.target.value })}
                         placeholder="WhatsApp"
-                        className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                        className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                       />
                     </div>
                     <button
@@ -345,7 +345,7 @@ const LeadQualifier = () => {
                     ¡Diagnóstico recibido!
                   </h3>
                   <p className="text-muted-foreground max-w-md mx-auto">
-                    Te contactamos en menos de 24h con tu plan personalizado para{" "}
+                    Te contactamos en menos de 48h con tu plan personalizado para{" "}
                     <span className="font-semibold text-foreground">{solution}</span>.
                   </p>
                 </motion.div>

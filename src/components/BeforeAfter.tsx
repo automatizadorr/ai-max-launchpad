@@ -48,8 +48,8 @@ const BeforeAfter = () => {
           <span className="mono-label inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
             // Impacto medible
           </span>
-          <h2 id="before-after-heading" className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight">
-            Antes vs <span className="text-gradient-primary">Después con IA</span>
+          <h2 id="before-after-heading" className="font-display font-bold text-3xl md:text-5xl text-foreground leading-tight">
+            Antes vs Después con IA
           </h2>
           <p className="mt-5 text-muted-foreground text-base md:text-lg">
             Casos reales con métricas concretas. Esto es lo que cambia cuando la IA entra en operación.

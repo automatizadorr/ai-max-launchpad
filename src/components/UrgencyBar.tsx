@@ -13,7 +13,7 @@ const UrgencyBar = () => {
       className="relative z-[60] w-full bg-gradient-to-r from-action via-action-glow to-action text-action-foreground"
     >
       <div className="container mx-auto px-4 py-2 flex items-center justify-center gap-3 text-center">
-        <Flame className="w-4 h-4 shrink-0 animate-pulse" aria-hidden="true" />
+        <Flame className="w-4 h-4 shrink-0" aria-hidden="true" />
         <p className="text-[12px] sm:text-sm font-semibold tracking-tight">
           Solo aceptamos <span className="font-black">3 nuevos clientes este mes</span>
           <span className="hidden sm:inline"> · Quedan </span>

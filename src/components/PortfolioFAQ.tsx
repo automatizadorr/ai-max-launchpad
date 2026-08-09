@@ -60,9 +60,9 @@ const PortfolioFAQ = () => {
           </span>
           <h2
             id="portfolio-faq-heading"
-            className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight"
+            className="font-display font-bold text-3xl md:text-5xl text-foreground leading-tight"
           >
-            Resolvemos tus <span className="text-gradient-primary">dudas</span>
+            Resolvemos tus dudas
           </h2>
           <p className="mt-5 text-muted-foreground text-base md:text-lg">
             Lo que más nos preguntan antes de iniciar un proyecto de IA con nosotros.
@@ -91,14 +91,9 @@ const PortfolioFAQ = () => {
                 className="border-border last:border-0 px-4"
               >
                 <AccordionTrigger className="text-left font-display font-bold text-base md:text-lg text-foreground hover:text-primary hover:no-underline py-5">
-                  <span className="flex items-baseline gap-3">
-                    <span className="mono-label text-[10px] text-action/70 tabular-nums shrink-0 mt-1">
-                      Q{String(i + 1).padStart(2, "0")}
-                    </span>
-                    {f.q}
-                  </span>
+                  {f.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-sm md:text-base leading-relaxed pb-5 pl-10">
+                <AccordionContent className="text-muted-foreground text-sm md:text-base leading-relaxed pb-5">
                   {f.a}
                 </AccordionContent>
               </AccordionItem>

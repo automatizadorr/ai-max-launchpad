@@ -52,9 +52,9 @@ const PortfolioCertifications = () => {
           </span>
           <h2
             id="credentials-heading"
-            className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight"
+            className="font-display font-bold text-3xl md:text-5xl text-foreground leading-tight"
           >
-            Tecnologías que <span className="text-gradient-primary">dominamos</span>
+            Tecnologías que dominamos
           </h2>
           <p className="mt-5 text-muted-foreground text-base md:text-lg">
             Trabajamos con las plataformas líderes de IA del mundo y aplicamos las mejores prácticas

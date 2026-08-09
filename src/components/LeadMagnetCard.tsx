@@ -83,7 +83,7 @@ const LeadMagnetCard = () => {
           <div>
             <p className="text-white text-sm font-semibold">¡Solicitud recibida!</p>
             <p className="text-white/70 text-xs mt-0.5">
-              Recibirás la auditoría en menos de 24h.
+              Recibirás la auditoría en menos de 48h.
             </p>
           </div>
         </div>
@@ -96,7 +96,7 @@ const LeadMagnetCard = () => {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="tu@email.com"
             aria-label="Correo electrónico"
-            className="w-full bg-white/10 border border-white/20 text-white placeholder:text-white/50 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-white/60 focus:ring-2 focus:ring-white/20 transition"
+            className="w-full bg-white/10 border border-white/20 text-white placeholder:text-white/50 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:border-white/60 focus:ring-2 focus:ring-white/20 transition"
           />
           <input
             type="tel"
@@ -104,7 +104,7 @@ const LeadMagnetCard = () => {
             onChange={(e) => setPhone(e.target.value)}
             placeholder="WhatsApp (opcional)"
             aria-label="WhatsApp"
-            className="w-full bg-white/10 border border-white/20 text-white placeholder:text-white/50 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-white/60 focus:ring-2 focus:ring-white/20 transition"
+            className="w-full bg-white/10 border border-white/20 text-white placeholder:text-white/50 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:border-white/60 focus:ring-2 focus:ring-white/20 transition"
           />
           <button
             type="submit"

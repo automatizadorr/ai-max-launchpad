@@ -85,7 +85,7 @@ const FloatingWhatsApp = () => {
                 <p className="text-sm text-foreground font-medium leading-snug">
                   Hola 👋 ¿En qué automatizamos tu empresa?
                 </p>
-                <p className="text-xs text-muted-foreground mt-1">Respondemos en minutos</p>
+                <p className="text-xs text-muted-foreground mt-1">Respuesta en menos de 48h</p>
               </motion.div>
             )}
           </AnimatePresence>

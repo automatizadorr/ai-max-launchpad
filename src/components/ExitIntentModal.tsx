@@ -103,7 +103,7 @@ const ExitIntentModal = () => {
               <CheckCircle2 className="w-12 h-12 text-action mx-auto mb-3" />
               <p className="font-display font-bold text-lg text-foreground">¡Listo!</p>
               <p className="text-sm text-muted-foreground mt-1">
-                Te llegan en menos de 24h por WhatsApp.
+                Te llegan en menos de 48h por WhatsApp.
               </p>
             </div>
           ) : (
@@ -114,7 +114,7 @@ const ExitIntentModal = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Tu correo"
-                className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
               />
               <input
                 type="tel"
@@ -122,7 +122,7 @@ const ExitIntentModal = () => {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="Tu WhatsApp"
-                className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                className="w-full bg-background border border-border rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
               />
               <button
                 type="submit"

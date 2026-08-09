@@ -110,11 +110,8 @@ const PortfolioConversionHero = () => {
               animate={{ opacity: 1, y: 0 }}
               className="mono-label inline-flex items-center gap-2 glass px-3 py-1.5 rounded-full mb-5 text-[11px] font-semibold tracking-[0.18em] text-white/85 uppercase"
             >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-action opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-action" />
-              </span>
-              Diagnóstico gratuito · 24h
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-action" />
+              Diagnóstico gratuito · 48h
             </motion.span>
 
             <motion.h1

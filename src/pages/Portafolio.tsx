@@ -112,8 +112,8 @@ const Portafolio = () => {
               <span className="mono-label inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
                 // Aprende sobre IA
               </span>
-              <h2 className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight">
-                Videos & <span className="text-gradient-primary">Demos en Acción</span>
+              <h2 className="font-display font-bold text-3xl md:text-5xl text-foreground leading-tight">
+                Videos & Demos en Acción
               </h2>
               <p className="mt-5 text-muted-foreground text-base md:text-lg">
                 Mira cómo nuestras soluciones de IA funcionan en escenarios reales y descubre el potencial para tu negocio.
@@ -198,8 +198,8 @@ const Portafolio = () => {
               <span className="mono-label inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
                 // Casos de Uso
               </span>
-              <h2 className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight">
-                ¿Cómo puede la IA <span className="text-gradient-primary">transformar tu empresa?</span>
+              <h2 className="font-display font-bold text-3xl md:text-5xl text-foreground leading-tight">
+                ¿Cómo puede la IA transformar tu empresa?
               </h2>
               <p className="mt-5 text-muted-foreground text-base md:text-lg">
                 Aplicaciones reales de Inteligencia Artificial que ya están generando resultados medibles en empresas LATAM.
@@ -280,9 +280,6 @@ const Portafolio = () => {
                   className="clip-terminal group relative text-left p-7 rounded-2xl bg-card border border-border hover:border-primary/40 hover:shadow-elegant transition-all duration-500 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary"
                   aria-label={`Ver detalles de ${c.title}`}
                 >
-                  <div className="mono-label text-[10px] text-muted-foreground/60 mb-3 tracking-[0.18em]">
-                    USE_CASE_{String(i + 1).padStart(2, "0")}
-                  </div>
                   <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center mb-5 shadow-action group-hover:scale-110 transition-transform duration-500">
                     <c.icon className="w-6 h-6 text-white" />
                   </div>
@@ -330,7 +327,7 @@ const Portafolio = () => {
           variant="primary"
           location="after_before_after"
           title="¿Quieres resultados así en tu negocio?"
-          description="Agenda un diagnóstico gratuito y diseñamos tu plan en 24h."
+          description="Agenda un diagnóstico gratuito y diseñamos tu plan en 48h."
           ctaLabel="Agendar diagnóstico"
           targetId="qualifier"
         />

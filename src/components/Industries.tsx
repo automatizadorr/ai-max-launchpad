@@ -26,8 +26,8 @@ const Industries = () => {
           <span className="mono-label inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
             // Industrias
           </span>
-          <h2 id="industries-heading" className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight">
-            Sectores donde <span className="text-gradient-primary">ya operamos</span>
+          <h2 id="industries-heading" className="font-display font-bold text-3xl md:text-5xl text-foreground leading-tight">
+            Sectores donde ya operamos
           </h2>
           <p className="mt-5 text-muted-foreground text-base md:text-lg">
             Adaptamos cada solución de IA al lenguaje, procesos y normativas de tu industria.

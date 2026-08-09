@@ -29,10 +29,9 @@ const PortfolioCTA = () => {
           </span>
           <h2
             id="portfolio-cta-heading"
-            className="font-display font-black text-3xl md:text-5xl lg:text-6xl text-white leading-tight"
+            className="font-display font-bold text-3xl md:text-5xl lg:text-6xl text-white leading-tight"
           >
-            ¿Listo para que la IA{" "}
-            <span className="text-gradient-primary">trabaje por ti?</span>
+            ¿Listo para que la IA trabaje por ti?
           </h2>
           <p className="mt-6 text-white/75 text-base md:text-lg leading-relaxed">
             Agenda una sesión gratuita de 30 minutos. Identificamos qué procesos puedes
@@ -74,7 +73,7 @@ const PortfolioCTA = () => {
             </span>
             <span className="inline-flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-action" />
-              Respuesta en menos de 24h
+              Respuesta en menos de 48h
             </span>
             <span className="inline-flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-action" />

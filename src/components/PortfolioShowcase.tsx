@@ -76,9 +76,8 @@ const PortfolioShowcase = () => {
           <span className="inline-block text-xs font-semibold tracking-[0.2em] text-action uppercase mb-4">
             Portafolio
           </span>
-          <h2 id="portfolio-heading" className="font-display font-black text-3xl md:text-5xl text-foreground leading-tight">
-            Proyectos Reales que{" "}
-            <span className="text-gradient-primary">Transforman Negocios</span>
+          <h2 id="portfolio-heading" className="font-display font-bold text-3xl md:text-5xl text-foreground leading-tight">
+            Proyectos Reales que Transforman Negocios
           </h2>
           <p className="mt-5 text-muted-foreground text-base md:text-lg">
             Una selección de implementaciones IA que están operando hoy en empresas reales.
