@@ -95,9 +95,6 @@ const Portafolio = () => {
         {/* Métricas de impacto */}
         <ImpactMetrics />
 
-        {/* Calificador inteligente de leads */}
-        <LeadQualifier />
-
         {/* Stack tecnológico */}
         <PortfolioStackMarquee />
 
@@ -517,6 +514,9 @@ const Portafolio = () => {
             )}
           </DialogContent>
         </Dialog>
+
+        {/* Calificador inteligente de leads — pre-qualify antes del formulario final */}
+        <LeadQualifier />
 
         <LeadForm />
       </main>

@@ -63,7 +63,7 @@ const testimonials: Testimonial[] = [
 
 const Testimonials = () => {
   return (
-    <section className="relative py-20 md:py-28 bg-background overflow-hidden" aria-labelledby="testimonials-heading">
+    <section id="testimonios" className="relative py-20 md:py-28 bg-background overflow-hidden" aria-labelledby="testimonials-heading">
       <div className="absolute inset-0 blueprint-grid-fine opacity-30 pointer-events-none" />
       <div className="container mx-auto px-6 relative">
         <div className="text-center max-w-3xl mx-auto mb-14">

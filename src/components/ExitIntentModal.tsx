@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { trackEvent } from "@/lib/tracking";
 
 const SESSION_KEY = "exit_intent_shown_v1";
+const MOBILE_ARM_MS = 12000; // móvil solo se arma tras 12s en página
 
 const schema = z.object({
   email: z.string().trim().email("Correo no válido").max(255),
@@ -25,34 +26,59 @@ const ExitIntentModal = () => {
     if (sessionStorage.getItem(SESSION_KEY)) return;
 
     let armed = false;
+    let mobileArmed = false;
+    let lastScrollY = window.scrollY || 0;
+
     const armTimer = window.setTimeout(() => {
       armed = true;
-    }, 8000); // arm after 8s on page
+    }, 8000); // arm after 8s on page (desktop)
 
-    const onMouseLeave = (e: MouseEvent) => {
-      if (!armed) return;
-      if (e.clientY > 0) return; // only top edge exit
-      if (sessionStorage.getItem(SESSION_KEY)) return;
+    const mobileArmTimer = window.setTimeout(() => {
+      mobileArmed = true;
+    }, MOBILE_ARM_MS); // mobile necesita más tiempo en página antes de considerar "exit"
+
+    const openOnce = (trigger: string) => {
+      if (!armed || sessionStorage.getItem(SESSION_KEY)) return;
       sessionStorage.setItem(SESSION_KEY, "1");
       setOpen(true);
-      trackEvent("exit_intent_shown");
+      trackEvent("exit_intent_shown", { trigger });
+    };
+
+    const isCoarsePointer = () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(pointer: coarse)").matches;
+
+    const onMouseLeave = (e: MouseEvent) => {
+      if (isCoarsePointer()) return; // solo desktop
+      if (e.clientY > 0) return; // only top edge exit
+      openOnce("mouseleave");
     };
 
     const onVisibility = () => {
-      if (!armed) return;
       if (document.visibilityState !== "hidden") return;
-      if (sessionStorage.getItem(SESSION_KEY)) return;
-      sessionStorage.setItem(SESSION_KEY, "1");
-      setOpen(true);
-      trackEvent("exit_intent_shown", { trigger: "visibility" });
+      openOnce("visibility");
+    };
+
+    // Móvil: scroll-up velocity pasando el 60% de profundidad de página
+    const onScroll = () => {
+      if (!mobileArmed) return;
+      const y = window.scrollY || 0;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const depth = docHeight > 0 ? y / docHeight : 1;
+      const scrollingUp = y < lastScrollY;
+      lastScrollY = y;
+      if (scrollingUp && depth >= 0.6) openOnce("mobile_scroll_up");
     };
 
     document.addEventListener("mouseleave", onMouseLeave);
     document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.clearTimeout(armTimer);
+      window.clearTimeout(mobileArmTimer);
       document.removeEventListener("mouseleave", onMouseLeave);
       document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
@@ -68,7 +94,7 @@ const ExitIntentModal = () => {
       name: "Exit intent lead",
       email: parsed.data.email,
       phone: parsed.data.phone,
-      pain_point: "3 ideas de automatización",
+      pain_point: "Reporte ROI",
       source: "exit_intent",
     };
     const { error } = await supabase.from("leads").insert([leadData]);
@@ -79,7 +105,7 @@ const ExitIntentModal = () => {
     }
     supabase.functions.invoke("notify-lead", { body: leadData }).catch(() => {});
     setDone(true);
-    toast.success("¡Te enviaremos las 3 ideas por WhatsApp en breve!");
+    toast.success("¡Te enviamos el reporte de ROI por WhatsApp!");
   };
 
   return (
@@ -93,7 +119,9 @@ const ExitIntentModal = () => {
             Antes de irte…
           </DialogTitle>
           <DialogDescription className="text-white/75 mt-2 text-sm">
-            ¿Te enviamos por WhatsApp <span className="text-white font-semibold">3 ideas de automatización</span> para tu negocio? Gratis, sin compromiso.
+            ¿Te enviamos por WhatsApp el{" "}
+            <span className="text-white font-semibold">reporte de ROI estimado de tu industria</span>{" "}
+            — sin costo y en el instante?
           </DialogDescription>
         </div>
 
@@ -137,7 +165,7 @@ const ExitIntentModal = () => {
                 ) : (
                   <>
                     <MessageCircle className="w-4 h-4" />
-                    Quiero las 3 ideas
+                    Quiero mi reporte
                   </>
                 )}
               </button>

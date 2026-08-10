@@ -141,7 +141,7 @@ const LeadQualifier = () => {
               Descubre qué solución IA es ideal para ti
             </h2>
             <p className="mt-4 text-muted-foreground text-base md:text-lg">
-              Responde 4 preguntas rápidas y te enviamos una propuesta personalizada gratuita.
+              Responde 4 preguntas rápidas y recibe tu reporte de ROI estimado gratis.
             </p>
           </div>
 
@@ -277,10 +277,10 @@ const LeadQualifier = () => {
                   </div>
 
                   <h3 className="font-display font-bold text-xl text-foreground mb-2">
-                    Recibe tu propuesta personalizada
+                    Recibe tu reporte de ROI estimado
                   </h3>
                   <p className="text-sm text-muted-foreground mb-5">
-                    Te contactamos en menos de 48h con un plan a medida (sin costo).
+                    Te lo enviamos gratis por email o WhatsApp, en el instante.
                   </p>
 
                   <form onSubmit={submit} className="space-y-3">
@@ -322,7 +322,7 @@ const LeadQualifier = () => {
                         </>
                       ) : (
                         <>
-                          Recibir propuesta gratis
+                          Recibir reporte gratis
                           <ArrowRight className="w-4 h-4" />
                         </>
                       )}

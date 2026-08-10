@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck, Zap, Award, Calendar } from "lucide-react";
-import LeadMagnetCard from "./LeadMagnetCard";
+import RoiCalculator from "./RoiCalculator";
 import { trackEvent } from "@/lib/tracking";
 
 // Fondo decorativo de respaldo: se carga aparte para no bloquear el primer render del hero.
@@ -184,8 +184,8 @@ const PortfolioConversionHero = () => {
             </motion.ul>
           </div>
 
-          {/* Lead magnet card */}
-          <LeadMagnetCard />
+          {/* ROI calculator · lead magnet interactivo */}
+          <RoiCalculator />
         </div>
       </div>
     </section>

@@ -13,7 +13,10 @@ export type EventName =
   | "inline_cta_click"
   | "urgency_bar_click"
   | "local_whatsapp_click"
-  | "local_booking_click";
+  | "local_booking_click"
+  | "roi_calculator_interaction"
+  | "roi_calculator_submit"
+  | "roi_calculator_complete";
 
 declare global {
   interface Window {

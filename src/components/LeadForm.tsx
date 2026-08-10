@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Loader2, Send, ShieldCheck, Users } from "lucide-react";
+import { Loader2, Send, ShieldCheck } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
@@ -116,8 +116,8 @@ const LeadForm = () => {
             <ul className="space-y-3 text-white/80">
               {[
                 "Diagnóstico gratuito de procesos",
-                "Propuesta a medida en 48 horas",
-                "Implementación con resultados medibles",
+                "Sesión estratégica de 30 min sin costo",
+                "Plan de implementación con resultados medibles",
               ].map((b, i) => (
                 <li key={b} className="flex items-center gap-3">
                   <ShieldCheck className="w-5 h-5 text-action" aria-hidden="true" />
@@ -125,9 +125,21 @@ const LeadForm = () => {
                 </li>
               ))}
             </ul>
-            <div className="mt-7 inline-flex items-center gap-2 glass border border-white/15 rounded-full px-4 py-2 text-xs text-white/80">
-              <Users className="w-3.5 h-3.5 text-action" />
-              <span><span className="font-bold text-white">8 empresas</span> solicitaron diagnóstico esta semana</span>
+            {/* Prueba social: métricas reales de testimonials */}
+            <div className="mt-7 grid grid-cols-3 gap-2 max-w-md">
+              {[
+                { metric: "30 h/sem ahorradas", who: "María José · RetailHub LATAM" },
+                { metric: "70% consultas resueltas", who: "Felipe · ClinicaSmart" },
+                { metric: "0 leads perdidos", who: "Camila · Inm. Andes" },
+              ].map((q) => (
+                <div
+                  key={q.metric}
+                  className="glass border border-white/15 rounded-xl px-3 py-3 text-center"
+                >
+                  <p className="font-display font-bold text-white text-xs leading-tight">{q.metric}</p>
+                  <p className="text-[10px] text-white/60 mt-1 leading-tight">{q.who}</p>
+                </div>
+              ))}
             </div>
           </motion.div>
 
