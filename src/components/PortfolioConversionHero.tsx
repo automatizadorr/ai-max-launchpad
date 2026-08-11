@@ -114,15 +114,11 @@ const PortfolioConversionHero = () => {
               Diagnóstico gratuito · 48h
             </motion.span>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="font-display font-black text-white text-4xl sm:text-5xl md:text-6xl leading-[1.04]"
-            >
+            {/* LCP: el titular se pinta de inmediato (sin fade-in) para no retrasar el Largest Contentful Paint */}
+            <h1 className="font-display font-black text-white text-4xl sm:text-5xl md:text-6xl leading-[1.04]">
               Recupera +20 horas a la semana y no pierdas{" "}
               <span className="text-gradient-primary">un solo lead</span> — con IA, en 30 días.
-            </motion.h1>
+            </h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}

@@ -170,7 +170,7 @@ const PortfolioShowcase = () => {
           }}
         >
           {selected && (
-            <div className="flex flex-col lg:flex-row h-full min-h-0">
+            <div className="flex flex-col lg:flex-row h-full min-h-0 w-full min-w-0">
               {/* Media: arriba en mobile/tablet, izquierda en desktop */}
               <div
                 role="img"
@@ -211,7 +211,7 @@ const PortfolioShowcase = () => {
 
               {/* Contenido: scrollable */}
               <div
-                className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-5 sm:p-6 md:p-8 lg:h-full"
+                className="flex-1 min-w-0 min-h-0 overflow-y-auto overscroll-contain p-5 sm:p-6 md:p-8 lg:h-full"
                 role="region"
                 aria-label="Detalles del proyecto"
                 tabIndex={0}
@@ -230,7 +230,7 @@ const PortfolioShowcase = () => {
                 {(selected.client_name || selected.result_metric) && (
                   <div className="grid sm:grid-cols-2 gap-3 mb-6">
                     {selected.client_name && (
-                      <div className="flex items-center gap-3 p-4 rounded-xl bg-muted/50 border border-border">
+                      <div className="flex items-center gap-3 p-4 rounded-xl bg-muted/50 border border-border min-w-0">
                         <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                           <User className="w-5 h-5 text-primary" />
                         </div>
@@ -241,7 +241,7 @@ const PortfolioShowcase = () => {
                       </div>
                     )}
                     {selected.result_metric && (
-                      <div className="flex items-center gap-3 p-4 rounded-xl bg-action/5 border border-action/20">
+                      <div className="flex items-center gap-3 p-4 rounded-xl bg-action/5 border border-action/20 min-w-0">
                         <div className="w-10 h-10 rounded-lg bg-action/15 flex items-center justify-center shrink-0">
                           <TrendingUp className="w-5 h-5 text-action" />
                         </div>
@@ -257,7 +257,7 @@ const PortfolioShowcase = () => {
                 {selected.long_description && (
                   <div className="mb-6">
                     <h4 className="text-xs font-bold uppercase tracking-[0.18em] text-action mb-3">Sobre el proyecto</h4>
-                    <div className="prose prose-sm max-w-none text-foreground/90 leading-relaxed whitespace-pre-line">
+                    <div className="prose prose-sm max-w-none text-foreground/90 leading-relaxed whitespace-pre-line break-words">
                       {selected.long_description}
                     </div>
                   </div>

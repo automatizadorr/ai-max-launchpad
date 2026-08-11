@@ -22,13 +22,25 @@
     
     <meta name="twitter:image" content="https://storage.googleapis.com/gpt-engineer-file-uploads/cHc2B8G5IRftrwf9OQeIwuOuVYl2/social-images/social-1776664815355-Gemini_Generated_Image_ggqxyaggqxyaggqx-removebg-preview.webp">
 
+    <!-- LCP: precarga la imagen del hero segun viewport (desktop = poster del video, movil = poster JPG liviano) -->
+    <link rel="preload" href="/hero-poster.jpg" as="image" media="(min-width: 769px)" fetchpriority="high" />
+    <link rel="preload" href="/hero-mobile-poster.jpg" as="image" media="(max-width: 768px)" fetchpriority="high" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fuentes sin bloquear el render (se aplican al cargar; fallback en <noscript>). Peso 800 removido: sin uso en el codigo. -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
-    <link rel="preconnect" href="/hero.mp4" as="video" />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      />
+    </noscript>
 
     <script type="application/ld+json">
     {
