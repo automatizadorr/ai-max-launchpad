@@ -23,6 +23,7 @@ import PortfolioCTA from "@/components/PortfolioCTA";
 import PortfolioConversionHero from "@/components/PortfolioConversionHero";
 import LeadQualifier from "@/components/LeadQualifier";
 import InlineCTA from "@/components/InlineCTA";
+import LiteVideoEmbed from "@/components/LiteVideoEmbed";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
@@ -160,15 +161,7 @@ const Portafolio = () => {
                   >
                     <div className={`relative ${v.platform === "instagram" ? "aspect-[9/12]" : "aspect-video"} bg-dark overflow-hidden`}>
                       {e && (
-                        <iframe
-                          src={e.src}
-                          title={v.title}
-                          className="absolute inset-0 w-full h-full"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                          loading="lazy"
-                          scrolling="no"
-                        />
+                        <LiteVideoEmbed src={e.src} title={v.title} platform={v.platform} />
                       )}
                     </div>
                     <div className="p-6">

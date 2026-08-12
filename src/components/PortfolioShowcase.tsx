@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { cdnImage } from "@/lib/img";
 
 interface Project {
   id: string;
@@ -110,9 +111,10 @@ const PortfolioShowcase = () => {
                   <div className="relative aspect-[4/3] sm:aspect-[16/10] overflow-hidden bg-muted">
                     {p.rank && p.rank >= 1 && p.rank <= 3 && <RankBadge rank={p.rank} />}
                     <img
-                      src={p.image_url}
+                      src={cdnImage(p.image_url, 768)}
                       alt={p.title}
                       loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
@@ -191,14 +193,14 @@ const PortfolioShowcase = () => {
                       <video
                         src={embed.src}
                         controls
-                        poster={selected.image_url}
+                        poster={cdnImage(selected.image_url, 1280)}
                         className="absolute inset-0 w-full h-full object-contain"
                       />
                     )}
                   </div>
                 ) : (
                   <div className="relative w-full h-full overflow-hidden">
-                    <img src={selected.image_url} alt={selected.title} className="w-full h-full object-cover" />
+                    <img src={cdnImage(selected.image_url, 1280)} alt={selected.title} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-dark/40" />
                   </div>
                 )}
