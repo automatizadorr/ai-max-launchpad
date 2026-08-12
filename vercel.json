@@ -3,9 +3,12 @@
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "images": {
-    "sizes": [320, 420, 640, 768, 1024, 1280],
+    "sizes": [320, 420, 448, 640, 768, 1024, 1280],
     "formats": ["image/webp"],
     "minimumCacheTTL": 86400,
+    "localPatterns": [
+      { "pathname": "/assets/**", "search": "" }
+    ],
     "remotePatterns": [
       { "protocol": "https", "hostname": "vtkrpitsgwznmkqnanmq.supabase.co" }
     ]
