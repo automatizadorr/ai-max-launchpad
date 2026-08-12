@@ -4,6 +4,7 @@
 import { readFileSync, writeFileSync, rmSync } from "node:fs";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import path from "node:path";
+import Beasties from "beasties";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const dist = path.join(root, "dist");
@@ -37,6 +38,17 @@ for (const name of ["localStorage", "sessionStorage"]) {
 
 const { render } = await import(pathToFileURL(serverEntry).href);
 
+// Inlinea la CSS crítica (above-the-fold) y difiere el resto → deja de bloquear el render.
+// pruneSource:false conserva la hoja completa (se carga diferida) como red de seguridad.
+const beasties = new Beasties({
+  path: dist,
+  publicPath: "/",
+  preload: "swap",
+  pruneSource: false,
+  reduceInlineStyles: false,
+  logLevel: "silent",
+});
+
 // Solo la home: es la ruta crítica de conversión y la que mide Lighthouse.
 const routes = ["/"];
 
@@ -46,9 +58,10 @@ for (const url of routes) {
   if (!template.includes(marker)) {
     throw new Error(`No se encontró "${marker}" en dist/index.html`);
   }
-  const out = template.replace(marker, `<div id="root">${html}</div>`);
+  const merged = template.replace(marker, `<div id="root">${html}</div>`);
+  const out = await beasties.process(merged);
   writeFileSync(path.join(dist, "index.html"), out, "utf-8");
-  console.log(`✓ prerender ${url} → dist/index.html (${(out.length / 1024).toFixed(1)} KB)`);
+  console.log(`✓ prerender+critical-css ${url} → dist/index.html (${(out.length / 1024).toFixed(1)} KB)`);
 }
 
 // El bundle SSR no se despliega: se limpia.
