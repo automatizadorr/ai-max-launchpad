@@ -16,26 +16,25 @@ const PortfolioConversionHero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoFailed, setVideoFailed] = useState(false);
 
-  // Mobile = imagen estática (mejor rendimiento en datos móvil). Desktop = video.
-  const [isMobile, setIsMobile] = useState(
-    typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches
-  );
+  // SSR/hidratación seguros: el primer render (servidor y cliente) pinta el póster.
+  // Recién tras montar decidimos video (desktop) vs póster móvil vs reduced-motion,
+  // para que el HTML prerenderizado coincida y no rompa la hidratación.
+  const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
 
-  // Respect reduced motion: si el usuario lo pide, no autoplay del video.
-  const reduceMotion =
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  const showVideo = !isMobile && !reduceMotion && !videoFailed;
-
-  // Listener reactivo a cambios de viewport (portrait/landscape rotate en mobile)
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mq = window.matchMedia("(max-width: 768px)");
+    setMounted(true);
+    const mqMobile = window.matchMedia("(max-width: 768px)");
+    const mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setIsMobile(mqMobile.matches);
+    setReduceMotion(mqReduce.matches);
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
+    mqMobile.addEventListener("change", handler);
+    return () => mqMobile.removeEventListener("change", handler);
   }, []);
+
+  const showVideo = mounted && !isMobile && !reduceMotion && !videoFailed;
 
   return (
     <section
@@ -62,19 +61,19 @@ const PortfolioConversionHero = () => {
           >
             <source src={HERO_VIDEO} type="video/mp4" />
           </video>
-        ) : isMobile ? (
+        ) : mounted && videoFailed && !isMobile && !reduceMotion ? (
+          <Suspense fallback={null}>
+            <ParticleNetwork />
+          </Suspense>
+        ) : (
           <img
-            src={HERO_MOBILE_POSTER}
+            src={mounted && isMobile ? HERO_MOBILE_POSTER : HERO_POSTER}
             alt=""
             aria-hidden="true"
             className="absolute inset-0 w-full h-full object-cover"
             loading="eager"
             decoding="async"
           />
-        ) : (
-          <Suspense fallback={null}>
-            <ParticleNetwork />
-          </Suspense>
         )}
       </div>
 

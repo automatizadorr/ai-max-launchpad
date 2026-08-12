@@ -19,31 +19,37 @@ const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 
 const queryClient = new QueryClient();
 
+// Árbol de la app SIN Router ni Helmet: cada entrada los provee
+// (cliente = BrowserRouter+HelmetProvider en <App/>; prerender SSR = StaticRouter en entry-server).
+export const AppContent = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Portafolio />} />
+          <Route path="/portafolio" element={<Portafolio />} />
+          <Route path="/gracias" element={<Gracias />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/admin/portafolio" element={<AdminPortafolio />} />
+          <Route path="/test-webhook" element={<TestWebhook />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+      <FloatingWhatsApp />
+      <ExitIntentModal />
+    </TooltipProvider>
+  </QueryClientProvider>
+);
+
 const App = () => (
   <HelmetProvider>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Suspense fallback={null}>
-            <Routes>
-              <Route path="/" element={<Portafolio />} />
-              <Route path="/portafolio" element={<Portafolio />} />
-              <Route path="/gracias" element={<Gracias />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/admin/portafolio" element={<AdminPortafolio />} />
-              <Route path="/test-webhook" element={<TestWebhook />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-          <FloatingWhatsApp />
-          <ExitIntentModal />
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   </HelmetProvider>
 );
 
