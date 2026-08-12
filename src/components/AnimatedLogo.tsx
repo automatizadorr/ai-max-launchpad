@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import logo from "@/assets/ai-max-logo.png";
+import { cdnImage } from "@/lib/img";
 
 gsap.registerPlugin(useGSAP);
 
@@ -228,8 +229,9 @@ const AnimatedLogo = ({ scrolled }: AnimatedLogoProps) => {
       />
       <img
         ref={imgRef}
-        src={logo}
+        src={cdnImage(logo, 448)}
         alt="AI-MaX — Automatización Inteligente para Empresas"
+        decoding="async"
         className={`w-auto will-change-transform transition-[height] duration-500 ${
           scrolled ? "h-14 sm:h-16 md:h-24" : "h-14 sm:h-20 md:h-28"
         } drop-shadow-[0_8px_28px_rgba(0,0,0,0.55)] md:[filter:drop-shadow(0_0_22px_hsl(var(--action)/0.45))]`}

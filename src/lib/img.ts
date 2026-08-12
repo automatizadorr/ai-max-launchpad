@@ -10,7 +10,10 @@
  */
 export function cdnImage(url: string | null | undefined, width: number, quality = 75): string {
   if (!url) return "";
-  // Solo optimizamos remotas https en producción; locales/data-uri se dejan igual.
-  if (!import.meta.env.PROD || !/^https:\/\//.test(url)) return url;
+  // En dev el endpoint no existe → original. Optimizamos remotas https (Supabase)
+  // y assets locales servidos por Vercel (`/assets/...`). data:/blob: se dejan igual.
+  if (!import.meta.env.PROD) return url;
+  const optimizable = /^https:\/\//.test(url) || url.startsWith("/");
+  if (!optimizable) return url;
   return `/_vercel/image?url=${encodeURIComponent(url)}&w=${width}&q=${quality}`;
 }
