@@ -148,6 +148,20 @@ const Portafolio = () => {
                   tag: "Instagram",
                   platform: "instagram" as const,
                 },
+                {
+                  title: "Reel · Implementación IA",
+                  desc: "Otro caso real de inteligencia artificial aplicada a un negocio.",
+                  url: "https://www.instagram.com/p/DZ_Lma0FNlC/",
+                  tag: "Instagram",
+                  platform: "instagram" as const,
+                },
+                {
+                  title: "Reel · Flujo automatizado",
+                  desc: "Un proceso automatizado con IA, explicado paso a paso en video.",
+                  url: "https://www.instagram.com/p/DZRGMPuRSZF/",
+                  tag: "Instagram",
+                  platform: "instagram" as const,
+                },
               ].map((v, i) => {
                 const e = getEmbedUrl(v.url);
                 return (
