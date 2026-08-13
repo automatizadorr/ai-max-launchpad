@@ -171,11 +171,9 @@ const RoiCalculator = () => {
   };
 
   return (
-    <motion.aside
+    // Visible en SSR (sin fade-in): es above-the-fold y candidata a LCP tras el prerender.
+    <aside
       id="lead-magnet"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.4, duration: 0.6 }}
       aria-label="Calculadora de ROI: cuánto pierdes por procesos manuales"
       className="clip-terminal glass rounded-2xl p-5 md:p-6 text-left shadow-glow border border-white/15 max-w-md w-full mx-auto lg:mx-0 relative"
     >
@@ -411,7 +409,7 @@ const RoiCalculator = () => {
           </a>
         </div>
       )}
-    </motion.aside>
+    </aside>
   );
 };
 

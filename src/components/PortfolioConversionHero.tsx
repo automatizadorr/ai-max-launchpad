@@ -1,5 +1,4 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck, Zap, Award, Calendar } from "lucide-react";
 import RoiCalculator from "./RoiCalculator";
 import { trackEvent } from "@/lib/tracking";
@@ -104,14 +103,11 @@ const PortfolioConversionHero = () => {
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-14 items-center">
           {/* Copy */}
           <div className="text-center lg:text-left">
-            <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mono-label inline-flex items-center gap-2 glass px-3 py-1.5 rounded-full mb-5 text-[11px] font-semibold tracking-[0.18em] text-white/85 uppercase"
-            >
+            {/* Above-the-fold visible en SSR (sin fade-in) para no retrasar el LCP */}
+            <span className="mono-label inline-flex items-center gap-2 glass px-3 py-1.5 rounded-full mb-5 text-[11px] font-semibold tracking-[0.18em] text-white/85 uppercase">
               <span className="relative inline-flex rounded-full h-2 w-2 bg-action" />
               Diagnóstico gratuito · 48h
-            </motion.span>
+            </span>
 
             {/* LCP: el titular se pinta de inmediato (sin fade-in) para no retrasar el Largest Contentful Paint */}
             <h1 className="font-display font-black text-white text-4xl sm:text-5xl md:text-6xl leading-[1.04]">
@@ -119,25 +115,15 @@ const PortfolioConversionHero = () => {
               <span className="text-gradient-primary">un solo lead</span> — con IA, en 30 días.
             </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="mt-5 text-white/80 text-base md:text-lg max-w-xl mx-auto lg:mx-0"
-            >
+            <p className="mt-5 text-white/80 text-base md:text-lg max-w-xl mx-auto lg:mx-0">
               Instalamos los agentes de IA que atienden, califican y agendan por ti —{" "}
               <span className="font-semibold text-white">tú solo cierras.</span>{" "}
               <span className="font-semibold text-white">ROI promedio 340%</span>
               {" · "}Garantía de resultados o no pagas.
-            </motion.p>
+            </p>
 
             {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start"
-            >
+            <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
               <button
                 type="button"
                 onClick={() => {
@@ -157,15 +143,10 @@ const PortfolioConversionHero = () => {
               >
                 Ver casos reales
               </button>
-            </motion.div>
+            </div>
 
             {/* Trust badges */}
-            <motion.ul
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.45 }}
-              className="mt-7 flex flex-wrap gap-x-5 gap-y-2 justify-center lg:justify-start text-xs sm:text-sm text-white/80"
-            >
+            <ul className="mt-7 flex flex-wrap gap-x-5 gap-y-2 justify-center lg:justify-start text-xs sm:text-sm text-white/80">
               {[
                 { icon: ShieldCheck, label: "Sin permanencia" },
                 { icon: Zap, label: "Primer resultado en 14 días" },
@@ -176,7 +157,7 @@ const PortfolioConversionHero = () => {
                   {b.label}
                 </li>
               ))}
-            </motion.ul>
+            </ul>
           </div>
 
           {/* ROI calculator · lead magnet interactivo */}
