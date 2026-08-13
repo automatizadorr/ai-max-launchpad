@@ -121,42 +121,42 @@ const Portafolio = () => {
             <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
               {[
                 {
-                  title: "Demo IA en acción #1",
+                  title: "Demo IA #1",
                   desc: "Mira cómo nuestras soluciones de inteligencia artificial operan en escenarios reales.",
                   url: "https://www.youtube.com/watch?v=hrafP5PW-jk",
                   tag: "YouTube",
                   platform: "youtube" as const,
                 },
                 {
-                  title: "Demo IA en acción #2",
+                  title: "Demo IA #2",
                   desc: "Otro caso práctico de automatización e IA aplicada al negocio.",
                   url: "https://www.youtube.com/watch?v=eTrYjvS-e8A",
                   tag: "YouTube",
                   platform: "youtube" as const,
                 },
                 {
-                  title: "Reel · Caso de uso IA",
+                  title: "Caso de uso IA",
                   desc: "Resumen visual de una implementación de IA real en Instagram.",
                   url: "https://www.instagram.com/p/DWFza86jQHI/",
                   tag: "Instagram",
                   platform: "instagram" as const,
                 },
                 {
-                  title: "Reel · Automatización",
+                  title: "Automatización",
                   desc: "Mira un workflow automatizado funcionando paso a paso.",
                   url: "https://www.instagram.com/p/DWVxJYzkVlf/",
                   tag: "Instagram",
                   platform: "instagram" as const,
                 },
                 {
-                  title: "Reel · Implementación IA",
+                  title: "Implementación IA",
                   desc: "Otro caso real de inteligencia artificial aplicada a un negocio.",
                   url: "https://www.instagram.com/p/DZ_Lma0FNlC/",
                   tag: "Instagram",
                   platform: "instagram" as const,
                 },
                 {
-                  title: "Reel · Flujo automatizado",
+                  title: "Flujo automatizado",
                   desc: "Un proceso automatizado con IA, explicado paso a paso en video.",
                   url: "https://www.instagram.com/p/DZRGMPuRSZF/",
                   tag: "Instagram",
