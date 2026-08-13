@@ -10,7 +10,9 @@
       { "pathname": "/assets/**", "search": "" }
     ],
     "remotePatterns": [
-      { "protocol": "https", "hostname": "vtkrpitsgwznmkqnanmq.supabase.co" }
+      { "protocol": "https", "hostname": "vtkrpitsgwznmkqnanmq.supabase.co" },
+      { "protocol": "https", "hostname": "beahtwbiqtkudvzpvvhs.supabase.co" },
+      { "protocol": "https", "hostname": "storage.googleapis.com" }
     ]
   }
 }
