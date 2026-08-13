@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ExternalLink, Loader2, Play, User, TrendingUp, X, ArrowRight } from "lucide-react";
 import RankBadge from "@/components/RankBadge";
@@ -47,20 +47,25 @@ const PortfolioShowcase = () => {
   const [selected, setSelected] = useState<Project | null>(null);
   const initialFocusRef = useRef<HTMLAnchorElement>(null);
 
+  // En /portafolio se muestran TODOS los proyectos; en la home solo los 6 destacados.
+  const { pathname } = useLocation();
+  const showAll = pathname === "/portafolio";
+
   useEffect(() => {
     const fetchProjects = async () => {
+      setLoading(true);
       const { data, error } = await supabase
         .from("portfolio_projects")
         .select("id, title, description, long_description, project_url, image_url, video_url, category, client_name, result_metric, tags, rank")
         .order("rank", { ascending: true, nullsFirst: false })
         .order("display_order", { ascending: true })
-        .limit(6);
+        .limit(showAll ? 100 : 6);
 
       if (!error && data) setProjects(data as Project[]);
       setLoading(false);
     };
     fetchProjects();
-  }, []);
+  }, [showAll]);
 
   const embed = selected?.video_url ? getEmbedUrl(selected.video_url) : null;
 
@@ -148,14 +153,16 @@ const PortfolioShowcase = () => {
               ))}
             </div>
 
-            <div className="mt-14 text-center">
-              <Button asChild size="lg" variant="outline">
-                <Link to="/portafolio">
-                  Ver todo el portafolio
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-              </Button>
-            </div>
+            {!showAll && (
+              <div className="mt-14 text-center">
+                <Button asChild size="lg" variant="outline">
+                  <Link to="/portafolio">
+                    Ver todo el portafolio
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Link>
+                </Button>
+              </div>
+            )}
           </>
         )}
       </div>
